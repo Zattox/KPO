@@ -30,12 +30,14 @@ public class AnimalMenu
         while (true)
         {
             Console.Clear();
-            Methods.PrintTextWithColor("=====================Manage animals=====================\n", ConsoleColor.DarkCyan);
+            Methods.PrintTextWithColor("=====================Manage animals=====================\n",
+                ConsoleColor.DarkCyan);
             Console.WriteLine("1. Add a new animal to the zoo");
             Console.WriteLine("2. Display the required daily food amount for animals");
             Console.WriteLine("3. Display the list of contact animals");
             Console.WriteLine("4. Back to main menu");
-            Methods.PrintTextWithColor("========================================================\n", ConsoleColor.DarkCyan);
+            Methods.PrintTextWithColor("========================================================\n",
+                ConsoleColor.DarkCyan);
 
             var key = Console.ReadKey().Key;
 
@@ -59,7 +61,7 @@ public class AnimalMenu
                     Methods.PrintTextWithColor("Invalid option (#>_<)\n", ConsoleColor.Red);
                     break;
             }
-            
+
             Methods.PrintTextWithColor("Press any key to continue...\n", ConsoleColor.DarkYellow);
             Console.ReadKey();
         }
@@ -76,24 +78,19 @@ public class AnimalMenu
         Console.WriteLine("4. Tiger");
         var key = Console.ReadKey().Key;
 
-        Console.WriteLine("\nEnter the amount of food (kg/day):");
-        int food = int.Parse(Console.ReadLine());
-
-        Console.WriteLine("Enter the animal's name:");
-        string name = Console.ReadLine();
+        int food = Methods.ReadInt("Enter the amount of food (kg/day):", 0);
+        string name = Methods.ReadNonEmptyString("Enter the animal name:");
 
         switch (key)
         {
             case ConsoleKey.D1:
-                Console.WriteLine("Enter kindness level (1-10):");
-                int kindnessLevel = int.Parse(Console.ReadLine());
+                int kindnessLevel = Methods.ReadInt("Enter the animal's kindness level (1-10):", 1, 10);
                 var monkey = _monkeyFactory(food, name, kindnessLevel);
                 _zoo.AddAnimal(monkey);
                 break;
 
             case ConsoleKey.D2:
-                Console.WriteLine("Enter kindness level (1-10):");
-                kindnessLevel = int.Parse(Console.ReadLine());
+                kindnessLevel = Methods.ReadInt("Enter the animal's kindness level (1-10):", 1, 10);
                 var rabbit = _rabbitFactory(food, name, kindnessLevel);
                 _zoo.AddAnimal(rabbit);
                 break;

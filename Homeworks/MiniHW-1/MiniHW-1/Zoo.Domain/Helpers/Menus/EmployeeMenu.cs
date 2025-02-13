@@ -53,14 +53,10 @@ public class EmployeeMenu
     {
         Console.Clear();
         Methods.PrintTextWithColor("Add a zoo employee\n", ConsoleColor.DarkCyan);
-        Console.WriteLine("Enter the amount of food (kg/day):");
-        int food = int.Parse(Console.ReadLine());
 
-        Console.WriteLine("Enter the employee's name:");
-        string name = Console.ReadLine();
-
-        Console.WriteLine("Enter the employee's position:");
-        string position = Console.ReadLine();
+        int food = Methods.ReadInt("Enter the amount of food (kg/day):", 0);
+        string name = Methods.ReadNonEmptyString("Enter the employee name:");
+        string position = Methods.ReadNonEmptyString("Enter the employee's position:");
 
         var employee = _employeeFactory(food, name, position);
         _zoo.AddEmployee(employee);

@@ -60,9 +60,8 @@ public class ThingMenu
         Console.WriteLine("1. Table");
         Console.WriteLine("2. Computer");
         var key = Console.ReadKey().Key;
-
-        Console.WriteLine("\nEnter the item name:");
-        string name = Console.ReadLine();
+        
+        string name = Methods.ReadNonEmptyString("Enter the item name:");
 
         switch (key)
         {
