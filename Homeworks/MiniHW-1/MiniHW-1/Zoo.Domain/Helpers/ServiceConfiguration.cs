@@ -2,6 +2,7 @@
 using MiniHW_1.Zoo.Domain.Entities.Firms;
 using MiniHW_1.Zoo.Domain.Entities.Creatures;
 using MiniHW_1.Zoo.Domain.Entities.Objects;
+using MiniHW_1.Zoo.Domain.Helpers.Menus;
 
 namespace MiniHW_1.Zoo.Domain.Helpers;
 
@@ -34,7 +35,12 @@ public static class ServiceConfiguration
 
         services.AddTransient<Func<int, string, string, Employee>>(provider =>
             (food, name, position) => new Employee(food, name, position));
-
+    
+        services.AddTransient<AnimalMenu>();
+        services.AddTransient<ThingMenu>();
+        services.AddTransient<EmployeeMenu>();
+        services.AddTransient<MainMenu>();
+        
         return services.BuildServiceProvider();
     }
 }

@@ -1,19 +1,12 @@
-﻿using MiniHW_1.Zoo.Domain.Helpers;
+﻿using Microsoft.Extensions.DependencyInjection;
+using MiniHW_1.Zoo.Domain.Helpers;
+using MiniHW_1.Zoo.Domain.Helpers.Menus;
 
-while (true)
-{
-    while (true)
-    {
-        bool flag = Menu.ShowMenu();
-        if (flag)
-            break;
-    }
+// Настройка DI-контейнера
+var serviceProvider = ServiceConfiguration.ConfigureServices();
 
-    Methods.PrintTextWithColor("Press 'Q' to exit the program\n", ConsoleColor.DarkYellow);
-    if (Console.ReadKey(true).Key == ConsoleKey.Q)
-    {
-        Methods.PrintTextWithColor("Program terminated. Thank you!\n", ConsoleColor.Green);
-        break;
-    }
+// Получение экземпляра MainMenu
+var mainMenu = serviceProvider.GetRequiredService<MainMenu>();
 
-}
+// Запуск главного меню
+mainMenu.ShowMenu();

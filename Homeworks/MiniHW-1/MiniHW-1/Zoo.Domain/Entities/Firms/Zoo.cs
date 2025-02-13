@@ -28,6 +28,8 @@ public class Zoo
 
     public void PrintInventory()
     {
+        Console.Clear();
+        Methods.PrintTextWithColor("Display the zoo's inventory\n", ConsoleColor.DarkCyan);
         Console.WriteLine("==============The zoo's inventory==============");
         _animalManager.PrintAnimals();
         _thingManager.PrintThings();
@@ -37,6 +39,8 @@ public class Zoo
 
     public void PrintStaff()
     {
+        Console.Clear();
+        Methods.PrintTextWithColor("Display zoo employees\n", ConsoleColor.DarkCyan);
         Console.WriteLine("===================Zoo staff===================");
         _employeeManager.PrintStaff();
         _employeeManager.PrintStaffFoodReport();
