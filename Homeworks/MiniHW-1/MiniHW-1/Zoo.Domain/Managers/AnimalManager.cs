@@ -37,11 +37,13 @@ public class AnimalManager
     public void PrintAnimalFoodReport()
     {
         var totalFood = _animals.Sum(a => a.Food);
-        Methods.PrintTextWithColor($"Total amount of food for animals per day: {totalFood} kg.\n", ConsoleColor.DarkGreen);
+        Console.WriteLine($"Total amount of food for animals per day: {totalFood} kg.");
     }
 
     public void PrintContactZooAnimals()
     {
+        Console.Clear();
+        Methods.PrintTextWithColor($"Display the list of contact animals\n", ConsoleColor.DarkCyan);
         Console.WriteLine("================Contact animals================");
         var contactAnimals = _animals.OfType<Herbo>().Where(a => a.KindnessLevel > 5);
 

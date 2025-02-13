@@ -31,6 +31,6 @@ public class EmployeeManager
     public void PrintStaffFoodReport()
     {
         var totalFood = _staff.Sum(e => e.Food);
-        Methods.PrintTextWithColor($"Total amount of food for staff per day: {totalFood} kg.\n", ConsoleColor.DarkGreen);
+        Console.WriteLine($"Total amount of food for staff per day: {totalFood} kg.");
     }
 }
