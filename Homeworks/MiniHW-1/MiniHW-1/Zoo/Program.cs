@@ -9,10 +9,11 @@ while (true)
             break;
     }
 
-    Methods.PrintTextWithColor("Если хотите закончить программу нажмите на ESC", ConsoleColor.DarkYellow);
-    if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+    Methods.PrintTextWithColor("Press 'Q' to exit the program\n", ConsoleColor.DarkYellow);
+    if (Console.ReadKey(true).Key == ConsoleKey.Q)
     {
-        Methods.PrintTextWithColor("Программа завершена. Спасибо!", ConsoleColor.Green);
+        Methods.PrintTextWithColor("Program terminated. Thank you!\n", ConsoleColor.Green);
         break;
     }
+
 }
