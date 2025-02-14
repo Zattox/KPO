@@ -6,11 +6,10 @@ public class VeterinaryClinic
 {
     public HealthStatus CheckHealth(Animal animal)
     {
-        Random random = new Random();
-        int healthCheck = random.Next(2); // 0 - Sick, 1 - Healthy
-        if (animal.Food > 100 || animal.Food == 0)
+        int healthCheck = 1; // 0 - Sick, 1 - Healthy
+        if (animal.Food > 100 || animal.Food <= 0)
         {
-            healthCheck = 0; // У животного проблемы с питанием.
+            healthCheck = 0; // Animal has problems with native
         }
 
         animal.HealthStatus = healthCheck switch

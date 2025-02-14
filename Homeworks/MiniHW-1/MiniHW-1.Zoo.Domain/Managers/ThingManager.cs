@@ -39,4 +39,9 @@ public class ThingManager
             Console.WriteLine($"- {thing.Name} (№{thing.Number})");
         }
     }
+
+    public List<Thing> GetThings()
+    {
+        return _things;
+    }
 }

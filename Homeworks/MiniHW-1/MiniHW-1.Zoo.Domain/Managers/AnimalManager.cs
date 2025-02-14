@@ -51,13 +51,18 @@ public class AnimalManager
         }
     }
 
+    public int CalculateAnimalFoodReport()
+    {
+        return _animals.Sum(a => a.Food);
+    }
+    
     /// <summary>
     /// Prints the total amount of food required for all animals per day.
     /// </summary>
     public void PrintAnimalFoodReport()
     {
         // Calculate the total food required by summing up the food requirement of each animal
-        var totalFood = _animals.Sum(a => a.Food);
+        var totalFood = CalculateAnimalFoodReport();
         Console.WriteLine($"Total amount of food for animals per day: {totalFood} kg.");
     }
 
@@ -105,5 +110,10 @@ public class AnimalManager
             Methods.PrintTextWithColor($"{animal.HealthStatus}", textColor);
             Console.WriteLine(")");
         }
+    }
+
+    public List<Animal> GetAnimals()
+    {
+        return _animals;
     }
 }

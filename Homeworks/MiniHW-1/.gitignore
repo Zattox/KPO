@@ -2,5 +2,7 @@
 /MiniHW-1/bin/
 /.idea/
 /packages/
+/coveragereport/
 /MiniHW-1.Zoo.Tests/bin/
 /MiniHW-1.Zoo.Tests/obj/
+/MiniHW-1.Zoo.Tests/TestResults/
