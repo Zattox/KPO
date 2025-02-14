@@ -1,6 +1,5 @@
 ﻿using MiniHW_1.Zoo.Domain.Entities.Creatures;
-using MiniHW_1.Zoo.Domain.Entities.Firms;
-using MiniHW_1.Zoo.Domain.Entities.Objects;
+using MiniHW_1.Zoo.Domain.Abstractions;
 using MiniHW_1.Zoo.Domain.Helpers;
 using MiniHW_1.Zoo.Domain.Managers;
 

@@ -1,4 +1,4 @@
-﻿using MiniHW_1.Zoo.Domain.Entities.Objects;
+﻿using MiniHW_1.Zoo.Domain.Abstractions;
 using MiniHW_1.Zoo.Domain.Helpers;
 
 namespace MiniHW_1.Zoo.Domain.Managers;
