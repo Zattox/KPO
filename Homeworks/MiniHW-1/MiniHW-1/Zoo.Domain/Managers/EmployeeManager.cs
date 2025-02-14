@@ -3,15 +3,25 @@ using MiniHW_1.Zoo.Domain.Helpers;
 
 namespace MiniHW_1.Zoo.Domain.Managers;
 
+/// <summary>
+/// Manages operations related to employees in the zoo, such as adding employees and generating reports.
+/// </summary>
 public class EmployeeManager
 {
     private readonly List<Employee> _staff;
 
+    /// <summary>
+    /// Initializes a new instance of the class.
+    /// </summary>
     public EmployeeManager()
     {
         _staff = new List<Employee>();
     }
 
+    /// <summary>
+    /// Adds an employee to the staff list.
+    /// </summary>
+    /// <param name="employee">The employee to be added.</param>
     public void AddEmployee(Employee employee)
     {
         _staff.Add(employee);
@@ -19,6 +29,9 @@ public class EmployeeManager
             ConsoleColor.DarkGreen);
     }
 
+    /// <summary>
+    /// Prints a list of all employees in the staff.
+    /// </summary>
     public void PrintStaff()
     {
         Console.WriteLine("Staff:");
@@ -28,6 +41,9 @@ public class EmployeeManager
         }
     }
 
+    /// <summary>
+    /// Prints the total amount of food required for all staff members per day.
+    /// </summary>
     public void PrintStaffFoodReport()
     {
         var totalFood = _staff.Sum(e => e.Food);

@@ -2,7 +2,7 @@
 
 namespace MiniHW_1.Zoo.Domain.Entities.Objects;
 
-public class Thing : IInventory
+public abstract class Thing : IInventory
 {
     public int Number { get; set; }
     public string Name { get; }
