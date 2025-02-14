@@ -3,6 +3,9 @@
 using Entities.Creatures;
 using Entities.Firms;
 
+/// <summary>
+/// Represents a menu for managing animals in the zoo.
+/// </summary>
 public class AnimalMenu
 {
     private readonly Func<int, string, int, Monkey> _monkeyFactory;
@@ -11,6 +14,14 @@ public class AnimalMenu
     private readonly Func<int, string, Wolf> _wolfFactory;
     private readonly Zoo _zoo;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AnimalMenu"/> class.
+    /// </summary>
+    /// <param name="monkeyFactory">Factory for creating monkeys.</param>
+    /// <param name="rabbitFactory">Factory for creating rabbits.</param>
+    /// <param name="tigerFactory">Factory for creating tigers.</param>
+    /// <param name="wolfFactory">Factory for creating wolves.</param>
+    /// <param name="zoo">The zoo instance to manage animals.</param>
     public AnimalMenu(
         Func<int, string, int, Monkey> monkeyFactory,
         Func<int, string, int, Rabbit> rabbitFactory,
@@ -25,6 +36,9 @@ public class AnimalMenu
         _zoo = zoo;
     }
 
+    /// <summary>
+    /// Displays the animal management menu and handles user input.
+    /// </summary>
     public void ShowMenu()
     {
         while (true)
@@ -67,6 +81,9 @@ public class AnimalMenu
         }
     }
 
+    /// <summary>
+    /// Handles the process of adding a new animal to the zoo.
+    /// </summary>
     private void AddAnimal()
     {
         Console.Clear();

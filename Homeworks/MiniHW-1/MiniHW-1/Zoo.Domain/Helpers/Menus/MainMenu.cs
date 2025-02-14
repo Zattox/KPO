@@ -1,11 +1,21 @@
 ﻿namespace MiniHW_1.Zoo.Domain.Helpers.Menus;
 
+/// <summary>
+/// Represents the main menu of the zoo management application.
+/// This class provides options to manage animals, items, and employees.
+/// </summary>
 public class MainMenu
 {
     private readonly AnimalMenu _animalMenu;
     private readonly ThingMenu _thingMenu;
     private readonly EmployeeMenu _employeeMenu;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MainMenu"/> class.
+    /// </summary>
+    /// <param name="animalMenu">The menu for managing animals.</param>
+    /// <param name="thingMenu">The menu for managing items.</param>
+    /// <param name="employeeMenu">The menu for managing employees.</param>
     public MainMenu(AnimalMenu animalMenu, ThingMenu thingMenu, EmployeeMenu employeeMenu)
     {
         _animalMenu = animalMenu;
@@ -13,6 +23,9 @@ public class MainMenu
         _employeeMenu = employeeMenu;
     }
 
+    /// <summary>
+    /// Displays the main menu and handles user input.
+    /// </summary>
     public void ShowMenu()
     {
         while (true)

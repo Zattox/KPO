@@ -3,12 +3,21 @@
 using Entities.Objects;
 using Entities.Firms;
 
+/// <summary>
+/// Represents a menu for managing things in the zoo.
+/// </summary>
 public class ThingMenu
 {
     private readonly Func<string, Table> _tableFactory;
     private readonly Func<string, Computer> _computerFactory;
     private readonly Zoo _zoo;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AnimalMenu"/> class.
+    /// </summary>
+    /// <param name="tableFactory">Factory for creating tables.</param>
+    /// <param name="computerFactory">Factory for creating computers.</param>
+    /// <param name="zoo">The zoo instance to manage things.</param>
     public ThingMenu(
         Func<string, Table> tableFactory,
         Func<string, Computer> computerFactory,
@@ -52,6 +61,9 @@ public class ThingMenu
         }
     }
 
+    /// <summary>
+    /// Displays the animal management menu and handles user input.
+    /// </summary>
     private void AddThing()
     {
         Console.Clear();
@@ -60,7 +72,7 @@ public class ThingMenu
         Console.WriteLine("1. Table");
         Console.WriteLine("2. Computer");
         var key = Console.ReadKey().Key;
-        
+
         string name = Methods.ReadNonEmptyString("Enter the item name:");
 
         switch (key)

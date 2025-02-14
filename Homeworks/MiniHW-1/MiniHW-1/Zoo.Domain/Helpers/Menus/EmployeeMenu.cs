@@ -3,11 +3,19 @@
 using Entities.Creatures;
 using Entities.Firms;
 
+/// <summary>
+/// Represents a menu for managing employees in the zoo.
+/// </summary>
 public class EmployeeMenu
 {
     private readonly Func<int, string, string, Employee> _employeeFactory;
     private readonly Zoo _zoo;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EmployeeMenu"/> class.
+    /// </summary>
+    /// <param name="employeeFactory">Factory for creating employees.</param>
+    /// <param name="zoo">The zoo instance to manage employees.</param>
     public EmployeeMenu(
         Func<int, string, string, Employee> employeeFactory,
         Zoo zoo)
@@ -16,6 +24,9 @@ public class EmployeeMenu
         _zoo = zoo;
     }
 
+    /// <summary>
+    /// Displays the employee management menu and handles user input.
+    /// </summary>
     public void ShowMenu()
     {
         while (true)
@@ -49,6 +60,9 @@ public class EmployeeMenu
         }
     }
 
+    /// <summary>
+    /// Handles the process of adding a new employee to the zoo.
+    /// </summary>
     private void AddEmployee()
     {
         Console.Clear();
