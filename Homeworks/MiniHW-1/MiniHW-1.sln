@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniHW-1.Zoo.Domain", "Mini
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniHW-1.Zoo", "MiniHW-1.Zoo\MiniHW-1.Zoo.csproj", "{E1AED6DF-447E-4DC0-B8E8-E6FE43CC60E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniHW-1.Zoo.Tests", "MiniHW-1.Zoo.Tests\MiniHW-1.Zoo.Tests.csproj", "{CF3A704C-892B-48EA-90C9-68E0557C1475}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{E1AED6DF-447E-4DC0-B8E8-E6FE43CC60E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1AED6DF-447E-4DC0-B8E8-E6FE43CC60E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1AED6DF-447E-4DC0-B8E8-E6FE43CC60E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF3A704C-892B-48EA-90C9-68E0557C1475}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF3A704C-892B-48EA-90C9-68E0557C1475}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF3A704C-892B-48EA-90C9-68E0557C1475}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF3A704C-892B-48EA-90C9-68E0557C1475}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

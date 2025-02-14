@@ -1,4 +1,5 @@
-﻿using MiniHW_1.Zoo.Domain.Entities.Creatures;
+﻿using System.Xml.Schema;
+using MiniHW_1.Zoo.Domain.Entities.Creatures;
 using MiniHW_1.Zoo.Domain.Helpers;
 
 namespace MiniHW_1.Zoo.Domain.Managers;
@@ -29,6 +30,8 @@ public class EmployeeManager
             ConsoleColor.DarkGreen);
     }
 
+    public List<Employee> GetStaff() => _staff;
+    
     /// <summary>
     /// Prints a list of all employees in the staff.
     /// </summary>
@@ -41,12 +44,17 @@ public class EmployeeManager
         }
     }
 
+    public int CalculateStaffFoodReport()
+    {
+        return _staff.Sum(e => e.Food);
+    }
+    
     /// <summary>
     /// Prints the total amount of food required for all staff members per day.
     /// </summary>
     public void PrintStaffFoodReport()
     {
-        var totalFood = _staff.Sum(e => e.Food);
+        var totalFood = CalculateStaffFoodReport();
         Console.WriteLine($"Total amount of food for staff per day: {totalFood} kg.");
     }
 }
