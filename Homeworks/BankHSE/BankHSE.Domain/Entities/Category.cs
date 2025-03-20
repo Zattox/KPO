@@ -16,6 +16,16 @@ public class Category : IIdentifiable, ICoreEntityVisitable
         Name = name;
     }
     
+    public void UpdateCategoryName(string name)
+    {
+        Name = name;
+    }
+    
+    public void UpdateCategoryType(TransactionType type)
+    {
+        Type = type;
+    }
+    
     public void Accept(ICoreEntityVisitor visitor)
     {
         visitor.Visit(this);
