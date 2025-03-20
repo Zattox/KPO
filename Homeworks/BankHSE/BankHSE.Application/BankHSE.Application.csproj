@@ -12,8 +12,6 @@
 
     <ItemGroup>
       <Folder Include="Commands\" />
-      <Folder Include="Facades\" />
-      <Folder Include="Factories\" />
     </ItemGroup>
 
 </Project>

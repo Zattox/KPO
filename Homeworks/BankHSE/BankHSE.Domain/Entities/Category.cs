@@ -9,7 +9,7 @@ public class Category : IIdentifiable, ICoreEntityVisitable
     public TransactionType Type { get; private set; }
     public string Name { get; private set; }
 
-    private Category(TransactionType type, string name)
+    public Category(TransactionType type, string name)
     {
         Id = Guid.NewGuid();
         Type = type;

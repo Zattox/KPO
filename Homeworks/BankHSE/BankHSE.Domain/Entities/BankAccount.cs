@@ -25,6 +25,11 @@ public class BankAccount : IIdentifiable, ICoreEntityVisitable
         Balance -= amount;
     }
 
+    public void UpdateNameAccount(string name)
+    {
+        Name = name;
+    }
+    
     public void Accept(ICoreEntityVisitor visitor)
     {
         visitor.Visit(this);
