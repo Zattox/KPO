@@ -7,21 +7,17 @@ namespace BankHSE.Application.Commands;
 public class CreateOperationCommand : ICommand
 {
     private readonly OperationFacade _operationFacade;
-    private TransactionType _operationType;
-    private Guid _bankAccountId;
-    private decimal _amount;
-    private DateTime _date;
-    private string _description;
-    private Guid _categoryId;
+    private readonly TransactionType _operationType;
+    private readonly Guid _bankAccountId;
+    private readonly decimal _amount;
+    private readonly DateTime _date;
+    private readonly string _description;
+    private readonly Guid _categoryId;
 
-    public CreateOperationCommand(OperationFacade operationFacade)
+    public CreateOperationCommand(OperationFacade operationFacade, TransactionType operationType, Guid bankAccountId, 
+        decimal amount, DateTime date, string description, Guid categoryId)
     {
         _operationFacade = operationFacade;
-    }
-
-    public void Create(TransactionType operationType, Guid bankAccountId, decimal amount, DateTime date,
-        string description, Guid categoryId)
-    {
         _operationType = operationType;
         _bankAccountId = bankAccountId;
         _amount = amount;
@@ -30,8 +26,5 @@ public class CreateOperationCommand : ICommand
         _categoryId = categoryId;
     }
 
-    public void Execute()
-    {
-        _operationFacade.CreateOperation(_operationType, _bankAccountId, _amount, _date, _description, _categoryId);
-    }
+    public void Execute() => _operationFacade.CreateOperation(_operationType, _bankAccountId, _amount, _date, _description, _categoryId);
 }

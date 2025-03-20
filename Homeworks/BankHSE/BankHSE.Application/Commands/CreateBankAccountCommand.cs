@@ -6,22 +6,15 @@ namespace BankHSE.Application.Commands;
 public class CreateBankAccountCommand : ICommand
 {
     private readonly BankAccountFacade _bankAccountFacade;
-    private string _name;
-    private decimal _balance;
-    
-    public CreateBankAccountCommand(BankAccountFacade bankAccountFacade)
+    private readonly string _name;
+    private readonly decimal _balance;
+
+    public CreateBankAccountCommand(BankAccountFacade bankAccountFacade, string name, decimal balance)
     {
         _bankAccountFacade = bankAccountFacade;
-    }
-
-    public void Create(string name, decimal balance)
-    {
         _name = name;
         _balance = balance;
     }
-    
-    public void Execute()
-    {
-        _bankAccountFacade.CreateAccount(_name, _balance);
-    }
+
+    public void Execute() => _bankAccountFacade.CreateAccount(_name, _balance);
 }

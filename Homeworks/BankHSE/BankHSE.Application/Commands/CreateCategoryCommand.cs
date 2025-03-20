@@ -7,22 +7,15 @@ namespace BankHSE.Application.Commands;
 public class CreateCategoryCommand : ICommand
 {
     private readonly CategoryFacade _categoryFacade;
-    private string _name;
-    private TransactionType _type;
+    private readonly string _name;
+    private readonly TransactionType _type;
 
-    public CreateCategoryCommand(CategoryFacade categoryFacade)
+    public CreateCategoryCommand(CategoryFacade categoryFacade, string name, TransactionType type)
     {
         _categoryFacade = categoryFacade;
-    }
-
-    public void Create(string name, TransactionType type)
-    {
         _name = name;
         _type = type;
     }
 
-    public void Execute()
-    {
-        _categoryFacade.CreateCategory(_type, _name);
-    }
+    public void Execute() => _categoryFacade.CreateCategory(_type, _name);
 }
