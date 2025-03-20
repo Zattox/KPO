@@ -1,4 +1,5 @@
 ﻿using BankHSE.Domain.Abstractions;
+using BankHSE.Domain.Enums;
 
 namespace BankHSE.Domain.Entities;
 
@@ -15,21 +16,20 @@ public class BankAccount : IIdentifiable, ICoreEntityVisitable
         Balance = balance;
     }
 
-    public void IncreaseBalance(decimal amount)
+    public void ApplyOperation(Operation operation)
     {
-        Balance += amount;
+        if (operation.BankAccountId != Id)
+            throw new ArgumentException("Operation does not belong to this account.");
+        if (operation.Type == TransactionType.Income)
+            IncreaseBalance(operation.Amount);
+        else
+            DecreaseBalance(operation.Amount);
     }
 
-    public void DecreaseBalance(decimal amount)
-    {
-        Balance -= amount;
-    }
+    public void IncreaseBalance(decimal amount) => Balance += amount;
+    public void DecreaseBalance(decimal amount) => Balance -= amount;
+    public void UpdateAccountName(string name) => Name = name;
 
-    public void UpdateAccountName(string name)
-    {
-        Name = name;
-    }
-    
     public void Accept(ICoreEntityVisitor visitor)
     {
         visitor.Visit(this);
