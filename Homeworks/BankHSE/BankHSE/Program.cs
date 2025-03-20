@@ -2,11 +2,11 @@
 using BankHSE.Application.Export;
 using BankHSE.Application.Facades;
 using BankHSE.Application.Factories;
-using BankHSE.Application.Import;
+using BankHSE.Application.Menus;
 using BankHSE.Application.Repositories;
+using BankHSE.Application.Strategy;
 using BankHSE.Domain.Abstractions;
 using BankHSE.Domain.Entities;
-using BankHSE.Application.Menus;
 using Microsoft.Extensions.DependencyInjection;
 
 class Program
@@ -21,10 +21,13 @@ class Program
     // Configure dependency injection container
     static ServiceProvider ConfigureServices()
     {
-        return new ServiceCollection()
-            .AddSingleton<IRepository<BankAccount>>(sp => new CachedRepository<BankAccount>(new InMemoryRepository<BankAccount>()))
-            .AddSingleton<IRepository<Category>>(sp => new CachedRepository<Category>(new InMemoryRepository<Category>()))
-            .AddSingleton<IRepository<Operation>>(sp => new CachedRepository<Operation>(new InMemoryRepository<Operation>()))
+        var services = new ServiceCollection()
+            .AddSingleton<IRepository<BankAccount>>(sp =>
+                new CachedRepository<BankAccount>(new InMemoryRepository<BankAccount>()))
+            .AddSingleton<IRepository<Category>>(sp =>
+                new CachedRepository<Category>(new InMemoryRepository<Category>()))
+            .AddSingleton<IRepository<Operation>>(sp =>
+                new CachedRepository<Operation>(new InMemoryRepository<Operation>()))
             .AddSingleton<CoreEntitiesFactory>()
             .AddSingleton<BankAccountFacade>()
             .AddSingleton<CategoryFacade>()
@@ -32,12 +35,16 @@ class Program
             .AddSingleton<AnalyticsService>()
             .AddSingleton<CommandFactory>()
             .AddSingleton<ICoreEntitiesAggregator, CoreEntitiesAggregator>()
-            .AddSingleton<JsonExporter>()
-            .AddSingleton<CsvExporter>()
-            .AddSingleton<YamlExporter>()
-            .AddSingleton<JsonImporter>()
-            .AddSingleton<CsvImporter>()
-            .AddSingleton<YamlImporter>()
+            .AddSingleton<ExportContext>()
+            .AddSingleton<ImportContext>()
+            // Register all export strategies
+            .AddSingleton<IExportStrategy, JsonExportStrategy>()
+            .AddSingleton<IExportStrategy, CsvExportStrategy>()
+            .AddSingleton<IExportStrategy, YamlExportStrategy>()
+            // Register all import strategies
+            .AddSingleton<IImportStrategy, JsonImportStrategy>()
+            .AddSingleton<IImportStrategy, CsvImportStrategy>()
+            .AddSingleton<IImportStrategy, YamlImportStrategy>()
             .AddSingleton<AccountMenu>()
             .AddSingleton<CategoryMenu>()
             .AddSingleton<OperationMenu>(sp => new OperationMenu(
@@ -49,7 +56,8 @@ class Program
                 sp.GetRequiredService<AnalyticsService>(),
                 sp.GetRequiredService<CategoryFacade>(),
                 sp.GetRequiredService<BankAccountFacade>()))
-            .AddSingleton<MainMenu>()
-            .BuildServiceProvider();
+            .AddSingleton<MainMenu>();
+
+        return services.BuildServiceProvider();
     }
 }

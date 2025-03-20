@@ -2,5 +2,5 @@
 
 public interface IExportStrategy
 {
-    void Export(string path, ICoreEntitiesAggregator aggregator);
+    void Export(string path, ICoreEntitiesAggregator agg);
 }
