@@ -40,6 +40,15 @@ public class OperationFacade
         return _operationsRepository.GetById(operationId);
     }
 
+    public IEnumerable<Operation> GetByAccountId(Guid accountId)
+    {
+        var account = _accountRepository.GetById(accountId) ??
+                      throw new InvalidOperationException($"Account with id {accountId} was not found");
+
+        var allOperations = _operationsRepository.GetAll().ToList();
+        return allOperations.Where(o => o.BankAccountId == accountId);
+    }
+
     public IEnumerable<Operation> GetAll()
     {
         return _operationsRepository.GetAll();
