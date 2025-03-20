@@ -7,11 +7,16 @@ namespace BankHSE.Application.Facades;
 public class BankAccountFacade
 {
     private readonly IRepository<BankAccount> _accountsRepository;
+    private readonly IRepository<Operation> _operationsRepository;
     private readonly CoreEntitiesFactory _factory;
 
-    public BankAccountFacade(IRepository<BankAccount> accountsRepository, CoreEntitiesFactory factory)
+    public BankAccountFacade(
+        IRepository<BankAccount> accountsRepository,
+        IRepository<Operation> operationsRepository,
+        CoreEntitiesFactory factory)
     {
         _accountsRepository = accountsRepository ?? throw new ArgumentNullException(nameof(accountsRepository));
+        _operationsRepository = operationsRepository ?? throw new ArgumentNullException(nameof(operationsRepository));
         _factory = factory ?? throw new ArgumentNullException(nameof(factory));
     }
 
@@ -57,5 +62,23 @@ public class BankAccountFacade
     public void DeleteAccountById(Guid accountId)
     {
         _accountsRepository.Delete(accountId);
+    }
+
+    public void RecalculateBalance(Guid accountId)
+    {
+        var account = GetAccountById(accountId);
+        var operations = _operationsRepository.GetAll().Where(o => o.BankAccountId == accountId).ToList();
+
+        decimal recalculatedBalance = 0m;
+        foreach (var operation in operations)
+        {
+            if (operation.Type == Domain.Enums.TransactionType.Income)
+                recalculatedBalance += operation.Amount;
+            else
+                recalculatedBalance -= operation.Amount;
+        }
+
+        account.IncreaseBalance(recalculatedBalance - account.Balance); // Корректируем баланс
+        _accountsRepository.Update(account);
     }
 }

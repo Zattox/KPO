@@ -11,14 +11,20 @@ public class OperationFacade
     private readonly IRepository<BankAccount> _accountRepository;
     private readonly IRepository<Category> _categoriesRepository;
     private readonly CoreEntitiesFactory _factory;
+    private readonly BankAccountFacade _bankAccountFacade; // Добавляем зависимость
 
-    public OperationFacade(IRepository<Operation> operationsRepository, IRepository<BankAccount> accountRepository,
-        IRepository<Category> categoriesRepository, CoreEntitiesFactory factory)
+    public OperationFacade(
+        IRepository<Operation> operationsRepository,
+        IRepository<BankAccount> accountRepository,
+        IRepository<Category> categoriesRepository,
+        CoreEntitiesFactory factory,
+        BankAccountFacade bankAccountFacade)
     {
         _operationsRepository = operationsRepository ?? throw new ArgumentNullException(nameof(operationsRepository));
         _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
         _categoriesRepository = categoriesRepository ?? throw new ArgumentNullException(nameof(categoriesRepository));
         _factory = factory ?? throw new ArgumentNullException(nameof(factory));
+        _bankAccountFacade = bankAccountFacade ?? throw new ArgumentNullException(nameof(bankAccountFacade));
     }
 
     public Operation CreateOperation(TransactionType type, Guid accountId, decimal amount, DateTime date,
@@ -32,6 +38,7 @@ public class OperationFacade
         var operation = _factory.CreateOperation(type, account, amount, date, description, category);
         _operationsRepository.Add(operation);
         account.ApplyOperation(operation);
+        _bankAccountFacade.RecalculateBalance(account.Id); // Используем метод из BankAccountFacade
         _accountRepository.Update(account);
         return operation;
     }
