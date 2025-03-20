@@ -34,7 +34,10 @@ public class OperationFacade
                       throw new InvalidOperationException($"Account with id {accountId} was not found");
         var category = _categoriesRepository.GetById(categoryId) ??
                        throw new InvalidOperationException($"Category with id {categoryId} was not found");
-
+        
+        if (category.Type != type)
+            throw new ArgumentException("Category type must match operation type.");
+        
         var operation = _factory.CreateOperation(type, account, amount, date, description, category);
         _operationsRepository.Add(operation);
         account.ApplyOperation(operation);
