@@ -1,0 +1,2698 @@
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Strategy\CsvExportStrategy.cs
+FN:10,System.Void BankHSE.Application.Strategy.CsvExportStrategy::Export(System.String,BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+FNDA:1,System.Void BankHSE.Application.Strategy.CsvExportStrategy::Export(System.String,BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+DA:11,1
+DA:12,1
+DA:13,5
+DA:14,1
+DA:16,1
+DA:17,1
+DA:18,1
+DA:19,5
+DA:20,1
+DA:22,1
+DA:23,1
+DA:24,3
+DA:25,0
+DA:27,1
+DA:28,1
+DA:29,3
+DA:30,0
+DA:31,0
+DA:33,1
+DA:34,1
+DA:35,1
+DA:36,2
+BRDA:13,48,1,1
+BRDA:13,48,0,1
+BRDA:19,227,1,1
+BRDA:19,227,0,1
+BRDA:24,402,1,0
+BRDA:24,402,0,1
+BRDA:29,692,1,0
+BRDA:29,692,0,1
+FN:39,System.String BankHSE.Application.Strategy.CsvExportStrategy::EscapeCsv(System.String)
+FNDA:1,System.String BankHSE.Application.Strategy.CsvExportStrategy::EscapeCsv(System.String)
+DA:40,1
+DA:41,1
+DA:42,1
+DA:43,0
+DA:44,1
+DA:45,1
+BRDA:41,9,0,0
+BRDA:41,9,1,1
+BRDA:42,30,0,1
+BRDA:42,43,0,1
+BRDA:42,30,1,0
+BRDA:42,43,1,0
+BRDA:42,61,0,0
+BRDA:42,61,1,1
+FN:50,System.Collections.Generic.List`1<System.ValueTuple`3<System.Guid,System.String,System.Decimal>> BankHSE.Application.Strategy.CsvExportVisitor::get_Accounts()
+FNDA:3,System.Collections.Generic.List`1<System.ValueTuple`3<System.Guid,System.String,System.Decimal>> BankHSE.Application.Strategy.CsvExportVisitor::get_Accounts()
+DA:51,3
+FN:51,System.Collections.Generic.List`1<System.ValueTuple`3<System.Guid,BankHSE.Domain.Enums.TransactionType,System.String>> BankHSE.Application.Strategy.CsvExportVisitor::get_Categories()
+FNDA:2,System.Collections.Generic.List`1<System.ValueTuple`3<System.Guid,BankHSE.Domain.Enums.TransactionType,System.String>> BankHSE.Application.Strategy.CsvExportVisitor::get_Categories()
+DA:52,2
+FN:54,System.Collections.Generic.List`1<System.ValueTuple`7<System.Guid,BankHSE.Domain.Enums.TransactionType,System.Guid,System.Decimal,System.DateTime,System.String,System.Guid>> BankHSE.Application.Strategy.CsvExportVisitor::get_Operations()
+FNDA:2,System.Collections.Generic.List`1<System.ValueTuple`7<System.Guid,BankHSE.Domain.Enums.TransactionType,System.Guid,System.Decimal,System.DateTime,System.String,System.Guid>> BankHSE.Application.Strategy.CsvExportVisitor::get_Operations()
+DA:55,2
+FN:56,System.Void BankHSE.Application.Strategy.CsvExportVisitor::Visit(BankHSE.Domain.Entities.BankAccount)
+FNDA:1,System.Void BankHSE.Application.Strategy.CsvExportVisitor::Visit(BankHSE.Domain.Entities.BankAccount)
+DA:57,1
+FN:57,System.Void BankHSE.Application.Strategy.CsvExportVisitor::Visit(BankHSE.Domain.Entities.Category)
+FNDA:0,System.Void BankHSE.Application.Strategy.CsvExportVisitor::Visit(BankHSE.Domain.Entities.Category)
+DA:58,0
+FN:59,System.Void BankHSE.Application.Strategy.CsvExportVisitor::Visit(BankHSE.Domain.Entities.Operation)
+FNDA:0,System.Void BankHSE.Application.Strategy.CsvExportVisitor::Visit(BankHSE.Domain.Entities.Operation)
+DA:60,0
+DA:61,0
+LF:35
+LH:28
+BRF:16
+BRH:10
+FNF:8
+FNH:6
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Strategy\CsvImportStrategy.cs
+FN:29,System.Void BankHSE.Application.Strategy.CsvImportStrategy::Import(System.String)
+FNDA:1,System.Void BankHSE.Application.Strategy.CsvImportStrategy::Import(System.String)
+DA:30,1
+DA:31,1
+DA:32,1
+DA:33,1
+DA:35,3
+DA:36,2
+DA:37,2
+DA:38,2
+DA:39,0
+DA:40,0
+DA:41,0
+DA:44,2
+DA:45,1
+DA:46,1
+DA:47,1
+DA:48,1
+DA:51,1
+DA:52,1
+DA:55,1
+DA:56,1
+DA:57,1
+DA:58,1
+DA:59,1
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:69,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:75,0
+DA:76,0
+DA:77,0
+DA:78,0
+DA:79,0
+DA:81,1
+DA:82,1
+DA:83,1
+BRDA:35,466,1,2
+BRDA:38,46,0,0
+BRDA:38,46,1,2
+BRDA:44,69,0,1
+BRDA:44,82,0,1
+BRDA:44,69,1,1
+BRDA:44,82,1,1
+BRDA:44,102,0,1
+BRDA:44,102,1,1
+BRDA:52,143,0,0
+BRDA:52,157,0,0
+BRDA:52,143,1,1
+BRDA:52,157,1,0
+BRDA:52,171,1,0
+BRDA:69,314,0,0
+BRDA:69,314,1,0
+BRDA:70,351,0,0
+BRDA:70,351,1,0
+BRDA:52,171,0,1
+BRDA:35,466,0,1
+FN:86,System.String[] BankHSE.Application.Strategy.CsvImportStrategy::ParseCsvLine(System.String)
+FNDA:1,System.String[] BankHSE.Application.Strategy.CsvImportStrategy::ParseCsvLine(System.String)
+DA:87,1
+DA:88,1
+DA:89,1
+DA:90,1
+DA:92,90
+DA:93,44
+DA:94,44
+DA:95,44
+DA:96,0
+DA:97,44
+DA:98,2
+DA:99,2
+DA:100,2
+DA:101,2
+DA:103,42
+DA:104,44
+DA:105,1
+DA:106,1
+DA:107,1
+BRDA:92,118,1,44
+BRDA:95,39,0,0
+BRDA:95,39,1,44
+BRDA:97,52,0,2
+BRDA:97,52,1,42
+BRDA:97,65,0,2
+BRDA:97,65,1,42
+BRDA:92,118,0,1
+FN:110,System.String BankHSE.Application.Strategy.CsvImportStrategy::UnescapeCsv(System.String)
+FNDA:1,System.String BankHSE.Application.Strategy.CsvImportStrategy::UnescapeCsv(System.String)
+DA:111,1
+DA:112,1
+DA:113,0
+DA:114,1
+DA:115,1
+BRDA:112,12,0,0
+BRDA:112,12,1,1
+BRDA:112,30,0,0
+BRDA:112,30,1,1
+FN:16,System.Void BankHSE.Application.Strategy.CsvImportStrategy::.ctor(BankHSE.Application.Factories.CoreEntitiesFactory,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>)
+FNDA:1,System.Void BankHSE.Application.Strategy.CsvImportStrategy::.ctor(BankHSE.Application.Factories.CoreEntitiesFactory,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>)
+DA:17,1
+DA:18,1
+DA:19,1
+DA:20,1
+DA:21,1
+DA:22,1
+DA:23,1
+DA:24,1
+DA:25,1
+DA:26,1
+DA:27,1
+LF:77
+LH:56
+BRF:32
+BRH:20
+FNF:4
+FNH:4
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Strategy\ExportContext.cs
+FN:9,System.Void BankHSE.Application.Strategy.ExportContext::SetStrategy(BankHSE.Domain.Abstractions.IExportStrategy)
+FNDA:0,System.Void BankHSE.Application.Strategy.ExportContext::SetStrategy(BankHSE.Domain.Abstractions.IExportStrategy)
+DA:10,0
+DA:11,0
+DA:12,0
+FN:15,System.Void BankHSE.Application.Strategy.ExportContext::ExecuteExport(System.String,BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+FNDA:0,System.Void BankHSE.Application.Strategy.ExportContext::ExecuteExport(System.String,BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+BRDA:17,12,0,0
+BRDA:17,12,1,0
+LF:8
+LH:0
+BRF:2
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Strategy\ImportContext.cs
+FN:10,System.Void BankHSE.Application.Strategy.ImportContext::SetStrategy(BankHSE.Domain.Abstractions.IImportStrategy)
+FNDA:0,System.Void BankHSE.Application.Strategy.ImportContext::SetStrategy(BankHSE.Domain.Abstractions.IImportStrategy)
+DA:11,0
+DA:12,0
+DA:13,0
+FN:16,System.Void BankHSE.Application.Strategy.ImportContext::ExecuteImport(System.String)
+FNDA:0,System.Void BankHSE.Application.Strategy.ImportContext::ExecuteImport(System.String)
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+BRDA:18,12,0,0
+BRDA:18,12,1,0
+LF:8
+LH:0
+BRF:2
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Strategy\JsonExportStrategy.cs
+FN:10,System.Void BankHSE.Application.Strategy.JsonExportStrategy::Export(System.String,BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+FNDA:1,System.Void BankHSE.Application.Strategy.JsonExportStrategy::Export(System.String,BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+DA:11,1
+DA:12,1
+DA:13,5
+DA:14,1
+DA:16,1
+DA:17,1
+DA:18,1
+DA:19,1
+DA:20,1
+DA:21,1
+DA:23,1
+DA:24,1
+DA:25,1
+DA:26,1
+DA:27,1
+DA:28,1
+DA:30,1
+DA:31,1
+DA:32,1
+DA:33,2
+BRDA:13,48,1,1
+BRDA:13,48,0,1
+FN:38,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Strategy.JsonExportVisitor::get_Accounts()
+FNDA:3,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Strategy.JsonExportVisitor::get_Accounts()
+DA:39,3
+FN:39,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Strategy.JsonExportVisitor::get_Categories()
+FNDA:2,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Strategy.JsonExportVisitor::get_Categories()
+DA:40,2
+FN:40,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Strategy.JsonExportVisitor::get_Operations()
+FNDA:2,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Strategy.JsonExportVisitor::get_Operations()
+DA:41,2
+FN:42,System.Void BankHSE.Application.Strategy.JsonExportVisitor::Visit(BankHSE.Domain.Entities.BankAccount)
+FNDA:1,System.Void BankHSE.Application.Strategy.JsonExportVisitor::Visit(BankHSE.Domain.Entities.BankAccount)
+DA:43,1
+FN:43,System.Void BankHSE.Application.Strategy.JsonExportVisitor::Visit(BankHSE.Domain.Entities.Category)
+FNDA:0,System.Void BankHSE.Application.Strategy.JsonExportVisitor::Visit(BankHSE.Domain.Entities.Category)
+DA:44,0
+FN:44,System.Void BankHSE.Application.Strategy.JsonExportVisitor::Visit(BankHSE.Domain.Entities.Operation)
+FNDA:0,System.Void BankHSE.Application.Strategy.JsonExportVisitor::Visit(BankHSE.Domain.Entities.Operation)
+DA:45,0
+LF:26
+LH:24
+BRF:2
+BRH:2
+FNF:7
+FNH:5
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Strategy\JsonImportStrategy.cs
+FN:29,System.Void BankHSE.Application.Strategy.JsonImportStrategy::Import(System.String)
+FNDA:1,System.Void BankHSE.Application.Strategy.JsonImportStrategy::Import(System.String)
+DA:30,1
+DA:31,1
+DA:32,1
+DA:33,1
+DA:35,5
+DA:36,1
+DA:38,3
+DA:39,0
+DA:41,3
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,1
+BRDA:35,114,1,1
+BRDA:35,114,0,1
+BRDA:38,209,1,0
+BRDA:38,209,0,1
+BRDA:41,397,1,0
+BRDA:43,276,0,0
+BRDA:43,276,1,0
+BRDA:44,311,0,0
+BRDA:44,311,1,0
+BRDA:41,397,0,1
+FN:16,System.Void BankHSE.Application.Strategy.JsonImportStrategy::.ctor(BankHSE.Application.Factories.CoreEntitiesFactory,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>)
+FNDA:1,System.Void BankHSE.Application.Strategy.JsonImportStrategy::.ctor(BankHSE.Application.Factories.CoreEntitiesFactory,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>)
+DA:17,1
+DA:18,1
+DA:19,1
+DA:20,1
+DA:21,1
+DA:22,1
+DA:23,1
+DA:24,1
+DA:25,1
+DA:26,1
+DA:27,1
+FN:51,System.Collections.Generic.List`1<BankHSE.Application.Strategy.JsonImportStrategy/AccountData> BankHSE.Application.Strategy.JsonImportStrategy/JsonData::get_Accounts()
+FNDA:3,System.Collections.Generic.List`1<BankHSE.Application.Strategy.JsonImportStrategy/AccountData> BankHSE.Application.Strategy.JsonImportStrategy/JsonData::get_Accounts()
+DA:52,3
+FN:52,System.Collections.Generic.List`1<BankHSE.Application.Strategy.JsonImportStrategy/CategoryData> BankHSE.Application.Strategy.JsonImportStrategy/JsonData::get_Categories()
+FNDA:3,System.Collections.Generic.List`1<BankHSE.Application.Strategy.JsonImportStrategy/CategoryData> BankHSE.Application.Strategy.JsonImportStrategy/JsonData::get_Categories()
+DA:53,3
+FN:53,System.Collections.Generic.List`1<BankHSE.Application.Strategy.JsonImportStrategy/OperationData> BankHSE.Application.Strategy.JsonImportStrategy/JsonData::get_Operations()
+FNDA:3,System.Collections.Generic.List`1<BankHSE.Application.Strategy.JsonImportStrategy/OperationData> BankHSE.Application.Strategy.JsonImportStrategy/JsonData::get_Operations()
+DA:54,3
+FN:58,System.Guid BankHSE.Application.Strategy.JsonImportStrategy/AccountData::get_Id()
+FNDA:2,System.Guid BankHSE.Application.Strategy.JsonImportStrategy/AccountData::get_Id()
+DA:59,2
+FN:59,System.String BankHSE.Application.Strategy.JsonImportStrategy/AccountData::get_Name()
+FNDA:3,System.String BankHSE.Application.Strategy.JsonImportStrategy/AccountData::get_Name()
+DA:60,3
+FN:60,System.Decimal BankHSE.Application.Strategy.JsonImportStrategy/AccountData::get_Balance()
+FNDA:2,System.Decimal BankHSE.Application.Strategy.JsonImportStrategy/AccountData::get_Balance()
+DA:61,2
+FN:65,System.Guid BankHSE.Application.Strategy.JsonImportStrategy/CategoryData::get_Id()
+FNDA:0,System.Guid BankHSE.Application.Strategy.JsonImportStrategy/CategoryData::get_Id()
+DA:66,0
+FN:66,BankHSE.Domain.Enums.TransactionType BankHSE.Application.Strategy.JsonImportStrategy/CategoryData::get_Type()
+FNDA:0,BankHSE.Domain.Enums.TransactionType BankHSE.Application.Strategy.JsonImportStrategy/CategoryData::get_Type()
+DA:67,0
+FN:67,System.String BankHSE.Application.Strategy.JsonImportStrategy/CategoryData::get_Name()
+FNDA:0,System.String BankHSE.Application.Strategy.JsonImportStrategy/CategoryData::get_Name()
+DA:68,0
+FN:72,System.Guid BankHSE.Application.Strategy.JsonImportStrategy/OperationData::get_Id()
+FNDA:0,System.Guid BankHSE.Application.Strategy.JsonImportStrategy/OperationData::get_Id()
+DA:73,0
+FN:73,BankHSE.Domain.Enums.TransactionType BankHSE.Application.Strategy.JsonImportStrategy/OperationData::get_Type()
+FNDA:0,BankHSE.Domain.Enums.TransactionType BankHSE.Application.Strategy.JsonImportStrategy/OperationData::get_Type()
+DA:74,0
+FN:74,System.Guid BankHSE.Application.Strategy.JsonImportStrategy/OperationData::get_BankAccountId()
+FNDA:0,System.Guid BankHSE.Application.Strategy.JsonImportStrategy/OperationData::get_BankAccountId()
+DA:75,0
+FN:75,System.Decimal BankHSE.Application.Strategy.JsonImportStrategy/OperationData::get_Amount()
+FNDA:0,System.Decimal BankHSE.Application.Strategy.JsonImportStrategy/OperationData::get_Amount()
+DA:76,0
+FN:76,System.DateTime BankHSE.Application.Strategy.JsonImportStrategy/OperationData::get_Date()
+FNDA:0,System.DateTime BankHSE.Application.Strategy.JsonImportStrategy/OperationData::get_Date()
+DA:77,0
+FN:77,System.String BankHSE.Application.Strategy.JsonImportStrategy/OperationData::get_Description()
+FNDA:0,System.String BankHSE.Application.Strategy.JsonImportStrategy/OperationData::get_Description()
+DA:78,0
+FN:78,System.Guid BankHSE.Application.Strategy.JsonImportStrategy/OperationData::get_CategoryId()
+FNDA:0,System.Guid BankHSE.Application.Strategy.JsonImportStrategy/OperationData::get_CategoryId()
+DA:79,0
+LF:42
+LH:26
+BRF:10
+BRH:4
+FNF:18
+FNH:8
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Strategy\YamlExportStrategy.cs
+FN:10,System.Void BankHSE.Application.Strategy.YamlExportStrategy::Export(System.String,BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+FNDA:0,System.Void BankHSE.Application.Strategy.YamlExportStrategy::Export(System.String,BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+DA:11,0
+DA:12,0
+DA:13,0
+DA:14,0
+DA:16,0
+DA:17,0
+DA:18,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+BRDA:13,48,1,0
+BRDA:13,48,0,0
+FN:35,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Strategy.YamlExportVisitor::get_Accounts()
+FNDA:0,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Strategy.YamlExportVisitor::get_Accounts()
+DA:36,0
+FN:36,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Strategy.YamlExportVisitor::get_Categories()
+FNDA:0,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Strategy.YamlExportVisitor::get_Categories()
+DA:37,0
+FN:37,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Strategy.YamlExportVisitor::get_Operations()
+FNDA:0,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Strategy.YamlExportVisitor::get_Operations()
+DA:38,0
+FN:39,System.Void BankHSE.Application.Strategy.YamlExportVisitor::Visit(BankHSE.Domain.Entities.BankAccount)
+FNDA:0,System.Void BankHSE.Application.Strategy.YamlExportVisitor::Visit(BankHSE.Domain.Entities.BankAccount)
+DA:40,0
+FN:40,System.Void BankHSE.Application.Strategy.YamlExportVisitor::Visit(BankHSE.Domain.Entities.Category)
+FNDA:0,System.Void BankHSE.Application.Strategy.YamlExportVisitor::Visit(BankHSE.Domain.Entities.Category)
+DA:41,0
+FN:41,System.Void BankHSE.Application.Strategy.YamlExportVisitor::Visit(BankHSE.Domain.Entities.Operation)
+FNDA:0,System.Void BankHSE.Application.Strategy.YamlExportVisitor::Visit(BankHSE.Domain.Entities.Operation)
+DA:42,0
+LF:23
+LH:0
+BRF:2
+BRH:0
+FNF:7
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Strategy\YamlImportStrategy.cs
+FN:29,System.Void BankHSE.Application.Strategy.YamlImportStrategy::Import(System.String)
+FNDA:0,System.Void BankHSE.Application.Strategy.YamlImportStrategy::Import(System.String)
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:36,0
+DA:38,0
+DA:39,0
+DA:41,0
+DA:42,0
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+DA:48,0
+DA:49,0
+DA:50,0
+BRDA:38,117,1,0
+BRDA:38,117,0,0
+BRDA:41,212,1,0
+BRDA:41,212,0,0
+BRDA:44,400,1,0
+BRDA:46,279,0,0
+BRDA:46,279,1,0
+BRDA:47,314,0,0
+BRDA:47,314,1,0
+BRDA:44,400,0,0
+FN:16,System.Void BankHSE.Application.Strategy.YamlImportStrategy::.ctor(BankHSE.Application.Factories.CoreEntitiesFactory,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>)
+FNDA:0,System.Void BankHSE.Application.Strategy.YamlImportStrategy::.ctor(BankHSE.Application.Factories.CoreEntitiesFactory,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>)
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+FN:54,System.Collections.Generic.List`1<BankHSE.Application.Strategy.YamlImportStrategy/AccountData> BankHSE.Application.Strategy.YamlImportStrategy/YamlData::get_Accounts()
+FNDA:0,System.Collections.Generic.List`1<BankHSE.Application.Strategy.YamlImportStrategy/AccountData> BankHSE.Application.Strategy.YamlImportStrategy/YamlData::get_Accounts()
+DA:55,0
+FN:55,System.Collections.Generic.List`1<BankHSE.Application.Strategy.YamlImportStrategy/CategoryData> BankHSE.Application.Strategy.YamlImportStrategy/YamlData::get_Categories()
+FNDA:0,System.Collections.Generic.List`1<BankHSE.Application.Strategy.YamlImportStrategy/CategoryData> BankHSE.Application.Strategy.YamlImportStrategy/YamlData::get_Categories()
+DA:56,0
+FN:56,System.Collections.Generic.List`1<BankHSE.Application.Strategy.YamlImportStrategy/OperationData> BankHSE.Application.Strategy.YamlImportStrategy/YamlData::get_Operations()
+FNDA:0,System.Collections.Generic.List`1<BankHSE.Application.Strategy.YamlImportStrategy/OperationData> BankHSE.Application.Strategy.YamlImportStrategy/YamlData::get_Operations()
+DA:57,0
+FN:61,System.Guid BankHSE.Application.Strategy.YamlImportStrategy/AccountData::get_Id()
+FNDA:0,System.Guid BankHSE.Application.Strategy.YamlImportStrategy/AccountData::get_Id()
+DA:62,0
+FN:62,System.String BankHSE.Application.Strategy.YamlImportStrategy/AccountData::get_Name()
+FNDA:0,System.String BankHSE.Application.Strategy.YamlImportStrategy/AccountData::get_Name()
+DA:63,0
+FN:63,System.Decimal BankHSE.Application.Strategy.YamlImportStrategy/AccountData::get_Balance()
+FNDA:0,System.Decimal BankHSE.Application.Strategy.YamlImportStrategy/AccountData::get_Balance()
+DA:64,0
+FN:68,System.Guid BankHSE.Application.Strategy.YamlImportStrategy/CategoryData::get_Id()
+FNDA:0,System.Guid BankHSE.Application.Strategy.YamlImportStrategy/CategoryData::get_Id()
+DA:69,0
+FN:69,BankHSE.Domain.Enums.TransactionType BankHSE.Application.Strategy.YamlImportStrategy/CategoryData::get_Type()
+FNDA:0,BankHSE.Domain.Enums.TransactionType BankHSE.Application.Strategy.YamlImportStrategy/CategoryData::get_Type()
+DA:70,0
+FN:70,System.String BankHSE.Application.Strategy.YamlImportStrategy/CategoryData::get_Name()
+FNDA:0,System.String BankHSE.Application.Strategy.YamlImportStrategy/CategoryData::get_Name()
+DA:71,0
+FN:75,System.Guid BankHSE.Application.Strategy.YamlImportStrategy/OperationData::get_Id()
+FNDA:0,System.Guid BankHSE.Application.Strategy.YamlImportStrategy/OperationData::get_Id()
+DA:76,0
+FN:76,BankHSE.Domain.Enums.TransactionType BankHSE.Application.Strategy.YamlImportStrategy/OperationData::get_Type()
+FNDA:0,BankHSE.Domain.Enums.TransactionType BankHSE.Application.Strategy.YamlImportStrategy/OperationData::get_Type()
+DA:77,0
+FN:77,System.Guid BankHSE.Application.Strategy.YamlImportStrategy/OperationData::get_BankAccountId()
+FNDA:0,System.Guid BankHSE.Application.Strategy.YamlImportStrategy/OperationData::get_BankAccountId()
+DA:78,0
+FN:78,System.Decimal BankHSE.Application.Strategy.YamlImportStrategy/OperationData::get_Amount()
+FNDA:0,System.Decimal BankHSE.Application.Strategy.YamlImportStrategy/OperationData::get_Amount()
+DA:79,0
+FN:79,System.DateTime BankHSE.Application.Strategy.YamlImportStrategy/OperationData::get_Date()
+FNDA:0,System.DateTime BankHSE.Application.Strategy.YamlImportStrategy/OperationData::get_Date()
+DA:80,0
+FN:80,System.String BankHSE.Application.Strategy.YamlImportStrategy/OperationData::get_Description()
+FNDA:0,System.String BankHSE.Application.Strategy.YamlImportStrategy/OperationData::get_Description()
+DA:81,0
+FN:81,System.Guid BankHSE.Application.Strategy.YamlImportStrategy/OperationData::get_CategoryId()
+FNDA:0,System.Guid BankHSE.Application.Strategy.YamlImportStrategy/OperationData::get_CategoryId()
+DA:82,0
+LF:44
+LH:0
+BRF:10
+BRH:0
+FNF:18
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Repositories\CachedRepository.cs
+FN:18,System.Void BankHSE.Application.Repositories.CachedRepository`1::Add(T)
+FNDA:3,System.Void BankHSE.Application.Repositories.CachedRepository`1::Add(T)
+DA:19,3
+DA:20,3
+DA:21,3
+DA:22,3
+FN:24,T BankHSE.Application.Repositories.CachedRepository`1::GetById(System.Guid)
+FNDA:3,T BankHSE.Application.Repositories.CachedRepository`1::GetById(System.Guid)
+DA:25,3
+DA:26,3
+DA:27,1
+DA:28,1
+DA:29,1
+DA:30,1
+DA:32,3
+DA:33,3
+BRDA:26,18,0,1
+BRDA:29,45,0,0
+BRDA:29,45,1,1
+BRDA:26,18,1,3
+BRDA:32,76,0,1
+BRDA:32,76,1,2
+FN:35,System.Collections.Generic.IEnumerable`1<T> BankHSE.Application.Repositories.CachedRepository`1::GetAll()
+FNDA:0,System.Collections.Generic.IEnumerable`1<T> BankHSE.Application.Repositories.CachedRepository`1::GetAll()
+DA:36,0
+DA:37,0
+DA:38,0
+FN:40,System.Void BankHSE.Application.Repositories.CachedRepository`1::Update(T)
+FNDA:1,System.Void BankHSE.Application.Repositories.CachedRepository`1::Update(T)
+DA:41,1
+DA:42,1
+DA:43,1
+DA:44,1
+FN:46,System.Void BankHSE.Application.Repositories.CachedRepository`1::Delete(System.Guid)
+FNDA:1,System.Void BankHSE.Application.Repositories.CachedRepository`1::Delete(System.Guid)
+DA:47,1
+DA:48,1
+DA:49,1
+DA:50,1
+FN:9,System.Void BankHSE.Application.Repositories.CachedRepository`1::.ctor(BankHSE.Domain.Abstractions.IRepository`1<T>)
+FNDA:3,System.Void BankHSE.Application.Repositories.CachedRepository`1::.ctor(BankHSE.Domain.Abstractions.IRepository`1<T>)
+DA:10,3
+DA:11,3
+DA:12,3
+DA:13,3
+DA:14,9
+DA:15,0
+DA:16,3
+BRDA:14,85,1,0
+BRDA:14,85,0,3
+LF:30
+LH:26
+BRF:8
+BRH:6
+FNF:6
+FNH:5
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Repositories\InMemoryRepository.cs
+FN:8,System.Void BankHSE.Application.Repositories.InMemoryRepository`1::Add(T)
+FNDA:36,System.Void BankHSE.Application.Repositories.InMemoryRepository`1::Add(T)
+DA:9,36
+FN:9,T BankHSE.Application.Repositories.InMemoryRepository`1::GetById(System.Guid)
+FNDA:60,T BankHSE.Application.Repositories.InMemoryRepository`1::GetById(System.Guid)
+DA:10,60
+FN:10,System.Collections.Generic.IEnumerable`1<T> BankHSE.Application.Repositories.InMemoryRepository`1::GetAll()
+FNDA:22,System.Collections.Generic.IEnumerable`1<T> BankHSE.Application.Repositories.InMemoryRepository`1::GetAll()
+DA:11,22
+FN:13,System.Void BankHSE.Application.Repositories.InMemoryRepository`1::Update(T)
+FNDA:14,System.Void BankHSE.Application.Repositories.InMemoryRepository`1::Update(T)
+DA:14,14
+DA:15,28
+DA:16,28
+DA:17,14
+BRDA:16,47,0,14
+BRDA:16,47,1,14
+FN:18,System.Void BankHSE.Application.Repositories.InMemoryRepository`1::Delete(System.Guid)
+FNDA:8,System.Void BankHSE.Application.Repositories.InMemoryRepository`1::Delete(System.Guid)
+DA:19,8
+FN:6,System.Void BankHSE.Application.Repositories.InMemoryRepository`1::.ctor()
+FNDA:55,System.Void BankHSE.Application.Repositories.InMemoryRepository`1::.ctor()
+DA:7,55
+LF:9
+LH:9
+BRF:2
+BRH:2
+FNF:6
+FNH:6
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Menus\AccountMenu.cs
+FN:15,System.Boolean BankHSE.Application.Menus.AccountMenu::ShowMenu()
+FNDA:0,System.Boolean BankHSE.Application.Menus.AccountMenu::ShowMenu()
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:29,0
+DA:30,0
+DA:33,0
+DA:34,0
+DA:36,0
+DA:37,0
+DA:39,0
+DA:40,0
+DA:42,0
+DA:43,0
+DA:45,0
+DA:46,0
+DA:48,0
+DA:50,0
+DA:51,0
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+BRDA:30,125,1,0
+BRDA:30,125,2,0
+BRDA:30,125,3,0
+BRDA:30,125,4,0
+BRDA:30,125,5,0
+BRDA:30,125,6,0
+BRDA:30,125,0,0
+FN:58,System.Void BankHSE.Application.Menus.AccountMenu::AddAccount()
+FNDA:0,System.Void BankHSE.Application.Menus.AccountMenu::AddAccount()
+DA:59,0
+DA:60,0
+DA:61,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+FN:68,System.Void BankHSE.Application.Menus.AccountMenu::ViewAllAccounts()
+FNDA:0,System.Void BankHSE.Application.Menus.AccountMenu::ViewAllAccounts()
+DA:69,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:76,0
+DA:77,0
+DA:78,0
+BRDA:73,47,0,0
+BRDA:73,47,1,0
+BRDA:76,196,1,0
+BRDA:76,196,0,0
+FN:80,System.Void BankHSE.Application.Menus.AccountMenu::UpdateAccount()
+FNDA:0,System.Void BankHSE.Application.Menus.AccountMenu::UpdateAccount()
+DA:81,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:85,0
+DA:86,0
+DA:88,0
+DA:90,0
+DA:91,0
+DA:92,0
+DA:93,0
+DA:94,0
+DA:95,0
+DA:96,0
+DA:97,0
+DA:98,0
+BRDA:86,85,1,0
+BRDA:86,85,0,0
+FN:100,System.Void BankHSE.Application.Menus.AccountMenu::DeleteAccount()
+FNDA:0,System.Void BankHSE.Application.Menus.AccountMenu::DeleteAccount()
+DA:101,0
+DA:102,0
+DA:103,0
+DA:104,0
+DA:105,0
+DA:106,0
+DA:109,0
+DA:110,0
+DA:111,0
+DA:112,0
+DA:113,0
+DA:114,0
+DA:115,0
+DA:116,0
+DA:117,0
+BRDA:106,85,1,0
+BRDA:106,85,0,0
+FN:119,System.Void BankHSE.Application.Menus.AccountMenu::RecalculateBalance()
+FNDA:0,System.Void BankHSE.Application.Menus.AccountMenu::RecalculateBalance()
+DA:120,0
+DA:121,0
+DA:122,0
+DA:123,0
+DA:124,0
+DA:125,0
+DA:128,0
+DA:129,0
+DA:130,0
+DA:131,0
+DA:132,0
+DA:133,0
+DA:134,0
+DA:135,0
+DA:136,0
+DA:137,0
+BRDA:125,85,1,0
+BRDA:125,85,0,0
+FN:9,System.Void BankHSE.Application.Menus.AccountMenu::.ctor(BankHSE.Application.Facades.BankAccountFacade)
+FNDA:0,System.Void BankHSE.Application.Menus.AccountMenu::.ctor(BankHSE.Application.Facades.BankAccountFacade)
+DA:10,0
+DA:11,0
+DA:12,0
+DA:13,0
+LF:99
+LH:0
+BRF:17
+BRH:0
+FNF:7
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Menus\AnalyticsMenu.cs
+FN:20,System.Boolean BankHSE.Application.Menus.AnalyticsMenu::ShowMenu()
+FNDA:0,System.Boolean BankHSE.Application.Menus.AnalyticsMenu::ShowMenu()
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:32,0
+DA:33,0
+DA:36,0
+DA:37,0
+DA:39,0
+DA:40,0
+DA:42,0
+DA:43,0
+DA:45,0
+DA:47,0
+DA:48,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:53,0
+BRDA:33,103,1,0
+BRDA:33,103,2,0
+BRDA:33,103,3,0
+BRDA:33,103,4,0
+BRDA:33,103,0,0
+FN:55,System.Void BankHSE.Application.Menus.AnalyticsMenu::ViewDifference()
+FNDA:0,System.Void BankHSE.Application.Menus.AnalyticsMenu::ViewDifference()
+DA:56,0
+DA:57,0
+DA:58,0
+DA:59,0
+DA:60,0
+DA:61,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+BRDA:61,87,1,0
+BRDA:61,87,0,0
+FN:68,System.Void BankHSE.Application.Menus.AnalyticsMenu::GroupByCategory()
+FNDA:0,System.Void BankHSE.Application.Menus.AnalyticsMenu::GroupByCategory()
+DA:69,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:76,0
+DA:77,0
+DA:78,0
+DA:79,0
+DA:80,0
+BRDA:74,87,1,0
+BRDA:78,273,1,0
+BRDA:78,273,0,0
+BRDA:74,87,0,0
+FN:82,System.Void BankHSE.Application.Menus.AnalyticsMenu::ViewTopCategories()
+FNDA:0,System.Void BankHSE.Application.Menus.AnalyticsMenu::ViewTopCategories()
+DA:83,0
+DA:84,0
+DA:85,0
+DA:86,0
+DA:87,0
+DA:88,0
+DA:90,0
+DA:91,0
+DA:92,0
+DA:93,0
+DA:94,0
+DA:95,0
+BRDA:88,87,1,0
+BRDA:93,285,1,0
+BRDA:93,285,0,0
+BRDA:88,87,0,0
+FN:12,System.Void BankHSE.Application.Menus.AnalyticsMenu::.ctor(BankHSE.Application.Analytics.AnalyticsService,BankHSE.Application.Facades.CategoryFacade,BankHSE.Application.Facades.BankAccountFacade)
+FNDA:0,System.Void BankHSE.Application.Menus.AnalyticsMenu::.ctor(BankHSE.Application.Analytics.AnalyticsService,BankHSE.Application.Facades.CategoryFacade,BankHSE.Application.Facades.BankAccountFacade)
+DA:13,0
+DA:14,0
+DA:15,0
+DA:16,0
+DA:17,0
+DA:18,0
+LF:64
+LH:0
+BRF:15
+BRH:0
+FNF:5
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Menus\CategoryMenu.cs
+FN:16,System.Boolean BankHSE.Application.Menus.CategoryMenu::ShowMenu()
+FNDA:0,System.Boolean BankHSE.Application.Menus.CategoryMenu::ShowMenu()
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:29,0
+DA:30,0
+DA:33,0
+DA:34,0
+DA:36,0
+DA:37,0
+DA:39,0
+DA:40,0
+DA:42,0
+DA:43,0
+DA:45,0
+DA:47,0
+DA:48,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:53,0
+BRDA:30,114,1,0
+BRDA:30,114,2,0
+BRDA:30,114,3,0
+BRDA:30,114,4,0
+BRDA:30,114,5,0
+BRDA:30,114,0,0
+FN:55,System.Void BankHSE.Application.Menus.CategoryMenu::AddCategory()
+FNDA:0,System.Void BankHSE.Application.Menus.CategoryMenu::AddCategory()
+DA:56,0
+DA:57,0
+DA:58,0
+DA:59,0
+DA:60,0
+DA:61,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+BRDA:61,45,0,0
+BRDA:61,45,1,0
+FN:67,System.Void BankHSE.Application.Menus.CategoryMenu::ViewAllCategories()
+FNDA:0,System.Void BankHSE.Application.Menus.CategoryMenu::ViewAllCategories()
+DA:68,0
+DA:69,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:75,0
+DA:76,0
+DA:77,0
+BRDA:72,47,0,0
+BRDA:72,47,1,0
+BRDA:75,196,1,0
+BRDA:75,196,0,0
+FN:79,System.Void BankHSE.Application.Menus.CategoryMenu::UpdateCategory()
+FNDA:0,System.Void BankHSE.Application.Menus.CategoryMenu::UpdateCategory()
+DA:80,0
+DA:81,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:85,0
+DA:87,0
+DA:89,0
+DA:90,0
+DA:91,0
+DA:92,0
+DA:93,0
+DA:94,0
+DA:95,0
+DA:96,0
+DA:97,0
+BRDA:85,85,1,0
+BRDA:85,85,0,0
+FN:99,System.Void BankHSE.Application.Menus.CategoryMenu::DeleteCategory()
+FNDA:0,System.Void BankHSE.Application.Menus.CategoryMenu::DeleteCategory()
+DA:100,0
+DA:101,0
+DA:102,0
+DA:103,0
+DA:104,0
+DA:105,0
+DA:108,0
+DA:109,0
+DA:110,0
+DA:111,0
+DA:112,0
+DA:113,0
+DA:114,0
+DA:115,0
+DA:116,0
+BRDA:105,85,1,0
+BRDA:105,85,0,0
+FN:10,System.Void BankHSE.Application.Menus.CategoryMenu::.ctor(BankHSE.Application.Facades.CategoryFacade)
+FNDA:0,System.Void BankHSE.Application.Menus.CategoryMenu::.ctor(BankHSE.Application.Facades.CategoryFacade)
+DA:11,0
+DA:12,0
+DA:13,0
+DA:14,0
+LF:82
+LH:0
+BRF:16
+BRH:0
+FNF:6
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Menus\MainMenu.cs
+FN:41,System.Void BankHSE.Application.Menus.MainMenu::ShowMenu()
+FNDA:0,System.Void BankHSE.Application.Menus.MainMenu::ShowMenu()
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+DA:48,0
+DA:49,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:56,0
+DA:57,0
+DA:59,0
+DA:60,0
+DA:61,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:66,0
+DA:67,0
+DA:69,0
+DA:70,0
+DA:73,0
+DA:74,0
+DA:75,0
+DA:76,0
+BRDA:57,136,1,0
+BRDA:57,136,2,0
+BRDA:57,136,3,0
+BRDA:57,136,4,0
+BRDA:57,136,5,0
+BRDA:57,136,6,0
+BRDA:57,136,7,0
+BRDA:57,136,0,0
+FN:78,System.Void BankHSE.Application.Menus.MainMenu::ExportData()
+FNDA:0,System.Void BankHSE.Application.Menus.MainMenu::ExportData()
+DA:79,0
+DA:80,0
+DA:81,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:85,0
+DA:86,0
+DA:87,0
+DA:88,0
+DA:90,0
+DA:91,0
+DA:93,0
+DA:94,0
+DA:95,0
+DA:96,0
+DA:97,0
+DA:98,0
+DA:99,0
+DA:101,0
+DA:102,0
+DA:103,0
+DA:104,0
+DA:105,0
+DA:106,0
+DA:109,0
+DA:110,0
+DA:111,0
+DA:112,0
+DA:115,0
+DA:116,0
+DA:117,0
+DA:118,0
+DA:119,0
+DA:120,0
+DA:121,0
+DA:122,0
+DA:123,0
+DA:124,0
+DA:125,0
+DA:127,0
+DA:128,0
+DA:129,0
+DA:130,0
+BRDA:91,111,1,0
+BRDA:93,126,1,0
+BRDA:93,126,2,0
+BRDA:93,126,3,0
+BRDA:93,126,0,0
+BRDA:101,202,0,0
+BRDA:101,202,1,0
+BRDA:116,363,0,0
+BRDA:116,363,1,0
+BRDA:91,111,0,0
+FN:132,System.Void BankHSE.Application.Menus.MainMenu::ImportData()
+FNDA:0,System.Void BankHSE.Application.Menus.MainMenu::ImportData()
+DA:133,0
+DA:134,0
+DA:135,0
+DA:136,0
+DA:137,0
+DA:138,0
+DA:139,0
+DA:140,0
+DA:141,0
+DA:142,0
+DA:144,0
+DA:145,0
+DA:147,0
+DA:148,0
+DA:149,0
+DA:150,0
+DA:151,0
+DA:152,0
+DA:153,0
+DA:155,0
+DA:156,0
+DA:157,0
+DA:158,0
+DA:159,0
+DA:160,0
+DA:163,0
+DA:164,0
+DA:165,0
+DA:166,0
+DA:168,0
+DA:169,0
+DA:170,0
+DA:171,0
+DA:172,0
+DA:173,0
+DA:174,0
+DA:178,0
+DA:179,0
+DA:180,0
+DA:181,0
+DA:182,0
+DA:183,0
+DA:184,0
+DA:185,0
+DA:186,0
+DA:187,0
+DA:188,0
+DA:190,0
+DA:191,0
+DA:192,0
+DA:193,0
+BRDA:145,111,1,0
+BRDA:147,126,1,0
+BRDA:147,126,2,0
+BRDA:147,126,3,0
+BRDA:147,126,0,0
+BRDA:155,202,0,0
+BRDA:155,202,1,0
+BRDA:168,352,0,0
+BRDA:168,352,1,0
+BRDA:179,429,0,0
+BRDA:179,429,1,0
+BRDA:145,111,0,0
+FN:18,System.Void BankHSE.Application.Menus.MainMenu::.ctor(BankHSE.Application.Menus.AccountMenu,BankHSE.Application.Menus.CategoryMenu,BankHSE.Application.Menus.OperationMenu,BankHSE.Application.Menus.AnalyticsMenu,BankHSE.Application.Strategy.ExportContext,BankHSE.Application.Strategy.ImportContext,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Abstractions.IExportStrategy>,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Abstractions.IImportStrategy>,BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+FNDA:0,System.Void BankHSE.Application.Menus.MainMenu::.ctor(BankHSE.Application.Menus.AccountMenu,BankHSE.Application.Menus.CategoryMenu,BankHSE.Application.Menus.OperationMenu,BankHSE.Application.Menus.AnalyticsMenu,BankHSE.Application.Strategy.ExportContext,BankHSE.Application.Strategy.ImportContext,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Abstractions.IExportStrategy>,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Abstractions.IImportStrategy>,BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+LF:145
+LH:0
+BRF:30
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Menus\OperationMenu.cs
+FN:24,System.Boolean BankHSE.Application.Menus.OperationMenu::ShowMenu()
+FNDA:0,System.Boolean BankHSE.Application.Menus.OperationMenu::ShowMenu()
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:37,0
+DA:38,0
+DA:41,0
+DA:42,0
+DA:44,0
+DA:45,0
+DA:47,0
+DA:48,0
+DA:50,0
+DA:51,0
+DA:53,0
+DA:55,0
+DA:56,0
+DA:58,0
+DA:59,0
+DA:60,0
+DA:61,0
+BRDA:38,114,1,0
+BRDA:38,114,2,0
+BRDA:38,114,3,0
+BRDA:38,114,4,0
+BRDA:38,114,5,0
+BRDA:38,114,0,0
+FN:63,System.Void BankHSE.Application.Menus.OperationMenu::AddOperation()
+FNDA:0,System.Void BankHSE.Application.Menus.OperationMenu::AddOperation()
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:69,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:76,0
+DA:77,0
+DA:80,0
+DA:81,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:85,0
+DA:86,0
+DA:87,0
+DA:88,0
+DA:91,0
+DA:92,0
+DA:94,0
+DA:95,0
+DA:96,0
+DA:97,0
+DA:98,0
+DA:99,0
+DA:100,0
+DA:101,0
+DA:102,0
+BRDA:69,52,0,0
+BRDA:69,52,1,0
+BRDA:74,131,1,0
+BRDA:85,313,0,0
+BRDA:85,313,1,0
+BRDA:74,131,0,0
+FN:104,System.Void BankHSE.Application.Menus.OperationMenu::ViewAllOperations()
+FNDA:0,System.Void BankHSE.Application.Menus.OperationMenu::ViewAllOperations()
+DA:105,0
+DA:106,0
+DA:107,0
+DA:108,0
+DA:109,0
+DA:110,0
+DA:112,0
+DA:113,0
+DA:114,0
+BRDA:109,47,0,0
+BRDA:109,47,1,0
+BRDA:112,307,1,0
+BRDA:112,307,0,0
+FN:116,System.Void BankHSE.Application.Menus.OperationMenu::UpdateOperation()
+FNDA:0,System.Void BankHSE.Application.Menus.OperationMenu::UpdateOperation()
+DA:117,0
+DA:118,0
+DA:119,0
+DA:120,0
+DA:121,0
+DA:122,0
+DA:123,0
+DA:125,0
+DA:127,0
+DA:128,0
+DA:129,0
+DA:130,0
+DA:131,0
+DA:132,0
+DA:133,0
+DA:134,0
+DA:135,0
+BRDA:123,85,1,0
+BRDA:123,85,0,0
+FN:137,System.Void BankHSE.Application.Menus.OperationMenu::DeleteOperation()
+FNDA:0,System.Void BankHSE.Application.Menus.OperationMenu::DeleteOperation()
+DA:138,0
+DA:139,0
+DA:140,0
+DA:141,0
+DA:142,0
+DA:143,0
+DA:144,0
+DA:147,0
+DA:148,0
+DA:149,0
+DA:150,0
+DA:151,0
+DA:152,0
+DA:153,0
+DA:154,0
+DA:155,0
+BRDA:144,85,1,0
+BRDA:144,85,0,0
+FN:14,System.Void BankHSE.Application.Menus.OperationMenu::.ctor(BankHSE.Application.Facades.OperationFacade,BankHSE.Application.Factories.CommandFactory,BankHSE.Application.Facades.BankAccountFacade,BankHSE.Application.Facades.CategoryFacade)
+FNDA:0,System.Void BankHSE.Application.Menus.OperationMenu::.ctor(BankHSE.Application.Facades.OperationFacade,BankHSE.Application.Factories.CommandFactory,BankHSE.Application.Facades.BankAccountFacade,BankHSE.Application.Facades.CategoryFacade)
+DA:15,0
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+LF:110
+LH:0
+BRF:20
+BRH:0
+FNF:6
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Import\CsvImporter.cs
+FN:26,System.Void BankHSE.Application.Import.CsvImporter::ImportAll(System.String)
+FNDA:0,System.Void BankHSE.Application.Import.CsvImporter::ImportAll(System.String)
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:48,0
+DA:49,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:61,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:75,0
+DA:76,0
+DA:77,0
+DA:78,0
+DA:79,0
+DA:80,0
+DA:81,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:87,0
+DA:88,0
+DA:89,0
+BRDA:32,481,1,0
+BRDA:35,46,0,0
+BRDA:35,46,1,0
+BRDA:41,69,0,0
+BRDA:41,82,0,0
+BRDA:41,69,1,0
+BRDA:41,82,1,0
+BRDA:41,102,0,0
+BRDA:41,102,1,0
+BRDA:49,143,0,0
+BRDA:49,157,0,0
+BRDA:49,143,1,0
+BRDA:49,157,1,0
+BRDA:49,171,1,0
+BRDA:70,325,0,0
+BRDA:70,325,1,0
+BRDA:72,362,0,0
+BRDA:72,362,1,0
+BRDA:49,171,0,0
+BRDA:32,481,0,0
+FN:91,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.Operation> BankHSE.Application.Import.CsvImporter::Parse(System.String)
+FNDA:0,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.Operation> BankHSE.Application.Import.CsvImporter::Parse(System.String)
+DA:92,0
+DA:93,0
+DA:94,0
+DA:95,0
+FN:97,System.String[] BankHSE.Application.Import.CsvImporter::ParseCsvLine(System.String)
+FNDA:0,System.String[] BankHSE.Application.Import.CsvImporter::ParseCsvLine(System.String)
+DA:98,0
+DA:99,0
+DA:100,0
+DA:101,0
+DA:103,0
+DA:104,0
+DA:105,0
+DA:106,0
+DA:107,0
+DA:108,0
+DA:109,0
+DA:110,0
+DA:111,0
+DA:112,0
+DA:113,0
+DA:114,0
+DA:116,0
+DA:117,0
+DA:118,0
+DA:119,0
+DA:121,0
+DA:122,0
+DA:123,0
+BRDA:103,122,1,0
+BRDA:106,39,0,0
+BRDA:106,39,1,0
+BRDA:110,54,0,0
+BRDA:110,54,1,0
+BRDA:110,67,0,0
+BRDA:110,67,1,0
+BRDA:103,122,0,0
+FN:125,System.String BankHSE.Application.Import.CsvImporter::UnescapeCsv(System.String)
+FNDA:0,System.String BankHSE.Application.Import.CsvImporter::UnescapeCsv(System.String)
+DA:126,0
+DA:127,0
+DA:128,0
+DA:129,0
+DA:130,0
+BRDA:127,12,0,0
+BRDA:127,12,1,0
+BRDA:127,30,0,0
+BRDA:127,30,1,0
+FN:16,System.Void BankHSE.Application.Import.CsvImporter::.ctor(BankHSE.Application.Factories.CoreEntitiesFactory,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>)
+FNDA:0,System.Void BankHSE.Application.Import.CsvImporter::.ctor(BankHSE.Application.Factories.CoreEntitiesFactory,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>)
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+LF:90
+LH:0
+BRF:32
+BRH:0
+FNF:5
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Import\Import.cs
+FN:7,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.Operation> BankHSE.Application.Import.Importer::Import(System.String)
+FNDA:0,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.Operation> BankHSE.Application.Import.Importer::Import(System.String)
+DA:8,0
+DA:9,0
+DA:10,0
+DA:11,0
+DA:12,0
+DA:13,0
+FN:16,System.Void BankHSE.Application.Import.Importer::Validate(System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.Operation>)
+FNDA:0,System.Void BankHSE.Application.Import.Importer::Validate(System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.Operation>)
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+BRDA:18,2,0,0
+BRDA:18,2,1,0
+BRDA:18,18,0,0
+BRDA:18,18,1,0
+LF:10
+LH:0
+BRF:4
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Import\JsonImporter.cs
+FN:26,System.Void BankHSE.Application.Import.JsonImporter::ImportAll(System.String)
+FNDA:0,System.Void BankHSE.Application.Import.JsonImporter::ImportAll(System.String)
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:59,0
+DA:60,0
+BRDA:36,120,1,0
+BRDA:36,120,0,0
+BRDA:43,221,1,0
+BRDA:43,221,0,0
+BRDA:50,413,1,0
+BRDA:52,288,0,0
+BRDA:52,288,1,0
+BRDA:54,323,0,0
+BRDA:54,323,1,0
+BRDA:50,413,0,0
+FN:62,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.Operation> BankHSE.Application.Import.JsonImporter::Parse(System.String)
+FNDA:0,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.Operation> BankHSE.Application.Import.JsonImporter::Parse(System.String)
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+FN:16,System.Void BankHSE.Application.Import.JsonImporter::.ctor(BankHSE.Application.Factories.CoreEntitiesFactory,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>)
+FNDA:0,System.Void BankHSE.Application.Import.JsonImporter::.ctor(BankHSE.Application.Factories.CoreEntitiesFactory,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>)
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+FN:69,System.Collections.Generic.List`1<BankHSE.Application.Import.JsonImporter/AccountData> BankHSE.Application.Import.JsonImporter/JsonData::get_Accounts()
+FNDA:0,System.Collections.Generic.List`1<BankHSE.Application.Import.JsonImporter/AccountData> BankHSE.Application.Import.JsonImporter/JsonData::get_Accounts()
+DA:70,0
+FN:70,System.Collections.Generic.List`1<BankHSE.Application.Import.JsonImporter/CategoryData> BankHSE.Application.Import.JsonImporter/JsonData::get_Categories()
+FNDA:0,System.Collections.Generic.List`1<BankHSE.Application.Import.JsonImporter/CategoryData> BankHSE.Application.Import.JsonImporter/JsonData::get_Categories()
+DA:71,0
+FN:71,System.Collections.Generic.List`1<BankHSE.Application.Import.JsonImporter/OperationData> BankHSE.Application.Import.JsonImporter/JsonData::get_Operations()
+FNDA:0,System.Collections.Generic.List`1<BankHSE.Application.Import.JsonImporter/OperationData> BankHSE.Application.Import.JsonImporter/JsonData::get_Operations()
+DA:72,0
+FN:76,System.Guid BankHSE.Application.Import.JsonImporter/AccountData::get_Id()
+FNDA:0,System.Guid BankHSE.Application.Import.JsonImporter/AccountData::get_Id()
+DA:77,0
+FN:77,System.String BankHSE.Application.Import.JsonImporter/AccountData::get_Name()
+FNDA:0,System.String BankHSE.Application.Import.JsonImporter/AccountData::get_Name()
+DA:78,0
+FN:78,System.Decimal BankHSE.Application.Import.JsonImporter/AccountData::get_Balance()
+FNDA:0,System.Decimal BankHSE.Application.Import.JsonImporter/AccountData::get_Balance()
+DA:79,0
+FN:83,System.Guid BankHSE.Application.Import.JsonImporter/CategoryData::get_Id()
+FNDA:0,System.Guid BankHSE.Application.Import.JsonImporter/CategoryData::get_Id()
+DA:84,0
+FN:84,BankHSE.Domain.Enums.TransactionType BankHSE.Application.Import.JsonImporter/CategoryData::get_Type()
+FNDA:0,BankHSE.Domain.Enums.TransactionType BankHSE.Application.Import.JsonImporter/CategoryData::get_Type()
+DA:85,0
+FN:85,System.String BankHSE.Application.Import.JsonImporter/CategoryData::get_Name()
+FNDA:0,System.String BankHSE.Application.Import.JsonImporter/CategoryData::get_Name()
+DA:86,0
+FN:90,System.Guid BankHSE.Application.Import.JsonImporter/OperationData::get_Id()
+FNDA:0,System.Guid BankHSE.Application.Import.JsonImporter/OperationData::get_Id()
+DA:91,0
+FN:91,BankHSE.Domain.Enums.TransactionType BankHSE.Application.Import.JsonImporter/OperationData::get_Type()
+FNDA:0,BankHSE.Domain.Enums.TransactionType BankHSE.Application.Import.JsonImporter/OperationData::get_Type()
+DA:92,0
+FN:92,System.Guid BankHSE.Application.Import.JsonImporter/OperationData::get_BankAccountId()
+FNDA:0,System.Guid BankHSE.Application.Import.JsonImporter/OperationData::get_BankAccountId()
+DA:93,0
+FN:93,System.Decimal BankHSE.Application.Import.JsonImporter/OperationData::get_Amount()
+FNDA:0,System.Decimal BankHSE.Application.Import.JsonImporter/OperationData::get_Amount()
+DA:94,0
+FN:94,System.DateTime BankHSE.Application.Import.JsonImporter/OperationData::get_Date()
+FNDA:0,System.DateTime BankHSE.Application.Import.JsonImporter/OperationData::get_Date()
+DA:95,0
+FN:95,System.String BankHSE.Application.Import.JsonImporter/OperationData::get_Description()
+FNDA:0,System.String BankHSE.Application.Import.JsonImporter/OperationData::get_Description()
+DA:96,0
+FN:96,System.Guid BankHSE.Application.Import.JsonImporter/OperationData::get_CategoryId()
+FNDA:0,System.Guid BankHSE.Application.Import.JsonImporter/OperationData::get_CategoryId()
+DA:97,0
+LF:56
+LH:0
+BRF:10
+BRH:0
+FNF:19
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Import\YamlImporter.cs
+FN:25,System.Void BankHSE.Application.Import.YamlImporter::ImportAll(System.String)
+FNDA:0,System.Void BankHSE.Application.Import.YamlImporter::ImportAll(System.String)
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:32,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:46,0
+DA:49,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:59,0
+BRDA:35,123,1,0
+BRDA:35,123,0,0
+BRDA:42,224,1,0
+BRDA:42,224,0,0
+BRDA:49,416,1,0
+BRDA:51,291,0,0
+BRDA:51,291,1,0
+BRDA:53,326,0,0
+BRDA:53,326,1,0
+BRDA:49,416,0,0
+FN:61,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.Operation> BankHSE.Application.Import.YamlImporter::Parse(System.String)
+FNDA:0,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.Operation> BankHSE.Application.Import.YamlImporter::Parse(System.String)
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+FN:15,System.Void BankHSE.Application.Import.YamlImporter::.ctor(BankHSE.Application.Factories.CoreEntitiesFactory,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>)
+FNDA:0,System.Void BankHSE.Application.Import.YamlImporter::.ctor(BankHSE.Application.Factories.CoreEntitiesFactory,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>)
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+FN:68,System.Collections.Generic.List`1<BankHSE.Application.Import.YamlImporter/AccountData> BankHSE.Application.Import.YamlImporter/YamlData::get_Accounts()
+FNDA:0,System.Collections.Generic.List`1<BankHSE.Application.Import.YamlImporter/AccountData> BankHSE.Application.Import.YamlImporter/YamlData::get_Accounts()
+DA:69,0
+FN:69,System.Collections.Generic.List`1<BankHSE.Application.Import.YamlImporter/CategoryData> BankHSE.Application.Import.YamlImporter/YamlData::get_Categories()
+FNDA:0,System.Collections.Generic.List`1<BankHSE.Application.Import.YamlImporter/CategoryData> BankHSE.Application.Import.YamlImporter/YamlData::get_Categories()
+DA:70,0
+FN:70,System.Collections.Generic.List`1<BankHSE.Application.Import.YamlImporter/OperationData> BankHSE.Application.Import.YamlImporter/YamlData::get_Operations()
+FNDA:0,System.Collections.Generic.List`1<BankHSE.Application.Import.YamlImporter/OperationData> BankHSE.Application.Import.YamlImporter/YamlData::get_Operations()
+DA:71,0
+FN:75,System.Guid BankHSE.Application.Import.YamlImporter/AccountData::get_Id()
+FNDA:0,System.Guid BankHSE.Application.Import.YamlImporter/AccountData::get_Id()
+DA:76,0
+FN:76,System.String BankHSE.Application.Import.YamlImporter/AccountData::get_Name()
+FNDA:0,System.String BankHSE.Application.Import.YamlImporter/AccountData::get_Name()
+DA:77,0
+FN:77,System.Decimal BankHSE.Application.Import.YamlImporter/AccountData::get_Balance()
+FNDA:0,System.Decimal BankHSE.Application.Import.YamlImporter/AccountData::get_Balance()
+DA:78,0
+FN:82,System.Guid BankHSE.Application.Import.YamlImporter/CategoryData::get_Id()
+FNDA:0,System.Guid BankHSE.Application.Import.YamlImporter/CategoryData::get_Id()
+DA:83,0
+FN:83,BankHSE.Domain.Enums.TransactionType BankHSE.Application.Import.YamlImporter/CategoryData::get_Type()
+FNDA:0,BankHSE.Domain.Enums.TransactionType BankHSE.Application.Import.YamlImporter/CategoryData::get_Type()
+DA:84,0
+FN:84,System.String BankHSE.Application.Import.YamlImporter/CategoryData::get_Name()
+FNDA:0,System.String BankHSE.Application.Import.YamlImporter/CategoryData::get_Name()
+DA:85,0
+FN:89,System.Guid BankHSE.Application.Import.YamlImporter/OperationData::get_Id()
+FNDA:0,System.Guid BankHSE.Application.Import.YamlImporter/OperationData::get_Id()
+DA:90,0
+FN:90,BankHSE.Domain.Enums.TransactionType BankHSE.Application.Import.YamlImporter/OperationData::get_Type()
+FNDA:0,BankHSE.Domain.Enums.TransactionType BankHSE.Application.Import.YamlImporter/OperationData::get_Type()
+DA:91,0
+FN:91,System.Guid BankHSE.Application.Import.YamlImporter/OperationData::get_BankAccountId()
+FNDA:0,System.Guid BankHSE.Application.Import.YamlImporter/OperationData::get_BankAccountId()
+DA:92,0
+FN:92,System.Decimal BankHSE.Application.Import.YamlImporter/OperationData::get_Amount()
+FNDA:0,System.Decimal BankHSE.Application.Import.YamlImporter/OperationData::get_Amount()
+DA:93,0
+FN:93,System.DateTime BankHSE.Application.Import.YamlImporter/OperationData::get_Date()
+FNDA:0,System.DateTime BankHSE.Application.Import.YamlImporter/OperationData::get_Date()
+DA:94,0
+FN:94,System.String BankHSE.Application.Import.YamlImporter/OperationData::get_Description()
+FNDA:0,System.String BankHSE.Application.Import.YamlImporter/OperationData::get_Description()
+DA:95,0
+FN:95,System.Guid BankHSE.Application.Import.YamlImporter/OperationData::get_CategoryId()
+FNDA:0,System.Guid BankHSE.Application.Import.YamlImporter/OperationData::get_CategoryId()
+DA:96,0
+LF:55
+LH:0
+BRF:10
+BRH:0
+FNF:19
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Helpers\ConsoleHelper.cs
+FN:5,System.Int32 BankHSE.Application.Helpers.ConsoleHelper::ReadInt(System.String,System.Int32,System.Int32)
+FNDA:0,System.Int32 BankHSE.Application.Helpers.ConsoleHelper::ReadInt(System.String,System.Int32,System.Int32)
+DA:6,0
+DA:8,0
+DA:9,0
+DA:10,0
+DA:11,0
+DA:12,0
+DA:13,0
+DA:14,0
+DA:15,0
+DA:16,0
+BRDA:11,23,0,0
+BRDA:11,27,0,0
+BRDA:11,23,1,0
+BRDA:11,27,1,0
+BRDA:11,41,0,0
+BRDA:11,41,1,0
+FN:18,System.Decimal BankHSE.Application.Helpers.ConsoleHelper::ReadDecimal(System.String,System.Decimal)
+FNDA:0,System.Decimal BankHSE.Application.Helpers.ConsoleHelper::ReadDecimal(System.String,System.Decimal)
+DA:19,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+BRDA:24,23,0,0
+BRDA:24,23,1,0
+BRDA:24,37,0,0
+BRDA:24,37,1,0
+FN:30,System.String BankHSE.Application.Helpers.ConsoleHelper::ReadNonEmptyString(System.String)
+FNDA:0,System.String BankHSE.Application.Helpers.ConsoleHelper::ReadNonEmptyString(System.String)
+DA:31,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:41,0
+BRDA:36,17,0,0
+BRDA:36,17,1,0
+BRDA:37,40,0,0
+BRDA:37,40,1,0
+FN:43,System.Void BankHSE.Application.Helpers.ConsoleHelper::PrintTextWithColor(System.String,System.ConsoleColor)
+FNDA:0,System.Void BankHSE.Application.Helpers.ConsoleHelper::PrintTextWithColor(System.String,System.ConsoleColor)
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+DA:48,0
+FN:50,T BankHSE.Application.Helpers.ConsoleHelper::SelectItemFromList(System.Collections.Generic.List`1<T>,System.String,System.Func`2<T,System.String>)
+FNDA:0,T BankHSE.Application.Helpers.ConsoleHelper::SelectItemFromList(System.Collections.Generic.List`1<T>,System.String,System.Func`2<T,System.String>)
+DA:51,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:55,0
+DA:58,0
+DA:59,0
+DA:60,0
+DA:62,0
+DA:63,0
+DA:64,0
+BRDA:52,12,0,0
+BRDA:52,12,1,0
+BRDA:59,144,1,0
+BRDA:59,144,0,0
+LF:45
+LH:0
+BRF:18
+BRH:0
+FNF:5
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Factories\CommandFactory.cs
+FN:21,BankHSE.Domain.Abstractions.ICommand BankHSE.Application.Factories.CommandFactory::CreateBankAccountCommand(System.String,System.Decimal)
+FNDA:2,BankHSE.Domain.Abstractions.ICommand BankHSE.Application.Factories.CommandFactory::CreateBankAccountCommand(System.String,System.Decimal)
+DA:22,2
+DA:23,2
+DA:24,2
+DA:25,2
+FN:27,BankHSE.Domain.Abstractions.ICommand BankHSE.Application.Factories.CommandFactory::CreateCategoryCommand(BankHSE.Domain.Enums.TransactionType,System.String)
+FNDA:1,BankHSE.Domain.Abstractions.ICommand BankHSE.Application.Factories.CommandFactory::CreateCategoryCommand(BankHSE.Domain.Enums.TransactionType,System.String)
+DA:28,1
+DA:29,1
+DA:30,1
+DA:31,1
+FN:34,BankHSE.Domain.Abstractions.ICommand BankHSE.Application.Factories.CommandFactory::CreateOperationCommand(BankHSE.Domain.Enums.TransactionType,System.Guid,System.Decimal,System.DateTime,System.String,System.Guid)
+FNDA:2,BankHSE.Domain.Abstractions.ICommand BankHSE.Application.Factories.CommandFactory::CreateOperationCommand(BankHSE.Domain.Enums.TransactionType,System.Guid,System.Decimal,System.DateTime,System.String,System.Guid)
+DA:35,2
+DA:36,2
+DA:37,2
+DA:38,2
+FN:40,BankHSE.Domain.Abstractions.ICommand BankHSE.Application.Factories.CommandFactory::CreateTimedCommand(BankHSE.Domain.Abstractions.ICommand)
+FNDA:0,BankHSE.Domain.Abstractions.ICommand BankHSE.Application.Factories.CommandFactory::CreateTimedCommand(BankHSE.Domain.Abstractions.ICommand)
+DA:41,0
+DA:42,0
+DA:43,0
+FN:13,System.Void BankHSE.Application.Factories.CommandFactory::.ctor(BankHSE.Application.Facades.BankAccountFacade,BankHSE.Application.Facades.CategoryFacade,BankHSE.Application.Facades.OperationFacade)
+FNDA:5,System.Void BankHSE.Application.Factories.CommandFactory::.ctor(BankHSE.Application.Facades.BankAccountFacade,BankHSE.Application.Facades.CategoryFacade,BankHSE.Application.Facades.OperationFacade)
+DA:14,5
+DA:15,5
+DA:16,5
+DA:17,5
+DA:18,5
+DA:19,5
+BRDA:16,11,0,0
+BRDA:16,11,1,5
+BRDA:17,33,0,0
+BRDA:17,33,1,5
+BRDA:18,55,0,0
+BRDA:18,55,1,5
+LF:21
+LH:18
+BRF:6
+BRH:3
+FNF:5
+FNH:4
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Factories\CoreEntitiesFactory.cs
+FN:8,BankHSE.Domain.Entities.BankAccount BankHSE.Application.Factories.CoreEntitiesFactory::CreateBankAccount(System.String,System.Decimal)
+FNDA:17,BankHSE.Domain.Entities.BankAccount BankHSE.Application.Factories.CoreEntitiesFactory::CreateBankAccount(System.String,System.Decimal)
+DA:9,17
+DA:10,17
+DA:11,2
+DA:12,15
+DA:13,0
+DA:14,15
+DA:15,15
+BRDA:10,14,0,2
+BRDA:10,14,1,15
+BRDA:12,35,0,0
+BRDA:12,35,1,15
+FN:16,BankHSE.Domain.Entities.BankAccount BankHSE.Application.Factories.CoreEntitiesFactory::CreateBankAccount(System.Guid,System.String,System.Decimal)
+FNDA:2,BankHSE.Domain.Entities.BankAccount BankHSE.Application.Factories.CoreEntitiesFactory::CreateBankAccount(System.Guid,System.String,System.Decimal)
+DA:17,2
+FN:18,BankHSE.Domain.Entities.Category BankHSE.Application.Factories.CoreEntitiesFactory::CreateCategory(BankHSE.Domain.Enums.TransactionType,System.String)
+FNDA:8,BankHSE.Domain.Entities.Category BankHSE.Application.Factories.CoreEntitiesFactory::CreateCategory(BankHSE.Domain.Enums.TransactionType,System.String)
+DA:19,8
+FN:19,BankHSE.Domain.Entities.Category BankHSE.Application.Factories.CoreEntitiesFactory::CreateCategory(System.Guid,BankHSE.Domain.Enums.TransactionType,System.String)
+FNDA:0,BankHSE.Domain.Entities.Category BankHSE.Application.Factories.CoreEntitiesFactory::CreateCategory(System.Guid,BankHSE.Domain.Enums.TransactionType,System.String)
+DA:20,0
+FN:23,BankHSE.Domain.Entities.Operation BankHSE.Application.Factories.CoreEntitiesFactory::CreateOperation(BankHSE.Domain.Enums.TransactionType,BankHSE.Domain.Entities.BankAccount,System.Decimal,System.DateTime,System.String,BankHSE.Domain.Entities.Category)
+FNDA:5,BankHSE.Domain.Entities.Operation BankHSE.Application.Factories.CoreEntitiesFactory::CreateOperation(BankHSE.Domain.Enums.TransactionType,BankHSE.Domain.Entities.BankAccount,System.Decimal,System.DateTime,System.String,BankHSE.Domain.Entities.Category)
+DA:24,5
+DA:25,5
+DA:26,0
+DA:27,5
+DA:28,0
+DA:29,5
+DA:30,5
+BRDA:25,14,0,0
+BRDA:25,14,1,5
+BRDA:27,28,0,5
+BRDA:27,28,1,0
+BRDA:27,40,0,0
+BRDA:27,40,1,5
+FN:33,BankHSE.Domain.Entities.Operation BankHSE.Application.Factories.CoreEntitiesFactory::CreateOperation(System.Guid,BankHSE.Domain.Enums.TransactionType,BankHSE.Domain.Entities.BankAccount,System.Decimal,System.DateTime,System.String,BankHSE.Domain.Entities.Category)
+FNDA:0,BankHSE.Domain.Entities.Operation BankHSE.Application.Factories.CoreEntitiesFactory::CreateOperation(System.Guid,BankHSE.Domain.Enums.TransactionType,BankHSE.Domain.Entities.BankAccount,System.Decimal,System.DateTime,System.String,BankHSE.Domain.Entities.Category)
+DA:34,0
+LF:18
+LH:13
+BRF:10
+BRH:6
+FNF:6
+FNH:4
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Facades\BankAccountFacade.cs
+FN:23,BankHSE.Domain.Entities.BankAccount BankHSE.Application.Facades.BankAccountFacade::CreateAccount(System.String,System.Decimal)
+FNDA:12,BankHSE.Domain.Entities.BankAccount BankHSE.Application.Facades.BankAccountFacade::CreateAccount(System.String,System.Decimal)
+DA:24,12
+DA:25,12
+DA:26,11
+DA:27,11
+DA:28,11
+FN:30,BankHSE.Domain.Entities.BankAccount BankHSE.Application.Facades.BankAccountFacade::GetAccountById(System.Guid)
+FNDA:11,BankHSE.Domain.Entities.BankAccount BankHSE.Application.Facades.BankAccountFacade::GetAccountById(System.Guid)
+DA:31,11
+DA:32,11
+DA:33,11
+DA:34,11
+BRDA:32,14,0,0
+BRDA:32,14,1,11
+FN:36,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.BankAccount> BankHSE.Application.Facades.BankAccountFacade::GetAllAccounts()
+FNDA:0,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.BankAccount> BankHSE.Application.Facades.BankAccountFacade::GetAllAccounts()
+DA:37,0
+DA:38,0
+DA:39,0
+FN:41,System.Void BankHSE.Application.Facades.BankAccountFacade::UpdateAccountById(System.Guid,System.String)
+FNDA:1,System.Void BankHSE.Application.Facades.BankAccountFacade::UpdateAccountById(System.Guid,System.String)
+DA:42,1
+DA:43,1
+DA:44,1
+DA:45,1
+DA:46,1
+FN:48,System.Void BankHSE.Application.Facades.BankAccountFacade::IncreaseBalanceById(System.Guid,System.Decimal)
+FNDA:0,System.Void BankHSE.Application.Facades.BankAccountFacade::IncreaseBalanceById(System.Guid,System.Decimal)
+DA:49,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:53,0
+FN:55,System.Void BankHSE.Application.Facades.BankAccountFacade::DecreaseBalanceById(System.Guid,System.Decimal)
+FNDA:0,System.Void BankHSE.Application.Facades.BankAccountFacade::DecreaseBalanceById(System.Guid,System.Decimal)
+DA:56,0
+DA:57,0
+DA:58,0
+DA:59,0
+DA:60,0
+FN:62,System.Void BankHSE.Application.Facades.BankAccountFacade::DeleteAccountById(System.Guid)
+FNDA:1,System.Void BankHSE.Application.Facades.BankAccountFacade::DeleteAccountById(System.Guid)
+DA:63,1
+DA:64,1
+DA:65,1
+FN:67,System.Void BankHSE.Application.Facades.BankAccountFacade::RecalculateBalance(System.Guid)
+FNDA:5,System.Void BankHSE.Application.Facades.BankAccountFacade::RecalculateBalance(System.Guid)
+DA:68,5
+DA:69,5
+DA:70,11
+DA:72,5
+DA:73,27
+DA:74,6
+DA:75,6
+DA:76,3
+DA:78,3
+DA:79,6
+DA:81,5
+DA:82,5
+DA:83,5
+BRDA:73,144,1,6
+BRDA:75,104,0,3
+BRDA:75,104,1,3
+BRDA:73,144,0,5
+FN:12,System.Void BankHSE.Application.Facades.BankAccountFacade::.ctor(BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>,BankHSE.Application.Factories.CoreEntitiesFactory)
+FNDA:13,System.Void BankHSE.Application.Facades.BankAccountFacade::.ctor(BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>,BankHSE.Application.Factories.CoreEntitiesFactory)
+DA:13,13
+DA:14,13
+DA:15,13
+DA:16,13
+DA:17,13
+DA:18,13
+DA:19,13
+DA:20,13
+DA:21,13
+BRDA:18,11,0,0
+BRDA:18,11,1,13
+BRDA:19,33,0,0
+BRDA:19,33,1,13
+BRDA:20,55,0,0
+BRDA:20,55,1,13
+LF:52
+LH:39
+BRF:12
+BRH:8
+FNF:9
+FNH:6
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Facades\CategoryFacade.cs
+FN:19,BankHSE.Domain.Entities.Category BankHSE.Application.Facades.CategoryFacade::CreateCategory(BankHSE.Domain.Enums.TransactionType,System.String)
+FNDA:6,BankHSE.Domain.Entities.Category BankHSE.Application.Facades.CategoryFacade::CreateCategory(BankHSE.Domain.Enums.TransactionType,System.String)
+DA:20,6
+DA:21,6
+DA:22,6
+DA:23,6
+DA:24,6
+FN:26,BankHSE.Domain.Entities.Category BankHSE.Application.Facades.CategoryFacade::GetCategoryById(System.Guid)
+FNDA:2,BankHSE.Domain.Entities.Category BankHSE.Application.Facades.CategoryFacade::GetCategoryById(System.Guid)
+DA:27,2
+DA:28,2
+DA:29,2
+DA:30,2
+BRDA:28,14,0,0
+BRDA:28,14,1,2
+FN:32,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.Category> BankHSE.Application.Facades.CategoryFacade::GetAllCategories()
+FNDA:0,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.Category> BankHSE.Application.Facades.CategoryFacade::GetAllCategories()
+DA:33,0
+DA:34,0
+DA:35,0
+FN:37,System.Void BankHSE.Application.Facades.CategoryFacade::UpdateCategoryById(System.Guid,System.Nullable`1<BankHSE.Domain.Enums.TransactionType>,System.String)
+FNDA:1,System.Void BankHSE.Application.Facades.CategoryFacade::UpdateCategoryById(System.Guid,System.Nullable`1<BankHSE.Domain.Enums.TransactionType>,System.String)
+DA:38,1
+DA:39,1
+DA:41,1
+DA:42,2
+DA:44,1
+DA:45,1
+BRDA:41,18,0,0
+BRDA:41,18,1,1
+BRDA:42,40,0,1
+BRDA:42,40,1,1
+FN:47,System.Void BankHSE.Application.Facades.CategoryFacade::DeleteCategoryById(System.Guid)
+FNDA:1,System.Void BankHSE.Application.Facades.CategoryFacade::DeleteCategoryById(System.Guid)
+DA:48,1
+DA:49,1
+DA:50,1
+FN:12,System.Void BankHSE.Application.Facades.CategoryFacade::.ctor(BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Application.Factories.CoreEntitiesFactory)
+FNDA:8,System.Void BankHSE.Application.Facades.CategoryFacade::.ctor(BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Application.Factories.CoreEntitiesFactory)
+DA:13,8
+DA:14,8
+DA:15,8
+DA:16,8
+DA:17,8
+BRDA:15,11,0,0
+BRDA:15,11,1,8
+BRDA:16,33,0,0
+BRDA:16,33,1,8
+LF:26
+LH:23
+BRF:10
+BRH:6
+FNF:6
+FNH:5
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Facades\OperationFacade.cs
+FN:31,BankHSE.Domain.Entities.Operation BankHSE.Application.Facades.OperationFacade::CreateOperation(BankHSE.Domain.Enums.TransactionType,System.Guid,System.Decimal,System.DateTime,System.String,System.Guid)
+FNDA:5,BankHSE.Domain.Entities.Operation BankHSE.Application.Facades.OperationFacade::CreateOperation(BankHSE.Domain.Enums.TransactionType,System.Guid,System.Decimal,System.DateTime,System.String,System.Guid)
+DA:32,5
+DA:33,5
+DA:34,5
+DA:35,5
+DA:36,5
+DA:38,5
+DA:39,1
+DA:41,4
+DA:42,4
+DA:43,4
+DA:44,4
+DA:45,4
+DA:46,4
+DA:47,4
+BRDA:33,14,0,0
+BRDA:33,14,1,5
+BRDA:35,90,0,0
+BRDA:35,90,1,5
+BRDA:38,169,0,1
+BRDA:38,169,1,4
+FN:48,BankHSE.Domain.Entities.Operation BankHSE.Application.Facades.OperationFacade::GetById(System.Guid)
+FNDA:1,BankHSE.Domain.Entities.Operation BankHSE.Application.Facades.OperationFacade::GetById(System.Guid)
+DA:49,1
+FN:51,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.Operation> BankHSE.Application.Facades.OperationFacade::GetByAccountId(System.Guid)
+FNDA:1,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.Operation> BankHSE.Application.Facades.OperationFacade::GetByAccountId(System.Guid)
+DA:52,1
+DA:53,1
+DA:54,1
+DA:55,2
+DA:56,1
+BRDA:53,32,0,0
+BRDA:53,32,1,1
+FN:57,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.Operation> BankHSE.Application.Facades.OperationFacade::GetAll()
+FNDA:0,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Entities.Operation> BankHSE.Application.Facades.OperationFacade::GetAll()
+DA:58,0
+FN:60,System.Void BankHSE.Application.Facades.OperationFacade::UpdateOperationById(System.Guid,System.String)
+FNDA:1,System.Void BankHSE.Application.Facades.OperationFacade::UpdateOperationById(System.Guid,System.String)
+DA:61,1
+DA:62,1
+DA:63,1
+DA:64,1
+DA:65,1
+DA:66,1
+BRDA:62,14,0,0
+BRDA:62,14,1,1
+FN:67,System.Void BankHSE.Application.Facades.OperationFacade::Delete(System.Guid)
+FNDA:0,System.Void BankHSE.Application.Facades.OperationFacade::Delete(System.Guid)
+DA:68,0
+FN:15,System.Void BankHSE.Application.Facades.OperationFacade::.ctor(BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Application.Factories.CoreEntitiesFactory,BankHSE.Application.Facades.BankAccountFacade)
+FNDA:8,System.Void BankHSE.Application.Facades.OperationFacade::.ctor(BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Application.Factories.CoreEntitiesFactory,BankHSE.Application.Facades.BankAccountFacade)
+DA:16,8
+DA:17,8
+DA:18,8
+DA:19,8
+DA:20,8
+DA:21,8
+DA:22,8
+DA:23,8
+DA:24,8
+DA:25,8
+DA:26,8
+DA:27,8
+DA:28,8
+BRDA:23,11,0,0
+BRDA:23,11,1,8
+BRDA:24,33,0,0
+BRDA:24,33,1,8
+BRDA:25,55,0,0
+BRDA:25,55,1,8
+BRDA:26,78,0,0
+BRDA:26,78,1,8
+BRDA:27,101,0,0
+BRDA:27,101,1,8
+LF:41
+LH:39
+BRF:20
+BRH:11
+FNF:7
+FNH:5
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Export\CoreEntitiesAggregator.cs
+FN:20,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Abstractions.ICoreEntityVisitable> BankHSE.Application.Export.CoreEntitiesAggregator::GetAll()
+FNDA:2,System.Collections.Generic.IEnumerable`1<BankHSE.Domain.Abstractions.ICoreEntityVisitable> BankHSE.Application.Export.CoreEntitiesAggregator::GetAll()
+DA:21,2
+DA:22,2
+DA:23,2
+DA:24,2
+DA:25,2
+FN:11,System.Void BankHSE.Application.Export.CoreEntitiesAggregator::.ctor(BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>)
+FNDA:2,System.Void BankHSE.Application.Export.CoreEntitiesAggregator::.ctor(BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Category>,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.Operation>)
+DA:12,2
+DA:13,2
+DA:14,2
+DA:15,2
+DA:16,2
+DA:17,2
+DA:18,2
+LF:12
+LH:12
+BRF:0
+BRH:0
+FNF:2
+FNH:2
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Export\CsvExporter.cs
+FN:16,System.Void BankHSE.Application.Export.CsvExporter::FormatData()
+FNDA:0,System.Void BankHSE.Application.Export.CsvExporter::FormatData()
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:22,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:43,0
+DA:44,0
+BRDA:19,48,1,0
+BRDA:19,48,0,0
+BRDA:27,225,1,0
+BRDA:27,225,0,0
+BRDA:33,400,1,0
+BRDA:33,400,0,0
+BRDA:39,690,1,0
+BRDA:39,690,0,0
+FN:46,System.Void BankHSE.Application.Export.CsvExporter::Write(System.IO.Stream)
+FNDA:0,System.Void BankHSE.Application.Export.CsvExporter::Write(System.IO.Stream)
+DA:47,0
+DA:48,0
+DA:49,0
+DA:50,0
+FN:52,System.String BankHSE.Application.Export.CsvExporter::EscapeCsv(System.String)
+FNDA:0,System.String BankHSE.Application.Export.CsvExporter::EscapeCsv(System.String)
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+BRDA:54,9,0,0
+BRDA:54,9,1,0
+BRDA:55,30,0,0
+BRDA:55,43,0,0
+BRDA:55,30,1,0
+BRDA:55,43,1,0
+BRDA:55,61,0,0
+BRDA:55,61,1,0
+FN:11,System.Void BankHSE.Application.Export.CsvExporter::.ctor(BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+FNDA:0,System.Void BankHSE.Application.Export.CsvExporter::.ctor(BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+DA:12,0
+DA:13,0
+DA:14,0
+FN:62,System.Collections.Generic.List`1<System.ValueTuple`3<System.Guid,System.String,System.Decimal>> BankHSE.Application.Export.CsvExportVisitor::get_Accounts()
+FNDA:0,System.Collections.Generic.List`1<System.ValueTuple`3<System.Guid,System.String,System.Decimal>> BankHSE.Application.Export.CsvExportVisitor::get_Accounts()
+DA:63,0
+FN:63,System.Collections.Generic.List`1<System.ValueTuple`3<System.Guid,BankHSE.Domain.Enums.TransactionType,System.String>> BankHSE.Application.Export.CsvExportVisitor::get_Categories()
+FNDA:0,System.Collections.Generic.List`1<System.ValueTuple`3<System.Guid,BankHSE.Domain.Enums.TransactionType,System.String>> BankHSE.Application.Export.CsvExportVisitor::get_Categories()
+DA:64,0
+FN:66,System.Collections.Generic.List`1<System.ValueTuple`7<System.Guid,BankHSE.Domain.Enums.TransactionType,System.Guid,System.Decimal,System.DateTime,System.String,System.Guid>> BankHSE.Application.Export.CsvExportVisitor::get_Operations()
+FNDA:0,System.Collections.Generic.List`1<System.ValueTuple`7<System.Guid,BankHSE.Domain.Enums.TransactionType,System.Guid,System.Decimal,System.DateTime,System.String,System.Guid>> BankHSE.Application.Export.CsvExportVisitor::get_Operations()
+DA:67,0
+FN:68,System.Void BankHSE.Application.Export.CsvExportVisitor::Visit(BankHSE.Domain.Entities.BankAccount)
+FNDA:0,System.Void BankHSE.Application.Export.CsvExportVisitor::Visit(BankHSE.Domain.Entities.BankAccount)
+DA:69,0
+FN:69,System.Void BankHSE.Application.Export.CsvExportVisitor::Visit(BankHSE.Domain.Entities.Category)
+FNDA:0,System.Void BankHSE.Application.Export.CsvExportVisitor::Visit(BankHSE.Domain.Entities.Category)
+DA:70,0
+FN:71,System.Void BankHSE.Application.Export.CsvExportVisitor::Visit(BankHSE.Domain.Entities.Operation)
+FNDA:0,System.Void BankHSE.Application.Export.CsvExportVisitor::Visit(BankHSE.Domain.Entities.Operation)
+DA:72,0
+DA:73,0
+LF:40
+LH:0
+BRF:16
+BRH:0
+FNF:10
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Export\Exporter.cs
+FN:14,System.Void BankHSE.Application.Export.Exporter::Export(System.String)
+FNDA:0,System.Void BankHSE.Application.Export.Exporter::Export(System.String)
+DA:15,0
+DA:16,0
+DA:18,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+FN:29,System.IO.Stream BankHSE.Application.Export.Exporter::OpenWriter(System.String)
+FNDA:0,System.IO.Stream BankHSE.Application.Export.Exporter::OpenWriter(System.String)
+DA:30,0
+DA:32,0
+DA:33,0
+DA:35,0
+DA:36,0
+DA:38,0
+DA:40,0
+FN:8,System.Void BankHSE.Application.Export.Exporter::.ctor(BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+FNDA:0,System.Void BankHSE.Application.Export.Exporter::.ctor(BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+DA:9,0
+DA:10,0
+DA:11,0
+DA:12,0
+LF:21
+LH:0
+BRF:0
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Export\JsonExporter.cs
+FN:16,System.Void BankHSE.Application.Export.JsonExporter::FormatData()
+FNDA:0,System.Void BankHSE.Application.Export.JsonExporter::FormatData()
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+BRDA:19,48,1,0
+BRDA:19,48,0,0
+FN:36,System.Void BankHSE.Application.Export.JsonExporter::Write(System.IO.Stream)
+FNDA:0,System.Void BankHSE.Application.Export.JsonExporter::Write(System.IO.Stream)
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+FN:11,System.Void BankHSE.Application.Export.JsonExporter::.ctor(BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+FNDA:0,System.Void BankHSE.Application.Export.JsonExporter::.ctor(BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+DA:12,0
+DA:13,0
+DA:14,0
+FN:44,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Export.JsonExportVisitor::get_Accounts()
+FNDA:0,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Export.JsonExportVisitor::get_Accounts()
+DA:45,0
+FN:45,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Export.JsonExportVisitor::get_Categories()
+FNDA:0,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Export.JsonExportVisitor::get_Categories()
+DA:46,0
+FN:46,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Export.JsonExportVisitor::get_Operations()
+FNDA:0,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Export.JsonExportVisitor::get_Operations()
+DA:47,0
+FN:49,System.Void BankHSE.Application.Export.JsonExportVisitor::Visit(BankHSE.Domain.Entities.BankAccount)
+FNDA:0,System.Void BankHSE.Application.Export.JsonExportVisitor::Visit(BankHSE.Domain.Entities.BankAccount)
+DA:50,0
+FN:51,System.Void BankHSE.Application.Export.JsonExportVisitor::Visit(BankHSE.Domain.Entities.Category)
+FNDA:0,System.Void BankHSE.Application.Export.JsonExportVisitor::Visit(BankHSE.Domain.Entities.Category)
+DA:52,0
+FN:53,System.Void BankHSE.Application.Export.JsonExportVisitor::Visit(BankHSE.Domain.Entities.Operation)
+FNDA:0,System.Void BankHSE.Application.Export.JsonExportVisitor::Visit(BankHSE.Domain.Entities.Operation)
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+LF:35
+LH:0
+BRF:2
+BRH:0
+FNF:9
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Export\YamlExporter.cs
+FN:15,System.Void BankHSE.Application.Export.YamlExporter::FormatData()
+FNDA:0,System.Void BankHSE.Application.Export.YamlExporter::FormatData()
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+BRDA:18,48,1,0
+BRDA:18,48,0,0
+FN:33,System.Void BankHSE.Application.Export.YamlExporter::Write(System.IO.Stream)
+FNDA:0,System.Void BankHSE.Application.Export.YamlExporter::Write(System.IO.Stream)
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+FN:10,System.Void BankHSE.Application.Export.YamlExporter::.ctor(BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+FNDA:0,System.Void BankHSE.Application.Export.YamlExporter::.ctor(BankHSE.Domain.Abstractions.ICoreEntitiesAggregator)
+DA:11,0
+DA:12,0
+DA:13,0
+FN:41,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Export.YamlExportVisitor::get_Accounts()
+FNDA:0,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Export.YamlExportVisitor::get_Accounts()
+DA:42,0
+FN:42,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Export.YamlExportVisitor::get_Categories()
+FNDA:0,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Export.YamlExportVisitor::get_Categories()
+DA:43,0
+FN:43,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Export.YamlExportVisitor::get_Operations()
+FNDA:0,System.Collections.Generic.List`1<System.Object> BankHSE.Application.Export.YamlExportVisitor::get_Operations()
+DA:44,0
+FN:46,System.Void BankHSE.Application.Export.YamlExportVisitor::Visit(BankHSE.Domain.Entities.BankAccount)
+FNDA:0,System.Void BankHSE.Application.Export.YamlExportVisitor::Visit(BankHSE.Domain.Entities.BankAccount)
+DA:47,0
+FN:48,System.Void BankHSE.Application.Export.YamlExportVisitor::Visit(BankHSE.Domain.Entities.Category)
+FNDA:0,System.Void BankHSE.Application.Export.YamlExportVisitor::Visit(BankHSE.Domain.Entities.Category)
+DA:49,0
+FN:50,System.Void BankHSE.Application.Export.YamlExportVisitor::Visit(BankHSE.Domain.Entities.Operation)
+FNDA:0,System.Void BankHSE.Application.Export.YamlExportVisitor::Visit(BankHSE.Domain.Entities.Operation)
+DA:51,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:55,0
+LF:31
+LH:0
+BRF:2
+BRH:0
+FNF:9
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Commands\CreateBankAccountCommand.cs
+FN:18,System.Void BankHSE.Application.Commands.CreateBankAccountCommand::Execute()
+FNDA:2,System.Void BankHSE.Application.Commands.CreateBankAccountCommand::Execute()
+DA:19,2
+FN:11,System.Void BankHSE.Application.Commands.CreateBankAccountCommand::.ctor(BankHSE.Application.Facades.BankAccountFacade,System.String,System.Decimal)
+FNDA:2,System.Void BankHSE.Application.Commands.CreateBankAccountCommand::.ctor(BankHSE.Application.Facades.BankAccountFacade,System.String,System.Decimal)
+DA:12,2
+DA:13,2
+DA:14,2
+DA:15,2
+DA:16,2
+DA:17,2
+LF:7
+LH:7
+BRF:0
+BRH:0
+FNF:2
+FNH:2
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Commands\CreateCategoryCommand.cs
+FN:19,System.Void BankHSE.Application.Commands.CreateCategoryCommand::Execute()
+FNDA:1,System.Void BankHSE.Application.Commands.CreateCategoryCommand::Execute()
+DA:20,1
+FN:12,System.Void BankHSE.Application.Commands.CreateCategoryCommand::.ctor(BankHSE.Application.Facades.CategoryFacade,System.String,BankHSE.Domain.Enums.TransactionType)
+FNDA:1,System.Void BankHSE.Application.Commands.CreateCategoryCommand::.ctor(BankHSE.Application.Facades.CategoryFacade,System.String,BankHSE.Domain.Enums.TransactionType)
+DA:13,1
+DA:14,1
+DA:15,1
+DA:16,1
+DA:17,1
+DA:18,1
+LF:7
+LH:7
+BRF:0
+BRH:0
+FNF:2
+FNH:2
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Commands\CreateOperationCommand.cs
+FN:28,System.Void BankHSE.Application.Commands.CreateOperationCommand::Execute()
+FNDA:2,System.Void BankHSE.Application.Commands.CreateOperationCommand::Execute()
+DA:29,2
+FN:16,System.Void BankHSE.Application.Commands.CreateOperationCommand::.ctor(BankHSE.Application.Facades.OperationFacade,BankHSE.Domain.Enums.TransactionType,System.Guid,System.Decimal,System.DateTime,System.String,System.Guid)
+FNDA:2,System.Void BankHSE.Application.Commands.CreateOperationCommand::.ctor(BankHSE.Application.Facades.OperationFacade,BankHSE.Domain.Enums.TransactionType,System.Guid,System.Decimal,System.DateTime,System.String,System.Guid)
+DA:17,2
+DA:18,2
+DA:19,2
+DA:20,2
+DA:21,2
+DA:22,2
+DA:23,2
+DA:24,2
+DA:25,2
+DA:26,2
+DA:27,2
+LF:12
+LH:12
+BRF:0
+BRH:0
+FNF:2
+FNH:2
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Commands\TimingCommand.cs
+FN:7,System.TimeSpan BankHSE.Application.Commands.TimingCommand::get_Duration()
+FNDA:6,System.TimeSpan BankHSE.Application.Commands.TimingCommand::get_Duration()
+DA:8,6
+FN:12,System.Void BankHSE.Application.Commands.TimingCommand::Execute()
+FNDA:5,System.Void BankHSE.Application.Commands.TimingCommand::Execute()
+DA:13,5
+DA:14,5
+DA:15,5
+DA:16,3
+DA:17,3
+DA:18,3
+FN:9,System.Void BankHSE.Application.Commands.TimingCommand::.ctor(BankHSE.Domain.Abstractions.ICommand)
+FNDA:10,System.Void BankHSE.Application.Commands.TimingCommand::.ctor(BankHSE.Domain.Abstractions.ICommand)
+DA:10,10
+LF:8
+LH:8
+BRF:0
+BRH:0
+FNF:3
+FNH:3
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Application\Analytics\AnalyticsService.cs
+FN:22,System.Decimal BankHSE.Application.Analytics.AnalyticsService::GetDifferenceByAccountId(System.Guid,System.DateTime,System.DateTime)
+FNDA:0,System.Decimal BankHSE.Application.Analytics.AnalyticsService::GetDifferenceByAccountId(System.Guid,System.DateTime,System.DateTime)
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+BRDA:25,6,0,0
+BRDA:25,25,0,0
+BRDA:25,6,1,0
+BRDA:25,25,1,0
+BRDA:28,7,0,0
+BRDA:28,26,0,0
+BRDA:28,7,1,0
+BRDA:28,26,1,0
+FN:33,System.Collections.Generic.Dictionary`2<System.Guid,System.Decimal> BankHSE.Application.Analytics.AnalyticsService::GroupOperationsByCategory(System.Guid,System.DateTime,System.DateTime)
+FNDA:0,System.Collections.Generic.Dictionary`2<System.Guid,System.Decimal> BankHSE.Application.Analytics.AnalyticsService::GroupOperationsByCategory(System.Guid,System.DateTime,System.DateTime)
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+DA:48,0
+BRDA:37,169,1,0
+BRDA:39,56,0,0
+BRDA:39,56,1,0
+BRDA:39,77,0,0
+BRDA:41,96,0,0
+BRDA:41,96,1,0
+BRDA:39,77,1,0
+BRDA:37,169,0,0
+FN:51,System.Collections.Generic.List`1<System.ValueTuple`2<BankHSE.Domain.Entities.Category,System.Decimal>> BankHSE.Application.Analytics.AnalyticsService::GetTopCategoriesByAmount(System.Guid,System.DateTime,System.DateTime,System.Int32)
+FNDA:0,System.Collections.Generic.List`1<System.ValueTuple`2<BankHSE.Domain.Entities.Category,System.Decimal>> BankHSE.Application.Analytics.AnalyticsService::GetTopCategoriesByAmount(System.Guid,System.DateTime,System.DateTime,System.Int32)
+DA:52,0
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:59,0
+DA:60,0
+DA:61,0
+BRDA:54,17,0,0
+BRDA:54,17,1,0
+FN:63,System.Decimal BankHSE.Application.Analytics.AnalyticsService::GetAverageOperationAmountByCategory(System.Guid,System.Guid,System.DateTime,System.DateTime)
+FNDA:0,System.Decimal BankHSE.Application.Analytics.AnalyticsService::GetAverageOperationAmountByCategory(System.Guid,System.Guid,System.DateTime,System.DateTime)
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:69,0
+BRDA:68,70,0,0
+BRDA:68,70,1,0
+BRDA:66,17,0,0
+BRDA:66,36,0,0
+BRDA:66,17,1,0
+BRDA:66,36,1,0
+FN:13,System.Void BankHSE.Application.Analytics.AnalyticsService::.ctor(BankHSE.Application.Facades.OperationFacade,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Application.Facades.CategoryFacade)
+FNDA:0,System.Void BankHSE.Application.Analytics.AnalyticsService::.ctor(BankHSE.Application.Facades.OperationFacade,BankHSE.Domain.Abstractions.IRepository`1<BankHSE.Domain.Entities.BankAccount>,BankHSE.Application.Facades.CategoryFacade)
+DA:14,0
+DA:15,0
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+LF:46
+LH:0
+BRF:24
+BRH:0
+FNF:5
+FNH:0
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Domain\Entities\BankAccount.cs
+FN:7,System.Guid BankHSE.Domain.Entities.BankAccount::get_Id()
+FNDA:99,System.Guid BankHSE.Domain.Entities.BankAccount::get_Id()
+DA:8,99
+FN:8,System.String BankHSE.Domain.Entities.BankAccount::get_Name()
+FNDA:36,System.String BankHSE.Domain.Entities.BankAccount::get_Name()
+DA:9,36
+FN:9,System.Decimal BankHSE.Domain.Entities.BankAccount::get_Balance()
+FNDA:56,System.Decimal BankHSE.Domain.Entities.BankAccount::get_Balance()
+DA:10,56
+FN:23,System.Void BankHSE.Domain.Entities.BankAccount::ApplyOperation(BankHSE.Domain.Entities.Operation)
+FNDA:4,System.Void BankHSE.Domain.Entities.BankAccount::ApplyOperation(BankHSE.Domain.Entities.Operation)
+DA:24,4
+DA:25,4
+DA:26,0
+DA:27,4
+DA:28,2
+DA:30,2
+DA:31,4
+BRDA:25,20,0,0
+BRDA:25,20,1,4
+BRDA:27,44,0,2
+BRDA:27,44,1,2
+FN:32,System.Void BankHSE.Domain.Entities.BankAccount::IncreaseBalance(System.Decimal)
+FNDA:7,System.Void BankHSE.Domain.Entities.BankAccount::IncreaseBalance(System.Decimal)
+DA:33,7
+FN:33,System.Void BankHSE.Domain.Entities.BankAccount::DecreaseBalance(System.Decimal)
+FNDA:2,System.Void BankHSE.Domain.Entities.BankAccount::DecreaseBalance(System.Decimal)
+DA:34,2
+FN:34,System.Void BankHSE.Domain.Entities.BankAccount::UpdateAccountName(System.String)
+FNDA:3,System.Void BankHSE.Domain.Entities.BankAccount::UpdateAccountName(System.String)
+DA:35,3
+FN:36,System.Void BankHSE.Domain.Entities.BankAccount::Accept(BankHSE.Domain.Abstractions.ICoreEntityVisitor)
+FNDA:2,System.Void BankHSE.Domain.Entities.BankAccount::Accept(BankHSE.Domain.Abstractions.ICoreEntityVisitor)
+DA:37,2
+FN:11,System.Void BankHSE.Domain.Entities.BankAccount::.ctor(System.Guid,System.String,System.Decimal)
+FNDA:23,System.Void BankHSE.Domain.Entities.BankAccount::.ctor(System.Guid,System.String,System.Decimal)
+DA:12,23
+DA:13,23
+DA:14,23
+DA:15,23
+DA:16,23
+DA:17,23
+FN:18,System.Void BankHSE.Domain.Entities.BankAccount::.ctor(System.String,System.Decimal)
+FNDA:21,System.Void BankHSE.Domain.Entities.BankAccount::.ctor(System.String,System.Decimal)
+DA:19,21
+DA:20,21
+DA:21,21
+LF:23
+LH:22
+BRF:4
+BRH:3
+FNF:10
+FNH:10
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Domain\Entities\Category.cs
+FN:7,System.Guid BankHSE.Domain.Entities.Category::get_Id()
+FNDA:27,System.Guid BankHSE.Domain.Entities.Category::get_Id()
+DA:8,27
+FN:8,BankHSE.Domain.Enums.TransactionType BankHSE.Domain.Entities.Category::get_Type()
+FNDA:19,BankHSE.Domain.Enums.TransactionType BankHSE.Domain.Entities.Category::get_Type()
+DA:9,19
+FN:9,System.String BankHSE.Domain.Entities.Category::get_Name()
+FNDA:16,System.String BankHSE.Domain.Entities.Category::get_Name()
+DA:10,16
+FN:22,System.Void BankHSE.Domain.Entities.Category::UpdateCategoryName(System.String)
+FNDA:1,System.Void BankHSE.Domain.Entities.Category::UpdateCategoryName(System.String)
+DA:23,1
+FN:23,System.Void BankHSE.Domain.Entities.Category::UpdateCategoryType(BankHSE.Domain.Enums.TransactionType)
+FNDA:0,System.Void BankHSE.Domain.Entities.Category::UpdateCategoryType(BankHSE.Domain.Enums.TransactionType)
+DA:24,0
+FN:25,System.Void BankHSE.Domain.Entities.Category::Accept(BankHSE.Domain.Abstractions.ICoreEntityVisitor)
+FNDA:0,System.Void BankHSE.Domain.Entities.Category::Accept(BankHSE.Domain.Abstractions.ICoreEntityVisitor)
+DA:26,0
+FN:11,System.Void BankHSE.Domain.Entities.Category::.ctor(System.Guid,BankHSE.Domain.Enums.TransactionType,System.String)
+FNDA:11,System.Void BankHSE.Domain.Entities.Category::.ctor(System.Guid,BankHSE.Domain.Enums.TransactionType,System.String)
+DA:12,11
+DA:13,11
+DA:14,11
+DA:15,11
+DA:16,11
+DA:17,11
+FN:18,System.Void BankHSE.Domain.Entities.Category::.ctor(BankHSE.Domain.Enums.TransactionType,System.String)
+FNDA:11,System.Void BankHSE.Domain.Entities.Category::.ctor(BankHSE.Domain.Enums.TransactionType,System.String)
+DA:19,11
+DA:20,11
+DA:21,11
+LF:15
+LH:13
+BRF:0
+BRH:0
+FNF:8
+FNH:6
+end_of_record
+SF:C:\Users\dumpl\RiderProjects\KPO\Homeworks\BankHSE\BankHSE.Domain\Entities\Operation.cs
+FN:7,System.Guid BankHSE.Domain.Entities.Operation::get_Id()
+FNDA:8,System.Guid BankHSE.Domain.Entities.Operation::get_Id()
+DA:8,8
+FN:8,BankHSE.Domain.Enums.TransactionType BankHSE.Domain.Entities.Operation::get_Type()
+FNDA:12,BankHSE.Domain.Enums.TransactionType BankHSE.Domain.Entities.Operation::get_Type()
+DA:9,12
+FN:9,System.Guid BankHSE.Domain.Entities.Operation::get_BankAccountId()
+FNDA:21,System.Guid BankHSE.Domain.Entities.Operation::get_BankAccountId()
+DA:10,21
+FN:10,System.Decimal BankHSE.Domain.Entities.Operation::get_Amount()
+FNDA:20,System.Decimal BankHSE.Domain.Entities.Operation::get_Amount()
+DA:11,20
+FN:11,System.DateTime BankHSE.Domain.Entities.Operation::get_Date()
+FNDA:7,System.DateTime BankHSE.Domain.Entities.Operation::get_Date()
+DA:12,7
+FN:12,System.String BankHSE.Domain.Entities.Operation::get_Description()
+FNDA:10,System.String BankHSE.Domain.Entities.Operation::get_Description()
+DA:13,10
+FN:13,System.Guid BankHSE.Domain.Entities.Operation::get_CategoryId()
+FNDA:10,System.Guid BankHSE.Domain.Entities.Operation::get_CategoryId()
+DA:14,10
+FN:35,System.Void BankHSE.Domain.Entities.Operation::UpdateOpeationDescription(System.String)
+FNDA:1,System.Void BankHSE.Domain.Entities.Operation::UpdateOpeationDescription(System.String)
+DA:36,1
+FN:37,System.Void BankHSE.Domain.Entities.Operation::Accept(BankHSE.Domain.Abstractions.ICoreEntityVisitor)
+FNDA:0,System.Void BankHSE.Domain.Entities.Operation::Accept(BankHSE.Domain.Abstractions.ICoreEntityVisitor)
+DA:38,0
+FN:15,System.Void BankHSE.Domain.Entities.Operation::.ctor(System.Guid,BankHSE.Domain.Enums.TransactionType,System.Guid,System.Decimal,System.DateTime,System.String,System.Guid)
+FNDA:7,System.Void BankHSE.Domain.Entities.Operation::.ctor(System.Guid,BankHSE.Domain.Enums.TransactionType,System.Guid,System.Decimal,System.DateTime,System.String,System.Guid)
+DA:16,7
+DA:17,7
+DA:18,7
+DA:19,7
+DA:20,0
+DA:21,7
+DA:22,7
+DA:23,7
+DA:24,7
+DA:25,7
+DA:26,7
+DA:27,7
+DA:28,7
+BRDA:19,22,0,0
+BRDA:19,22,1,7
+FN:31,System.Void BankHSE.Domain.Entities.Operation::.ctor(BankHSE.Domain.Enums.TransactionType,System.Guid,System.Decimal,System.DateTime,System.String,System.Guid)
+FNDA:7,System.Void BankHSE.Domain.Entities.Operation::.ctor(BankHSE.Domain.Enums.TransactionType,System.Guid,System.Decimal,System.DateTime,System.String,System.Guid)
+DA:32,7
+DA:33,7
+DA:34,7
+LF:25
+LH:23
+BRF:2
+BRH:1
+FNF:11
+FNH:10
+end_of_record

@@ -7,31 +7,34 @@ namespace BankHSE.Application.Factories;
 
 public class CommandFactory
 {
-    private readonly OperationFacade _operationFacade;
-    private readonly BankAccountFacade _bankAccountFacade;
-    private readonly CategoryFacade _categoryFacade;
+    private readonly BankAccountFacade _accFacade;
+    private readonly CategoryFacade _catFacade;
+    private readonly OperationFacade _opFacade;
 
-    public CommandFactory(OperationFacade operationFacade, BankAccountFacade bankAccountFacade, CategoryFacade categoryFacade)
+    public CommandFactory(BankAccountFacade accFacade, CategoryFacade catFacade, OperationFacade opFacade)
     {
-        _operationFacade = operationFacade;
-        _bankAccountFacade = bankAccountFacade;
-        _categoryFacade = categoryFacade;
+        _accFacade = accFacade ?? throw new ArgumentNullException(nameof(accFacade));
+        _catFacade = catFacade ?? throw new ArgumentNullException(nameof(catFacade));
+        _opFacade = opFacade ?? throw new ArgumentNullException(nameof(opFacade));
     }
 
     public ICommand CreateBankAccountCommand(string name, decimal balance)
     {
-        return new CreateBankAccountCommand(_bankAccountFacade, name, balance);
+        var command = new CreateBankAccountCommand(_accFacade, name, balance);
+        return new TimingCommand(command); // Оборачиваем в TimingCommand
     }
 
     public ICommand CreateCategoryCommand(TransactionType type, string name)
     {
-        return new CreateCategoryCommand(_categoryFacade, name, type);
+        var command = new CreateCategoryCommand(_catFacade, name, type);
+        return new TimingCommand(command); // Оборачиваем в TimingCommand
     }
 
-    public ICommand CreateOperationCommand(TransactionType type, Guid accountId, decimal amount, DateTime date,
-        string description, Guid categoryId)
+    public ICommand CreateOperationCommand(TransactionType type, Guid accId, decimal amount, DateTime date, string desc,
+        Guid catId)
     {
-        return new CreateOperationCommand(_operationFacade, type, accountId, amount, date, description, categoryId);
+        var command = new CreateOperationCommand(_opFacade, type, accId, amount, date, desc, catId);
+        return new TimingCommand(command); // Оборачиваем в TimingCommand
     }
 
     public ICommand CreateTimedCommand(ICommand innerCommand)

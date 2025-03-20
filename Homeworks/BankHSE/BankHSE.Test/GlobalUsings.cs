@@ -1,0 +1,12 @@
+global using Xunit;
+global using BankHSE.Application.Facades;
+global using BankHSE.Application.Factories;
+global using BankHSE.Application.Repositories;
+global using BankHSE.Application.Commands;
+global using BankHSE.Application.Export;
+global using BankHSE.Application.Import;
+global using BankHSE.Application.Analytics;
+global using BankHSE.Application.Strategy;
+global using BankHSE.Domain.Abstractions;
+global using BankHSE.Domain.Entities;
+global using BankHSE.Domain.Enums;
