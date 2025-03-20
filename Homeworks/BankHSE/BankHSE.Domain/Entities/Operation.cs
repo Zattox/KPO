@@ -30,6 +30,11 @@ public class Operation : IIdentifiable, ICoreEntityVisitable
         CategoryId = categoryId;
     }
 
+    public void UpdateOpeationDescription(string description)
+    {
+        Description = description;
+    }
+
     public void Accept(ICoreEntityVisitor visitor)
     {
         visitor.Visit(this);
