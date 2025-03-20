@@ -36,37 +36,24 @@ public class OperationFacade
         return operation;
     }
 
-    public Operation GetById(Guid operationId)
-    {
-        return _operationsRepository.GetById(operationId);
-    }
+    public Operation GetById(Guid operationId) => _operationsRepository.GetById(operationId);
 
     public IEnumerable<Operation> GetByAccountId(Guid accountId)
     {
         var account = _accountRepository.GetById(accountId) ??
                       throw new InvalidOperationException($"Account with id {accountId} was not found");
-
-        var allOperations = _operationsRepository.GetAll().ToList();
-        return allOperations.Where(o => o.BankAccountId == accountId);
+        return _operationsRepository.GetAll().Where(o => o.BankAccountId == accountId);
     }
 
-    public IEnumerable<Operation> GetAll()
-    {
-        return _operationsRepository.GetAll();
-    }
+    public IEnumerable<Operation> GetAll() => _operationsRepository.GetAll();
 
     public void UpdateOperationById(Guid operationId, string description)
     {
         var operation = _operationsRepository.GetById(operationId) ??
                         throw new InvalidOperationException($"Operation with id {operationId} was not found");
-
         operation.UpdateOpeationDescription(description);
-
         _operationsRepository.Update(operation);
     }
 
-    public void Delete(Guid id)
-    {
-        _operationsRepository.Delete(id);
-    }
+    public void Delete(Guid id) => _operationsRepository.Delete(id);
 }
