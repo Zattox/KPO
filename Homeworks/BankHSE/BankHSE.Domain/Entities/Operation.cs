@@ -13,15 +13,12 @@ public class Operation : IIdentifiable, ICoreEntityVisitable
     public string Description { get; private set; }
     public Guid CategoryId { get; private set; }
 
-    public Operation(TransactionType type, Guid bankAccountId, decimal amount, DateTime date, string description,
-        Guid categoryId)
+    public Operation(Guid id, TransactionType type, Guid bankAccountId, decimal amount, DateTime date,
+        string description, Guid categoryId)
     {
         if (amount <= 0)
-        {
             throw new ArgumentException("Amount must be positive.");
-        }
-
-        Id = Guid.NewGuid();
+        Id = id;
         Type = type;
         BankAccountId = bankAccountId;
         Amount = amount;
@@ -30,13 +27,13 @@ public class Operation : IIdentifiable, ICoreEntityVisitable
         CategoryId = categoryId;
     }
 
-    public void UpdateOpeationDescription(string description)
+    public Operation(TransactionType type, Guid bankAccountId, decimal amount, DateTime date, string description,
+        Guid categoryId)
+        : this(Guid.NewGuid(), type, bankAccountId, amount, date, description, categoryId)
     {
-        Description = description;
     }
 
-    public void Accept(ICoreEntityVisitor visitor)
-    {
-        visitor.Visit(this);
-    }
+    public void UpdateOpeationDescription(string description) => Description = description;
+
+    public void Accept(ICoreEntityVisitor visitor) => visitor.Visit(this);
 }

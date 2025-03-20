@@ -9,11 +9,15 @@ public class BankAccount : IIdentifiable, ICoreEntityVisitable
     public string Name { get; private set; }
     public decimal Balance { get; private set; }
 
-    public BankAccount(string name, decimal balance)
+    public BankAccount(Guid id, string name, decimal balance)
     {
-        Id = Guid.NewGuid();
+        Id = id;
         Name = name;
         Balance = balance;
+    }
+
+    public BankAccount(string name, decimal balance) : this(Guid.NewGuid(), name, balance)
+    {
     }
 
     public void ApplyOperation(Operation operation)
@@ -30,8 +34,5 @@ public class BankAccount : IIdentifiable, ICoreEntityVisitable
     public void DecreaseBalance(decimal amount) => Balance -= amount;
     public void UpdateAccountName(string name) => Name = name;
 
-    public void Accept(ICoreEntityVisitor visitor)
-    {
-        visitor.Visit(this);
-    }
+    public void Accept(ICoreEntityVisitor visitor) => visitor.Visit(this);
 }
