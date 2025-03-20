@@ -36,7 +36,7 @@ public class BankAccountFacade
     public void UpdateAccountById(Guid accountId, string name)
     {
         var account = GetAccountById(accountId);
-        account.UpdateNameAccount(name);
+        account.UpdateAccountName(name);
         _accountsRepository.Update(account);
     }
 
@@ -54,7 +54,7 @@ public class BankAccountFacade
         _accountsRepository.Update(account);
     }
 
-    public void Delete(Guid accountId)
+    public void DeleteAccountById(Guid accountId)
     {
         _accountsRepository.Delete(accountId);
     }

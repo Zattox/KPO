@@ -25,7 +25,7 @@ public class BankAccount : IIdentifiable, ICoreEntityVisitable
         Balance -= amount;
     }
 
-    public void UpdateNameAccount(string name)
+    public void UpdateAccountName(string name)
     {
         Name = name;
     }
