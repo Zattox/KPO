@@ -12,17 +12,22 @@ using Microsoft.Extensions.DependencyInjection;
 
 class Program
 {
-    static void Main()
+    static ServiceProvider ConfigureServices()
     {
-        var services = new ServiceCollection()
-            .AddSingleton<IRepository<BankAccount>, InMemoryRepository<BankAccount>>()
-            .AddSingleton<IRepository<Category>, InMemoryRepository<Category>>()
-            .AddSingleton<IRepository<Operation>, InMemoryRepository<Operation>>()
+        return new ServiceCollection()
+            // Регистрируем CachedRepository как прокси над InMemoryRepository
+            .AddSingleton<IRepository<BankAccount>>(sp =>
+                new CachedRepository<BankAccount>(new InMemoryRepository<BankAccount>()))
+            .AddSingleton<IRepository<Category>>(sp =>
+                new CachedRepository<Category>(new InMemoryRepository<Category>()))
+            .AddSingleton<IRepository<Operation>>(sp =>
+                new CachedRepository<Operation>(new InMemoryRepository<Operation>()))
             .AddSingleton<CoreEntitiesFactory>()
             .AddSingleton<BankAccountFacade>()
             .AddSingleton<CategoryFacade>()
             .AddSingleton<OperationFacade>()
             .AddSingleton<AnalyticsService>()
+            .AddSingleton<CommandFactory>()
             .AddSingleton<ICoreEntitiesAggregator, CoreEntitiesAggregator>()
             .AddSingleton<JsonExporter>()
             .AddSingleton<CsvExporter>()
@@ -31,11 +36,16 @@ class Program
             .AddSingleton<CsvImporter>()
             .AddSingleton<YamlImporter>()
             .BuildServiceProvider();
+    }
 
+    static void Main()
+    {
+        var services = ConfigureServices();
         var bankFacade = services.GetRequiredService<BankAccountFacade>();
         var catFacade = services.GetRequiredService<CategoryFacade>();
         var opFacade = services.GetRequiredService<OperationFacade>();
         var analytics = services.GetRequiredService<AnalyticsService>();
+        var commandFactory = services.GetRequiredService<CommandFactory>();
         var jsonExporter = services.GetRequiredService<JsonExporter>();
         var csvExporter = services.GetRequiredService<CsvExporter>();
         var yamlExporter = services.GetRequiredService<YamlExporter>();
@@ -43,22 +53,42 @@ class Program
         var csvImporter = services.GetRequiredService<CsvImporter>();
         var yamlImporter = services.GetRequiredService<YamlImporter>();
 
+        // Создание данных
         var account = bankFacade.CreateAccount("Основной счет", 0m);
         var incomeCat = catFacade.CreateCategory(TransactionType.Income, "Зарплата");
         var expenseCat = catFacade.CreateCategory(TransactionType.Expense, "Кафе");
 
-        var opCommand = new CreateOperationCommand(opFacade, TransactionType.Income, account.Id, 1000m, DateTime.Now,
+        var opCommand = commandFactory.CreateOperationCommand(TransactionType.Income, account.Id, 1000m, DateTime.Now,
             "Зарплата за март", incomeCat.Id);
-        var timedCommand = new TimingCommand(opCommand);
+        var timedCommand = commandFactory.CreateTimedCommand(opCommand);
         timedCommand.Execute();
 
-        opCommand = new CreateOperationCommand(opFacade, TransactionType.Expense, account.Id, 300m, DateTime.Now,
+        opCommand = commandFactory.CreateOperationCommand(TransactionType.Expense, account.Id, 300m, DateTime.Now,
             "Обед в кафе", expenseCat.Id);
-        timedCommand = new TimingCommand(opCommand);
+        timedCommand = commandFactory.CreateTimedCommand(opCommand);
         timedCommand.Execute();
 
-        Console.WriteLine($"Баланс счета: {account.Balance}");
+        Console.WriteLine($"Баланс счета до пересчета: {account.Balance}");
 
+        // После создания операций
+        Console.WriteLine("Демонстрация кэширования:");
+        var startTime = DateTime.Now;
+        var accountFromCache = bankFacade.GetAccountById(account.Id); // Первый вызов, попадет в кэш
+        var firstCallDuration = DateTime.Now - startTime;
+        Console.WriteLine($"Первый вызов GetById: {firstCallDuration.TotalMilliseconds} ms");
+
+        startTime = DateTime.Now;
+        accountFromCache = bankFacade.GetAccountById(account.Id); // Второй вызов, из кэша
+        var secondCallDuration = DateTime.Now - startTime;
+        Console.WriteLine($"Второй вызов GetById (из кэша): {secondCallDuration.TotalMilliseconds} ms");
+
+        // Демонстрация пересчета баланса
+        bankFacade.IncreaseBalanceById(account.Id, 500m);
+        Console.WriteLine($"Баланс после искусственного изменения: {account.Balance}");
+        bankFacade.RecalculateBalance(account.Id);
+        Console.WriteLine($"Баланс после пересчета: {account.Balance}");
+
+        // Аналитика
         var difference = analytics.GetDifferenceByAccountId(account.Id, DateTime.Now.AddDays(-1), DateTime.Now);
         Console.WriteLine($"Разница доходов и расходов: {difference}");
 
@@ -66,21 +96,22 @@ class Program
         foreach (var kvp in grouped)
             Console.WriteLine($"Категория {catFacade.GetCategoryById(kvp.Key).Name}: {kvp.Value}");
 
+        var topCategories = analytics.GetTopCategoriesByAmount(account.Id, DateTime.Now.AddDays(-1), DateTime.Now, 2);
+        Console.WriteLine("Топ-2 категории по сумме операций:");
+        foreach (var (category, totalAmount) in topCategories)
+            Console.WriteLine($"Категория {category.Name}: {totalAmount}");
+
         // Путь к папке Data
         string projectRoot = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", ".."));
         string jsonExportPath = Path.Combine(projectRoot, "Data", "data.json");
         string csvExportPath = Path.Combine(projectRoot, "Data", "data.csv");
         string yamlExportPath = Path.Combine(projectRoot, "Data", "data.yaml");
 
-        // Экспорт в JSON
+        // Экспорт
         jsonExporter.Export(jsonExportPath);
         Console.WriteLine($"Данные экспортированы в JSON: {jsonExportPath}");
-
-        // Экспорт в CSV
         csvExporter.Export(csvExportPath);
         Console.WriteLine($"Данные экспортированы в CSV: {csvExportPath}");
-
-        // Экспорт в YAML
         yamlExporter.Export(yamlExportPath);
         Console.WriteLine($"Данные экспортированы в YAML: {yamlExportPath}");
 
@@ -89,7 +120,7 @@ class Program
         foreach (var cat in catFacade.GetAllCategories().ToList()) catFacade.DeleteCategoryById(cat.Id);
         foreach (var acc in bankFacade.GetAllAccounts().ToList()) bankFacade.DeleteAccountById(acc.Id);
 
-        // Импорт из YAML (можно переключить на JSON или CSV)
+        // Импорт из YAML
         yamlImporter.ImportAll(yamlExportPath);
         Console.WriteLine($"Импортировано счетов из YAML: {bankFacade.GetAllAccounts().Count()}");
         Console.WriteLine($"Импортировано категорий из YAML: {catFacade.GetAllCategories().Count()}");
