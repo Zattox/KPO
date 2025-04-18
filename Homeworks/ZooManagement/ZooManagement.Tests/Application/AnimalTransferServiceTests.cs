@@ -39,7 +39,8 @@ namespace ZooManagement.Tests.Application
                 new EnclosureSize(100),
                 new EnclosureCapacity(5)
             );
-            _animal.MoveToEnclosure(_oldEnclosure); // Simulate animal in old enclosure
+            _oldEnclosure.AddAnimal(_animal);
+            _animal.MoveToEnclosure(_oldEnclosure);
             _animalRepository.Add(_animal);
             _enclosureRepository.Add(_newEnclosure);
             _enclosureRepository.Add(_oldEnclosure);

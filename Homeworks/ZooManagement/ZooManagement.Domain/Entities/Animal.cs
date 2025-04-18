@@ -42,6 +42,11 @@ namespace ZooManagement.Domain.Entities
         {
             HealthStatus = HealthStatus.Healthy;
         }
+        
+        public void MakeSick()
+        {
+            HealthStatus = HealthStatus.Sick;
+        }
 
         // Moves the animal to a new enclosure
         public AnimalMovedEvent MoveToEnclosure(Enclosure enclosure)

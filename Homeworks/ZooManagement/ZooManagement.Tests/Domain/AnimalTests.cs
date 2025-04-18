@@ -1,9 +1,11 @@
-﻿using ZooManagement.Domain.Entities;
+﻿using System;
+using Xunit;
+using ZooManagement.Domain.Entities;
 using ZooManagement.Domain.Enums;
 using ZooManagement.Domain.ValueObjects;
 using ZooManagement.Domain.Events;
 
-namespace ZooManagement.Tests.Domain
+namespace ZooManagement.Tests.Domain.Entities
 {
     public class AnimalTests
     {
@@ -43,8 +45,7 @@ namespace ZooManagement.Tests.Domain
         public void Feed_WhenSick_ShouldThrowInvalidOperationException()
         {
             // Arrange
-            _animal.Treat(); // Ensure healthy
-            _animal.Treat(); // Simulate setting to Sick
+            _animal.MakeSick();
 
             // Act & Assert
             var exception = Assert.Throws<InvalidOperationException>(() => _animal.Feed(FoodType.Meat));

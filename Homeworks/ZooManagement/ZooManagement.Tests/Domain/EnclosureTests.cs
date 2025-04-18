@@ -1,4 +1,6 @@
-﻿using ZooManagement.Domain.Entities;
+﻿using System;
+using Xunit;
+using ZooManagement.Domain.Entities;
 using ZooManagement.Domain.Enums;
 using ZooManagement.Domain.ValueObjects;
 
@@ -81,7 +83,6 @@ namespace ZooManagement.Tests.Domain
         {
             // Arrange
             _enclosure.AddAnimal(_compatibleAnimal);
-            _compatibleAnimal.MoveToEnclosure(_enclosure);
 
             // Act
             _enclosure.RemoveAnimal(_compatibleAnimal);
