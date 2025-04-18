@@ -1,0 +1,6 @@
+.idea
+ZooManagement.Presentation/obj/
+ZooManagement.Application/obj/
+ZooManagement.Domain/obj/
+ZooManagement.Infrastructure/obj/
+ZooManagement.Tests/obj/
