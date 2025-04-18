@@ -10,7 +10,7 @@ namespace ZooManagement.Domain.Entities
         public Guid Id { get; private set; }
         public EnclosureType Type { get; private set; }
         public EnclosureSize Size { get; private set; }
-        public int CurrentAnimalCount { get; private set; }
+        public int CurrentAnimalCount { get;  set; }
         public EnclosureCapacity MaxCapacity { get; private set; }
 
         public Enclosure(EnclosureType type, EnclosureSize size, EnclosureCapacity maxCapacity)
