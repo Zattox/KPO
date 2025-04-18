@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using ZooManagement.Application.DTOs;
 using ZooManagement.Application.Abstractions;
 using ZooManagement.Application.Services;
 using ZooManagement.Domain.Entities;
+using ZooManagement.Domain.ValueObjects;
+using ZooManagement.Domain.Enums;
 
 namespace ZooManagement.Presentation.Controllers
 {
@@ -19,6 +22,7 @@ namespace ZooManagement.Presentation.Controllers
             _animalTransferService = animalTransferService ?? throw new ArgumentNullException(nameof(animalTransferService));
         }
 
+        // Retrieves all animals
         [HttpGet]
         public ActionResult<IEnumerable<AnimalDto>> GetAll()
         {
@@ -27,8 +31,8 @@ namespace ZooManagement.Presentation.Controllers
             {
                 Id = a.Id,
                 Species = a.Species,
-                Name = a.Name,
-                DateOfBirth = a.DateOfBirth,
+                Name = a.Name.Value,
+                DateOfBirth = a.DateOfBirth.Value,
                 Gender = a.Gender,
                 FavoriteFood = a.FavoriteFood,
                 HealthStatus = a.HealthStatus,
@@ -37,20 +41,29 @@ namespace ZooManagement.Presentation.Controllers
             return Ok(dtos);
         }
 
+        // Adds a new animal
         [HttpPost]
         public ActionResult Add([FromBody] AnimalDto dto)
         {
-            var animal = new Animal(
-                dto.Species,
-                dto.Name,
-                dto.DateOfBirth,
-                dto.Gender,
-                dto.FavoriteFood
-            );
-            _animalRepository.Add(animal);
-            return CreatedAtAction(nameof(GetAll), new { id = animal.Id }, dto);
+            try
+            {
+                var animal = new Animal(
+                    dto.Species,
+                    new AnimalName(dto.Name),
+                    new BirthDate(dto.DateOfBirth),
+                    dto.Gender,
+                    dto.FavoriteFood
+                );
+                _animalRepository.Add(animal);
+                return CreatedAtAction(nameof(GetAll), new { id = animal.Id }, dto);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
+        // Deletes an animal
         [HttpDelete("{id}")]
         public ActionResult Delete(Guid id)
         {
@@ -61,6 +74,7 @@ namespace ZooManagement.Presentation.Controllers
             return NoContent();
         }
 
+        // Transfers an animal to a new enclosure
         [HttpPost("{id}/transfer")]
         public ActionResult Transfer(Guid id, [FromBody] Guid enclosureId)
         {
