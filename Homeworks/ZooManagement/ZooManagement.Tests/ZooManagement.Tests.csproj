@@ -20,4 +20,11 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ZooManagement.Application\ZooManagement.Application.csproj" />
+      <ProjectReference Include="..\ZooManagement.Domain\ZooManagement.Domain.csproj" />
+      <ProjectReference Include="..\ZooManagement.Infrastructure\ZooManagement.Infrastructure.csproj" />
+      <ProjectReference Include="..\ZooManagement.Presentation\ZooManagement.Presentation.csproj" />
+    </ItemGroup>
+
 </Project>
