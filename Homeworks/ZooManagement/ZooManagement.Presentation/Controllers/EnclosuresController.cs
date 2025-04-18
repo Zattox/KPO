@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using ZooManagement.Application.DTOs;
 using ZooManagement.Application.Abstractions;
+using ZooManagement.Application.DTOs;
 using ZooManagement.Domain.Entities;
 using ZooManagement.Domain.ValueObjects;
 
@@ -18,7 +18,6 @@ namespace ZooManagement.Presentation.Controllers
             _enclosureRepository = enclosureRepository ?? throw new ArgumentNullException(nameof(enclosureRepository));
         }
 
-        // Retrieves all enclosures
         [HttpGet]
         public ActionResult<IEnumerable<EnclosureDto>> GetAll()
         {
@@ -34,7 +33,6 @@ namespace ZooManagement.Presentation.Controllers
             return Ok(dtos);
         }
 
-        // Adds a new enclosure
         [HttpPost]
         public ActionResult Add([FromBody] EnclosureDto dto)
         {
@@ -46,7 +44,17 @@ namespace ZooManagement.Presentation.Controllers
                     new EnclosureCapacity(dto.MaxCapacity)
                 );
                 _enclosureRepository.Add(enclosure);
-                return CreatedAtAction(nameof(GetAll), new { id = enclosure.Id }, dto);
+
+                // Создаем новый DTO с установленным Id
+                var createdDto = new EnclosureDto
+                {
+                    Id = enclosure.Id,
+                    Type = dto.Type,
+                    Size = dto.Size,
+                    CurrentAnimalCount = 0,
+                    MaxCapacity = dto.MaxCapacity
+                };
+                return CreatedAtAction(nameof(GetAll), new { id = enclosure.Id }, createdDto);
             }
             catch (ArgumentException ex)
             {
@@ -54,7 +62,6 @@ namespace ZooManagement.Presentation.Controllers
             }
         }
 
-        // Deletes an enclosure
         [HttpDelete("{id}")]
         public ActionResult Delete(Guid id)
         {

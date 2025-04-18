@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using ZooManagement.Application.DTOs;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using ZooManagement.Application.Abstractions;
+using ZooManagement.Application.DTOs;
 using ZooManagement.Application.Services;
 using ZooManagement.Domain.Entities;
 using ZooManagement.Domain.ValueObjects;
@@ -13,15 +13,19 @@ namespace ZooManagement.Presentation.Controllers
     public class FeedingSchedulesController : ControllerBase
     {
         private readonly IFeedingScheduleRepository _feedingScheduleRepository;
+        private readonly IAnimalRepository _animalRepository;
         private readonly FeedingOrganizationService _feedingOrganizationService;
 
-        public FeedingSchedulesController(IFeedingScheduleRepository feedingScheduleRepository, FeedingOrganizationService feedingOrganizationService)
+        public FeedingSchedulesController(
+            IFeedingScheduleRepository feedingScheduleRepository,
+            IAnimalRepository animalRepository,
+            FeedingOrganizationService feedingOrganizationService)
         {
             _feedingScheduleRepository = feedingScheduleRepository ?? throw new ArgumentNullException(nameof(feedingScheduleRepository));
+            _animalRepository = animalRepository ?? throw new ArgumentNullException(nameof(animalRepository));
             _feedingOrganizationService = feedingOrganizationService ?? throw new ArgumentNullException(nameof(feedingOrganizationService));
         }
 
-        // Retrieves all feeding schedules
         [HttpGet]
         public ActionResult<IEnumerable<FeedingScheduleDto>> GetAll()
         {
@@ -37,19 +41,34 @@ namespace ZooManagement.Presentation.Controllers
             return Ok(dtos);
         }
 
-        // Adds a new feeding schedule
         [HttpPost]
         public ActionResult Add([FromBody] FeedingScheduleDto dto)
         {
             try
             {
+                var animal = _animalRepository.GetById(dto.AnimalId);
+                if (animal == null)
+                    throw new ArgumentException("Animal not found.");
+                if (animal.FavoriteFood != dto.FoodType)
+                    throw new ArgumentException("Food type does not match animal's favorite food.");
+
                 var schedule = new FeedingSchedule(
                     dto.AnimalId,
                     new FeedingTime(dto.FeedingTime),
                     dto.FoodType
                 );
                 _feedingScheduleRepository.Add(schedule);
-                return CreatedAtAction(nameof(GetAll), new { id = schedule.Id }, dto);
+
+                // Создаем новый DTO с установленным Id
+                var createdDto = new FeedingScheduleDto
+                {
+                    Id = schedule.Id,
+                    AnimalId = dto.AnimalId,
+                    FeedingTime = dto.FeedingTime,
+                    FoodType = dto.FoodType,
+                    IsCompleted = false
+                };
+                return CreatedAtAction(nameof(GetAll), new { id = schedule.Id }, createdDto);
             }
             catch (ArgumentException ex)
             {
@@ -57,7 +76,6 @@ namespace ZooManagement.Presentation.Controllers
             }
         }
 
-        // Marks a feeding as completed
         [HttpPost("{id}/complete")]
         public ActionResult CompleteFeeding(Guid id)
         {

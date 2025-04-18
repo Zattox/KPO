@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using ZooManagement.Application.DTOs;
 using ZooManagement.Application.Abstractions;
+using ZooManagement.Application.DTOs;
 using ZooManagement.Application.Services;
 using ZooManagement.Domain.Entities;
 using ZooManagement.Domain.ValueObjects;
@@ -22,7 +22,6 @@ namespace ZooManagement.Presentation.Controllers
             _animalTransferService = animalTransferService ?? throw new ArgumentNullException(nameof(animalTransferService));
         }
 
-        // Retrieves all animals
         [HttpGet]
         public ActionResult<IEnumerable<AnimalDto>> GetAll()
         {
@@ -41,7 +40,6 @@ namespace ZooManagement.Presentation.Controllers
             return Ok(dtos);
         }
 
-        // Adds a new animal
         [HttpPost]
         public ActionResult Add([FromBody] AnimalDto dto)
         {
@@ -55,7 +53,18 @@ namespace ZooManagement.Presentation.Controllers
                     dto.FavoriteFood
                 );
                 _animalRepository.Add(animal);
-                return CreatedAtAction(nameof(GetAll), new { id = animal.Id }, dto);
+
+                // Создаем новый DTO с установленным Id
+                var createdDto = new AnimalDto
+                {
+                    Id = animal.Id,
+                    Species = dto.Species,
+                    Name = dto.Name,
+                    DateOfBirth = dto.DateOfBirth,
+                    Gender = dto.Gender,
+                    FavoriteFood = dto.FavoriteFood
+                };
+                return CreatedAtAction(nameof(GetAll), new { id = animal.Id }, createdDto);
             }
             catch (ArgumentException ex)
             {
@@ -63,7 +72,6 @@ namespace ZooManagement.Presentation.Controllers
             }
         }
 
-        // Deletes an animal
         [HttpDelete("{id}")]
         public ActionResult Delete(Guid id)
         {
@@ -74,7 +82,6 @@ namespace ZooManagement.Presentation.Controllers
             return NoContent();
         }
 
-        // Transfers an animal to a new enclosure
         [HttpPost("{id}/transfer")]
         public ActionResult Transfer(Guid id, [FromBody] Guid enclosureId)
         {
