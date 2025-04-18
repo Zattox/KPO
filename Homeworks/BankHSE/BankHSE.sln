@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankHSE", "BankHSE\BankHSE.csproj", "{905634B2-89B0-4B4D-AB99-5D9B30FB2605}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankHSE.Domain", "BankHSE.Domain\BankHSE.Domain.csproj", "{1A94032A-BA88-484A-9E15-30D539B95F1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankHSE.Application", "BankHSE.Application\BankHSE.Application.csproj", "{B1D77976-BDED-430D-BC42-C3ACFCB6555A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankHSE.Test", "BankHSE.Test\BankHSE.Test.csproj", "{D9044E1C-BBC9-4AAA-9BD5-2E935DCF606D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{905634B2-89B0-4B4D-AB99-5D9B30FB2605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{905634B2-89B0-4B4D-AB99-5D9B30FB2605}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{905634B2-89B0-4B4D-AB99-5D9B30FB2605}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{905634B2-89B0-4B4D-AB99-5D9B30FB2605}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A94032A-BA88-484A-9E15-30D539B95F1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A94032A-BA88-484A-9E15-30D539B95F1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A94032A-BA88-484A-9E15-30D539B95F1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A94032A-BA88-484A-9E15-30D539B95F1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D77976-BDED-430D-BC42-C3ACFCB6555A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D77976-BDED-430D-BC42-C3ACFCB6555A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D77976-BDED-430D-BC42-C3ACFCB6555A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1D77976-BDED-430D-BC42-C3ACFCB6555A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9044E1C-BBC9-4AAA-9BD5-2E935DCF606D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9044E1C-BBC9-4AAA-9BD5-2E935DCF606D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9044E1C-BBC9-4AAA-9BD5-2E935DCF606D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9044E1C-BBC9-4AAA-9BD5-2E935DCF606D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
