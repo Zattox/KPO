@@ -8,6 +8,7 @@ namespace ZooManagement.Application.Abstractions
     public interface IEnclosureRepository
     {
         void Add(Enclosure enclosure);
+        void Update(Enclosure enclosure);
         void Remove(Guid enclosureId);
         Enclosure GetById(Guid enclosureId);
         IEnumerable<Enclosure> GetAll();

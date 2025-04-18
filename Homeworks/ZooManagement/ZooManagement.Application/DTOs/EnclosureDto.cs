@@ -7,7 +7,7 @@ namespace ZooManagement.Application.DTOs
     public class EnclosureDto
     {
         public Guid Id { get; set; }
-        public AnimalType AllowedAnimalSpecies { get; set; }
+        public EnclosureType Type { get; set; }
         public int Size { get; set; }
         public int CurrentAnimalCount { get; set; }
         public int MaxCapacity { get; set; }

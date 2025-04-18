@@ -25,7 +25,7 @@ namespace ZooManagement.Application.Services
         // Gets the number of free enclosures
         public int GetFreeEnclosures()
         {
-            return _enclosureRepository.GetAll().Count(e => e.CurrentAnimalCount < e.MaxCapacity);
+            return _enclosureRepository.GetAll().Count(e => e.CurrentAnimalCount < e.MaxCapacity.Value);
         }
     }
 }

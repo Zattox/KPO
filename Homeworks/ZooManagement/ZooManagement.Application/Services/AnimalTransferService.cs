@@ -28,11 +28,22 @@ namespace ZooManagement.Application.Services
             if (newEnclosure == null)
                 throw new InvalidOperationException("Enclosure not found.");
 
-            newEnclosure.AddAnimal(animal);
-            var movedEvent = animal.MoveToEnclosure(newEnclosureId);
+            // Remove from old enclosure if applicable
+            if (animal.EnclosureId.HasValue)
+            {
+                Enclosure oldEnclosure = _enclosureRepository.GetById(animal.EnclosureId.Value);
+                if (oldEnclosure != null)
+                {
+                    oldEnclosure.RemoveAnimal(animal);
+                    _enclosureRepository.Update(oldEnclosure);
+                }
+            }
 
-            _animalRepository.Add(animal);
-            _enclosureRepository.Add(newEnclosure);
+            newEnclosure.AddAnimal(animal);
+            var movedEvent = animal.MoveToEnclosure(newEnclosure);
+
+            _animalRepository.Update(animal);
+            _enclosureRepository.Update(newEnclosure);
 
             return movedEvent;
         }

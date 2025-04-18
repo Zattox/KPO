@@ -8,6 +8,7 @@ namespace ZooManagement.Application.Abstractions
     public interface IAnimalRepository
     {
         void Add(Animal animal);
+        void Update(Animal animal);
         void Remove(Guid animalId);
         Animal GetById(Guid animalId);
         IEnumerable<Animal> GetAll();
