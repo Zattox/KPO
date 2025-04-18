@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using Xunit;
-using ZooManagement.Application.Services;
+﻿using ZooManagement.Application.Services;
 using ZooManagement.Domain.Entities;
 using ZooManagement.Domain.Enums;
 using ZooManagement.Domain.ValueObjects;
 using ZooManagement.Infrastructure.Repositories;
 
-namespace ZooManagement.Tests.Application.Services
+namespace ZooManagement.Tests.Application
 {
     public class ZooStatisticsServiceTests
     {

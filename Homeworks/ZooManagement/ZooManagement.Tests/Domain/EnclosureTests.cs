@@ -1,10 +1,8 @@
-﻿using System;
-using Xunit;
-using ZooManagement.Domain.Entities;
+﻿using ZooManagement.Domain.Entities;
 using ZooManagement.Domain.Enums;
 using ZooManagement.Domain.ValueObjects;
 
-namespace ZooManagement.Tests.Domain.Entities
+namespace ZooManagement.Tests.Domain
 {
     public class EnclosureTests
     {
