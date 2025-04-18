@@ -1,4 +1,7 @@
-﻿using ZooManagement.Application.Services;
+﻿using System;
+using Xunit;
+using ZooManagement.Application.Abstractions;
+using ZooManagement.Application.Services;
 using ZooManagement.Domain.Entities;
 using ZooManagement.Domain.Enums;
 using ZooManagement.Domain.ValueObjects;
@@ -10,8 +13,8 @@ namespace ZooManagement.Tests.Application
     public class FeedingOrganizationServiceTests
     {
         private readonly FeedingOrganizationService _service;
-        private readonly InMemoryFeedingScheduleRepository _scheduleRepository;
-        private readonly InMemoryAnimalRepository _animalRepository;
+        private readonly IFeedingScheduleRepository _scheduleRepository;
+        private readonly IAnimalRepository _animalRepository;
         private readonly FeedingSchedule _schedule;
         private readonly Animal _animal;
 
@@ -30,7 +33,7 @@ namespace ZooManagement.Tests.Application
             );
             _schedule = new FeedingSchedule(
                 _animal.Id,
-                new FeedingTime(DateTime.UtcNow.AddHours(1)),
+                new FeedingTime(DateTime.UtcNow.AddMinutes(1)), // Время в будущем
                 FoodType.Meat
             );
             _animalRepository.Add(_animal);
@@ -63,7 +66,7 @@ namespace ZooManagement.Tests.Application
             // Arrange
             var schedule = new FeedingSchedule(
                 Guid.NewGuid(),
-                new FeedingTime(DateTime.UtcNow.AddHours(1)),
+                new FeedingTime(DateTime.UtcNow.AddMinutes(1)), // Время в будущем
                 FoodType.Meat
             );
             _scheduleRepository.Add(schedule);
@@ -71,6 +74,22 @@ namespace ZooManagement.Tests.Application
             // Act & Assert
             var exception = Assert.Throws<InvalidOperationException>(() => _service.CompleteFeeding(schedule.Id));
             Assert.Equal("Animal not found.", exception.Message);
+        }
+
+        [Fact]
+        public void CompleteFeeding_WhenFoodTypeDoesNotMatch_ShouldThrow()
+        {
+            // Arrange
+            var schedule = new FeedingSchedule(
+                _animal.Id,
+                new FeedingTime(DateTime.UtcNow.AddMinutes(1)), // Время в будущем
+                FoodType.Vegetables // Does not match animal's favorite food (Meat)
+            );
+            _scheduleRepository.Add(schedule);
+
+            // Act & Assert
+            var exception = Assert.Throws<InvalidOperationException>(() => _service.CompleteFeeding(schedule.Id));
+            Assert.Equal("Food type does not match animal's favorite food.", exception.Message);
         }
     }
 }

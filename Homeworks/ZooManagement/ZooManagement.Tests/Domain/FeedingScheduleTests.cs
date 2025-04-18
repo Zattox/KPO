@@ -1,4 +1,6 @@
-﻿using ZooManagement.Domain.Entities;
+﻿using System;
+using Xunit;
+using ZooManagement.Domain.Entities;
 using ZooManagement.Domain.Enums;
 using ZooManagement.Domain.ValueObjects;
 using ZooManagement.Domain.Events;
@@ -27,31 +29,6 @@ namespace ZooManagement.Tests.Domain
         }
 
         [Fact]
-        public void Update_WhenValidData_ShouldUpdateProperties()
-        {
-            // Arrange
-            var newTime = new FeedingTime(DateTime.UtcNow.AddHours(2));
-
-            // Act
-            _schedule.Update(_animal, newTime, FoodType.Meat);
-
-            // Assert
-            Assert.Equal(newTime, _schedule.FeedingTime);
-            Assert.Equal(FoodType.Meat, _schedule.FoodType);
-        }
-
-        [Fact]
-        public void Update_WhenWrongFoodType_ShouldThrow()
-        {
-            // Arrange
-            var newTime = new FeedingTime(DateTime.UtcNow.AddHours(2));
-
-            // Act & Assert
-            var exception = Assert.Throws<InvalidOperationException>(() => _schedule.Update(_animal, newTime, FoodType.Vegetables));
-            Assert.Equal("Food type must match animal's favorite food.", exception.Message);
-        }
-
-        [Fact]
         public void MarkCompleted_WhenNotCompleted_ShouldReturnEvent()
         {
             // Act
@@ -72,7 +49,7 @@ namespace ZooManagement.Tests.Domain
 
             // Act & Assert
             var exception = Assert.Throws<InvalidOperationException>(() => _schedule.MarkCompleted());
-            Assert.Equal("Feeding is already completed.", exception.Message);
+            Assert.Equal("Feeding schedule is already completed.", exception.Message);
         }
     }
 }

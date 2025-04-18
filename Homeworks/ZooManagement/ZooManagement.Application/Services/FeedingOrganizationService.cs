@@ -1,11 +1,9 @@
 ﻿using System;
 using ZooManagement.Application.Abstractions;
-using ZooManagement.Domain.Entities;
 using ZooManagement.Domain.Events;
 
 namespace ZooManagement.Application.Services
 {
-    // Manages feeding schedules and feeding process
     public class FeedingOrganizationService
     {
         private readonly IFeedingScheduleRepository _feedingScheduleRepository;
@@ -17,7 +15,6 @@ namespace ZooManagement.Application.Services
             _animalRepository = animalRepository ?? throw new ArgumentNullException(nameof(animalRepository));
         }
 
-        // Marks a feeding as completed
         public FeedingTimeEvent CompleteFeeding(Guid scheduleId)
         {
             var schedule = _feedingScheduleRepository.GetById(scheduleId);
@@ -28,12 +25,12 @@ namespace ZooManagement.Application.Services
             if (animal == null)
                 throw new InvalidOperationException("Animal not found.");
 
-            animal.Feed(schedule.FoodType);
-            var timeEvent = schedule.MarkCompleted();
+            if (animal.FavoriteFood != schedule.FoodType)
+                throw new InvalidOperationException("Food type does not match animal's favorite food.");
 
+            var @event = schedule.MarkCompleted();
             _feedingScheduleRepository.Update(schedule);
-
-            return timeEvent;
+            return @event;
         }
     }
 }
