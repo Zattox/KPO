@@ -4,3 +4,8 @@ ZooManagement.Application/obj/
 ZooManagement.Domain/obj/
 ZooManagement.Infrastructure/obj/
 ZooManagement.Tests/obj/
+ZooManagement.Application/bin/
+ZooManagement.Presentation/bin/
+ZooManagement.Domain/bin/
+ZooManagement.Infrastructure/bin/
+ZooManagement.Tests/bin/
