@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using Xunit;
+﻿using Microsoft.AspNetCore.Mvc;
 using ZooManagement.Application.Abstractions;
 using ZooManagement.Application.DTOs;
 using ZooManagement.Application.Services;
@@ -78,7 +76,7 @@ namespace ZooManagement.Tests.Controllers
             Assert.Equal(201, createdResult.StatusCode);
             var returnedDto = Assert.IsType<AnimalDto>(createdResult.Value);
             var addedAnimal = _animalRepository.GetById(returnedDto.Id);
-            Assert.NotNull(addedAnimal); // Добавляем проверку на null
+            Assert.NotNull(addedAnimal);
             Assert.Equal(_animalDto.Name, addedAnimal.Name.Value);
         }
 
@@ -113,7 +111,7 @@ namespace ZooManagement.Tests.Controllers
             _animalRepository.Add(_animal);
             _enclosureRepository.Add(_enclosure);
             _animal.MoveToEnclosure(_enclosure);
-            _enclosure.AddAnimal(_animal); // Ensure the enclosure tracks the animal
+            _enclosure.AddAnimal(_animal);
             var newEnclosure = new Enclosure(EnclosureType.Cage, new EnclosureSize(100), new EnclosureCapacity(5));
             _enclosureRepository.Add(newEnclosure);
 

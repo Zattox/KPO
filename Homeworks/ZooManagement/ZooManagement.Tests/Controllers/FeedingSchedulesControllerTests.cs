@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using Xunit;
+﻿using Microsoft.AspNetCore.Mvc;
 using ZooManagement.Application.Abstractions;
 using ZooManagement.Application.DTOs;
 using ZooManagement.Application.Services;
@@ -40,13 +38,13 @@ namespace ZooManagement.Tests.Controllers
 
             _schedule = new FeedingSchedule(
                 _animal.Id,
-                new FeedingTime(DateTime.UtcNow.AddMinutes(1)), // Добавляем 1 минуту, чтобы время было в будущем
+                new FeedingTime(DateTime.UtcNow.AddMinutes(1)),
                 FoodType.Meat
             );
             _scheduleDto = new FeedingScheduleDto
             {
                 AnimalId = _animal.Id,
-                FeedingTime = DateTime.UtcNow.AddMinutes(1), // То же самое для DTO
+                FeedingTime = DateTime.UtcNow.AddMinutes(1),
                 FoodType = FoodType.Meat
             };
         }

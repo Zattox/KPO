@@ -1,6 +1,4 @@
-﻿using System;
-using Xunit;
-using ZooManagement.Application.Abstractions;
+﻿using ZooManagement.Application.Abstractions;
 using ZooManagement.Application.Services;
 using ZooManagement.Domain.Entities;
 using ZooManagement.Domain.Enums;
@@ -33,7 +31,7 @@ namespace ZooManagement.Tests.Application
             );
             _schedule = new FeedingSchedule(
                 _animal.Id,
-                new FeedingTime(DateTime.UtcNow.AddMinutes(1)), // Время в будущем
+                new FeedingTime(DateTime.UtcNow.AddMinutes(1)),
                 FoodType.Meat
             );
             _animalRepository.Add(_animal);
@@ -66,7 +64,7 @@ namespace ZooManagement.Tests.Application
             // Arrange
             var schedule = new FeedingSchedule(
                 Guid.NewGuid(),
-                new FeedingTime(DateTime.UtcNow.AddMinutes(1)), // Время в будущем
+                new FeedingTime(DateTime.UtcNow.AddMinutes(1)),
                 FoodType.Meat
             );
             _scheduleRepository.Add(schedule);
@@ -82,7 +80,7 @@ namespace ZooManagement.Tests.Application
             // Arrange
             var schedule = new FeedingSchedule(
                 _animal.Id,
-                new FeedingTime(DateTime.UtcNow.AddMinutes(1)), // Время в будущем
+                new FeedingTime(DateTime.UtcNow.AddMinutes(1)),
                 FoodType.Vegetables // Does not match animal's favorite food (Meat)
             );
             _scheduleRepository.Add(schedule);

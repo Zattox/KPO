@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using Xunit;
+﻿using Microsoft.AspNetCore.Mvc;
 using ZooManagement.Application.Abstractions;
 using ZooManagement.Application.DTOs;
 using ZooManagement.Application.Services;

@@ -1,6 +1,4 @@
-﻿using System;
-using Xunit;
-using ZooManagement.Domain.Entities;
+﻿using ZooManagement.Domain.Entities;
 using ZooManagement.Domain.Enums;
 using ZooManagement.Domain.ValueObjects;
 using ZooManagement.Domain.Events;
