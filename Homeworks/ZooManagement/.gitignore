@@ -9,3 +9,5 @@ ZooManagement.Presentation/bin/
 ZooManagement.Domain/bin/
 ZooManagement.Infrastructure/bin/
 ZooManagement.Tests/bin/
+ZooManagement.Tests/CoverageReport/
+ZooManagement.Tests/coverage.lcov
