@@ -53,8 +53,7 @@ namespace ZooManagement.Presentation.Controllers
                     dto.FavoriteFood
                 );
                 _animalRepository.Add(animal);
-
-                // Создаем новый DTO с установленным Id
+                
                 var createdDto = new AnimalDto
                 {
                     Id = animal.Id,

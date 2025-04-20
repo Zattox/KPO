@@ -44,8 +44,7 @@ namespace ZooManagement.Presentation.Controllers
                     new EnclosureCapacity(dto.MaxCapacity)
                 );
                 _enclosureRepository.Add(enclosure);
-
-                // Создаем новый DTO с установленным Id
+                
                 var createdDto = new EnclosureDto
                 {
                     Id = enclosure.Id,

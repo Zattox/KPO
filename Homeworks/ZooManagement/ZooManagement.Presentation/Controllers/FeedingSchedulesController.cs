@@ -58,8 +58,7 @@ namespace ZooManagement.Presentation.Controllers
                     dto.FoodType
                 );
                 _feedingScheduleRepository.Add(schedule);
-
-                // Создаем новый DTO с установленным Id
+                
                 var createdDto = new FeedingScheduleDto
                 {
                     Id = schedule.Id,
@@ -83,6 +82,20 @@ namespace ZooManagement.Presentation.Controllers
             {
                 var @event = _feedingOrganizationService.CompleteFeeding(id);
                 return Ok(@event);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPatch("{id}")]
+        public ActionResult Update(Guid id, [FromBody] FeedingScheduleDto dto)
+        {
+            try
+            {
+                _feedingOrganizationService.UpdateFeedingSchedule(id, new FeedingTime(dto.FeedingTime), dto.FoodType);
+                return NoContent();
             }
             catch (InvalidOperationException ex)
             {

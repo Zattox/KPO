@@ -22,6 +22,16 @@ namespace ZooManagement.Domain.Entities
             IsCompleted = false;
         }
 
+        public void Update(Animal animal, FeedingTime feedingTime, FoodType foodType)
+        {
+            if (IsCompleted)
+                throw new InvalidOperationException("Cannot update a completed feeding schedule.");
+            if (animal.FavoriteFood != foodType)
+                throw new InvalidOperationException("Food type does not match animal's favorite food.");
+            FeedingTime = feedingTime;
+            FoodType = foodType;
+        }
+
         public FeedingTimeEvent MarkCompleted()
         {
             if (IsCompleted)
