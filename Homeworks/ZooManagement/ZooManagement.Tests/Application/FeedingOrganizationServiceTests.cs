@@ -87,7 +87,7 @@ namespace ZooManagement.Tests.Application
 
             // Act & Assert
             var exception = Assert.Throws<InvalidOperationException>(() => _service.CompleteFeeding(schedule.Id));
-            Assert.Equal("Food type does not match animal's favorite food.", exception.Message);
+            Assert.Equal("Animal can only eat its favorite food.", exception.Message);
         }
     }
 }
