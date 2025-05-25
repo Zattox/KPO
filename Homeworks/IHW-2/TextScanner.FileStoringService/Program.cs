@@ -1,8 +1,15 @@
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using TextScanner.FileStoringService.Data;
+using Serilog;
 
 Env.Load();
+
+// Настройка Serilog
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs/filestoring-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +21,13 @@ builder.Services.AddDbContext<FileStorageDbContext>(options =>
                       $"Username={Environment.GetEnvironmentVariable("DB_USERNAME")};" +
                       $"Password={Environment.GetEnvironmentVariable("DB_PASSWORD")}"));
 
-builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new() { Title = "File Storing Service", Version = "v1" }); });
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1",
+        new() { Title = "File Storing Service", Version = "v1", Description = "Сервис для хранения файлов" });
+});
+
+builder.Host.UseSerilog();
 
 var app = builder.Build();
 

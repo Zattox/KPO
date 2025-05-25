@@ -1,8 +1,16 @@
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using TextScanner.FileAnalysisService.Data;
+using Serilog;
+
 
 Env.Load();
+
+// Настройка Serilog
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs/fileanalysis-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,13 +28,19 @@ if (string.IsNullOrEmpty(fileStoringServiceUrl))
     throw new InvalidOperationException("FileStoringService URL must be specified in the environment variables.");
 }
 
-builder.Services.AddHttpClient("FileStoringService", client =>
+builder.Services.AddHttpClient("FileStoringService",
+    client => { client.BaseAddress = new Uri(fileStoringServiceUrl!); });
+
+builder.Services.AddSwaggerGen(c =>
 {
-    client.BaseAddress =
-        new Uri(fileStoringServiceUrl!); // Добавляем !, чтобы указать компилятору, что значение не null
+    c.SwaggerDoc("v1",
+        new()
+        {
+            Title = "File Analysis Service", Version = "v1", Description = "Сервис для анализа текстовых файлов"
+        });
 });
 
-builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new() { Title = "File Analysis Service", Version = "v1" }); });
+builder.Host.UseSerilog();
 
 var app = builder.Build();
 

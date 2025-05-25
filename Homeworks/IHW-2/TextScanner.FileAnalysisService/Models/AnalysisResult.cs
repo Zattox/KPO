@@ -4,8 +4,7 @@ namespace TextScanner.FileAnalysisService.Models
 {
     public class AnalysisResult
     {
-        [Key]
-        public int Id { get; set; }
+        [Key] public int Id { get; set; }
         public string FileId { get; set; }
         public int ParagraphCount { get; set; }
         public int WordCount { get; set; }
