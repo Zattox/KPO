@@ -1,15 +1,14 @@
 .idea
+logs
 .env
 
 TextScanner.ApiGateway/obj/
 TextScanner.ApiGateway/bin/
-TextScanner.ApiGateway/logs/
 
 TextScanner.FileAnalysisService/obj/
 TextScanner.FileAnalysisService/bin/
-TextScanner.FileAnalysisService/logs/
 
 TextScanner.FileStoringService/obj/
 TextScanner.FileStoringService/bin/
-TextScanner.FileStoringService/logs/
 TextScanner.FileStoringService/uploads/
+

@@ -1,0 +1,106 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: daemon2005
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - textscanner-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  filestoring:
+    build:
+      context: .
+      dockerfile: TextScanner.FileStoringService/Dockerfile
+    ports:
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=filestoring_db;Username=postgres;Password=daemon2005
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=filestoring_db
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=daemon2005
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./logs/filestoring:/app/logs
+      - ./Files:/app/Files
+    networks:
+      - textscanner-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:5001/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  fileanalysis:
+    build:
+      context: .
+      dockerfile: TextScanner.FileAnalysisService/Dockerfile
+    ports:
+      - "5002:5002"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=fileanalysis_db;Username=postgres;Password=daemon2005
+      - SERVICES_FILESTORINGSERVICE=http://filestoring:5001
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=fileanalysis_db
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=daemon2005
+    depends_on:
+      postgres:
+        condition: service_healthy
+      filestoring:
+        condition: service_healthy
+    volumes:
+      - ./logs/fileanalysis:/app/logs
+    networks:
+      - textscanner-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:5002/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  apigateway:
+    build:
+      context: .
+      dockerfile: TextScanner.ApiGateway/Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - SERVICES_FILESTORINGSERVICE=http://filestoring:5001
+      - SERVICES_FILEANALYSISSERVICE=http://fileanalysis:5002
+    depends_on:
+      filestoring:
+        condition: service_healthy
+      fileanalysis:
+        condition: service_healthy
+    volumes:
+      - ./logs/apigateway:/app/logs
+    networks:
+      - textscanner-network
+
+networks:
+  textscanner-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
