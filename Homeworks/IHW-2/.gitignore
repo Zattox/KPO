@@ -1,0 +1,13 @@
+.idea
+
+TextScanner.ApiGateway/obj/
+TextScanner.ApiGateway/bin/
+TextScanner.ApiGateway/.env
+
+TextScanner.FileAnalysisService/obj/
+TextScanner.FileAnalysisService/bin/
+TextScanner.FileAnalysisService/.env
+
+TextScanner.FileStoringService/obj/
+TextScanner.FileStoringService/bin/
+TextScanner.FileStoringService/.env

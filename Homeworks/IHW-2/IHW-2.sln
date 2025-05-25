@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextScanner.ApiGateway", "TextScanner.ApiGateway\TextScanner.ApiGateway.csproj", "{7D20636E-FBFB-4BC7-91CF-B2AD4BE0D0A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextScanner.FileStoringService", "TextScanner.FileStoringService\TextScanner.FileStoringService.csproj", "{4A99E9C7-445E-4DBA-A043-9919817B9D64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextScanner.FileAnalysisService", "TextScanner.FileAnalysisService\TextScanner.FileAnalysisService.csproj", "{8974119B-6AA3-4255-B562-E1D08830743F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D20636E-FBFB-4BC7-91CF-B2AD4BE0D0A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D20636E-FBFB-4BC7-91CF-B2AD4BE0D0A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D20636E-FBFB-4BC7-91CF-B2AD4BE0D0A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D20636E-FBFB-4BC7-91CF-B2AD4BE0D0A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A99E9C7-445E-4DBA-A043-9919817B9D64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A99E9C7-445E-4DBA-A043-9919817B9D64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A99E9C7-445E-4DBA-A043-9919817B9D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A99E9C7-445E-4DBA-A043-9919817B9D64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8974119B-6AA3-4255-B562-E1D08830743F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8974119B-6AA3-4255-B562-E1D08830743F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8974119B-6AA3-4255-B562-E1D08830743F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8974119B-6AA3-4255-B562-E1D08830743F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,6 @@
+@TextScanner.FileAnalysisService_HostAddress = http://localhost:5172
+
+GET {{TextScanner.FileAnalysisService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
