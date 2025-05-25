@@ -1,11 +1,13 @@
-﻿namespace TextScanner.FileAnalysisService.Models
+﻿using System.Text.Json.Serialization;
+
+namespace TextScanner.FileAnalysisService.Models
 {
     public class AnalysisResult
     {
-        public required string FileId { get; set; }
-        public int ParagraphCount { get; set; }
-        public int WordCount { get; set; }
-        public int CharacterCount { get; set; }
-        public required string Hash { get; set; }
+        [JsonPropertyName("fileId")] public required string FileId { get; set; }
+        [JsonPropertyName("paragraphCount")] public int ParagraphCount { get; set; }
+        [JsonPropertyName("wordCount")] public int WordCount { get; set; }
+        [JsonPropertyName("characterCount")] public int CharacterCount { get; set; }
+        [JsonPropertyName("hash")] public required string Hash { get; set; }
     }
 }

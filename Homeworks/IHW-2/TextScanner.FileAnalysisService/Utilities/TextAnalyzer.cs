@@ -1,4 +1,7 @@
-﻿namespace TextScanner.FileAnalysisService.Utilities;
+﻿using System.Security.Cryptography;
+using System.Text;
+
+namespace TextScanner.FileAnalysisService.Utilities;
 
 public static class TextAnalyzer
 {
@@ -27,8 +30,8 @@ public static class TextAnalyzer
     {
         if (string.IsNullOrEmpty(content))
             return string.Empty;
-        using var sha256 = System.Security.Cryptography.SHA256.Create();
-        var bytes = System.Text.Encoding.UTF8.GetBytes(content);
+        using var sha256 = SHA256.Create();
+        var bytes = Encoding.UTF8.GetBytes(content);
         var hash = sha256.ComputeHash(bytes);
         return Convert.ToBase64String(hash);
     }

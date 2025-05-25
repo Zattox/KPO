@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TextScanner.FileStoringService.Data;
 using TextScanner.FileStoringService.Models;
-using TextScanner.FileAnalysisService.Utilities;
+using TextScanner.FileStoringService.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using ILogger = Serilog.ILogger;
@@ -168,7 +168,6 @@ public class FilesController : ControllerBase
         return NoContent();
     }
 
-    // Validate text content, allowing printable UTF-8 characters
     private bool IsValidTextContent(string content, out string invalidReason)
     {
         invalidReason = string.Empty;
@@ -178,7 +177,6 @@ public class FilesController : ControllerBase
             return false;
         }
 
-        // Allow all printable UTF-8 characters
         foreach (char c in content)
         {
             if (char.IsControl(c) && c != '\n' && c != '\r' && c != '\t')
