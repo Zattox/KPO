@@ -2,87 +2,84 @@
 using TextScanner.FileStoringService.Data;
 using TextScanner.FileStoringService.Models;
 
-namespace TextScanner.FileStoringService.Controllers
+namespace TextScanner.FileStoringService.Controllers;
+
+[Route("store")]
+[ApiController]
+public class FilesController : ControllerBase
 {
-    [ApiController]
-    [Route("files")]
-    public class FilesController : ControllerBase
+    private readonly FileStorageDbContext _context;
+
+    public FilesController(FileStorageDbContext context)
     {
-        private readonly FileStorageDbContext _context;
-        private readonly string _storageDirectory;
+        _context = context;
+    }
 
-        public FilesController(FileStorageDbContext context, IConfiguration configuration)
+    [HttpPost("upload")]
+    public async Task<IActionResult> UploadFile(IFormFile file)
+    {
+        if (file == null || file.Length == 0)
+            return BadRequest("File is required.");
+
+        var fileId = Guid.NewGuid().ToString();
+        var storagePath = Path.Combine("uploads", $"{fileId}_{file.FileName}");
+        Directory.CreateDirectory(Path.GetDirectoryName(storagePath) ?? "uploads");
+        await using (var stream = new FileStream(storagePath, FileMode.Create))
         {
-            _context = context;
-            _storageDirectory = configuration["StorageDirectory"] ?? throw new ArgumentNullException("StorageDirectory is not configured.");
+            await file.CopyToAsync(stream);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UploadFile(IFormFile file)
+        var fileMetadata = new FileMetadata
         {
-            if (file == null || file.Length == 0) return BadRequest("Файл не загружен.");
+            Id = fileId,
+            FileName = file.FileName,
+            StoragePath = storagePath
+        };
 
-            if (!Directory.Exists(_storageDirectory)) Directory.CreateDirectory(_storageDirectory);
+        _context.FileMetadatas.Add(fileMetadata);
+        await _context.SaveChangesAsync();
 
-            var fileId = Guid.NewGuid().ToString();
-            var filePath = Path.Combine(_storageDirectory, fileId);
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
+        return Ok(new { fileId });
+    }
 
-            var fileMetadata = new FileMetadata
-            {
-                Id = fileId,
-                FileName = file.FileName,
-                StoragePath = filePath
-            };
-            _context.FileMetadatas.Add(fileMetadata);
-            await _context.SaveChangesAsync();
+    [HttpGet("list")]
+    public IActionResult GetAllFiles()
+    {
+        var files = _context.FileMetadatas
+            .Select(f => new { Id = f.Id, FileName = f.FileName, StoragePath = f.StoragePath })
+            .ToList();
+        return Ok(files);
+    }
 
-            return Ok(new { FileId = fileId });
-        }
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetFile(string id)
+    {
+        var fileMetadata = await _context.FileMetadatas.FindAsync(id);
+        if (fileMetadata == null)
+            return NotFound();
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetFile(string id)
-        {
-            var fileMetadata = await _context.FileMetadatas.FindAsync(id);
-            if (fileMetadata == null) return NotFound();
+        var filePath = fileMetadata.StoragePath;
+        if (!System.IO.File.Exists(filePath))
+            return NotFound();
 
-            var fileStream = new FileStream(fileMetadata.StoragePath, FileMode.Open, FileAccess.Read);
-            return File(fileStream, "application/octet-stream", fileMetadata.FileName);
-        }
+        var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+        return File(fileStream, "application/octet-stream", fileMetadata.FileName);
+    }
 
-        [HttpGet]
-        public IActionResult GetAllFiles()
-        {
-            var files = _context.FileMetadatas
-                .Select(f => new
-                {
-                    f.Id,
-                    f.FileName,
-                    f.StoragePath
-                })
-                .ToList();
+    [HttpDelete("remove/{id}")]
+    public async Task<IActionResult> DeleteFile(string id)
+    {
+        var fileMetadata = await _context.FileMetadatas.FindAsync(id);
+        if (fileMetadata == null)
+            return NotFound();
 
-            return Ok(files);
-        }
+        var filePath = fileMetadata.StoragePath;
+        if (System.IO.File.Exists(filePath))
+            System.IO.File.Delete(filePath);
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFile(string id)
-        {
-            var fileMetadata = await _context.FileMetadatas.FindAsync(id);
-            if (fileMetadata == null) return NotFound();
-            
-            if (System.IO.File.Exists(fileMetadata.StoragePath))
-            {
-                System.IO.File.Delete(fileMetadata.StoragePath);
-            }
-            
-            _context.FileMetadatas.Remove(fileMetadata);
-            await _context.SaveChangesAsync();
+        _context.FileMetadatas.Remove(fileMetadata);
+        await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
+        return NoContent();
     }
 }
