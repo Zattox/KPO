@@ -1,4 +1,5 @@
 .idea
+./.env
 
 TextScanner.ApiGateway/obj/
 TextScanner.ApiGateway/bin/

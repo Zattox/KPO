@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TextScanner.ApiGateway.Models;
-using TextScanner.FileAnalysisService.Models;
-using FileMetadata = TextScanner.FileStoringService.Models.FileMetadata;
 using Polly;
 using Polly.Extensions.Http;
 using Serilog;
@@ -25,11 +23,10 @@ public class AnalyzeController : ControllerBase
         _logger = Log.ForContext<AnalyzeController>();
         _jsonOptions = new JsonSerializerOptions
         {
-            PropertyNameCaseInsensitive = true // Ignore case for JSON property names
+            PropertyNameCaseInsensitive = true
         };
     }
 
-    // Retry policy for transient errors
     private static readonly IAsyncPolicy<HttpResponseMessage> RetryPolicy =
         HttpPolicyExtensions
             .HandleTransientHttpError()
@@ -39,7 +36,6 @@ public class AnalyzeController : ControllerBase
                     Log.Warning($"Retry attempt {retryAttempt} after error: {outcome.Exception?.Message}");
                 });
 
-    // Circuit breaker policy for service unavailability
     private static readonly IAsyncPolicy<HttpResponseMessage> CircuitBreakerPolicy =
         HttpPolicyExtensions
             .HandleTransientHttpError()
