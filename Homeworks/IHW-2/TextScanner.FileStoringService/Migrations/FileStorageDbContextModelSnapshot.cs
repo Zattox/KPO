@@ -30,6 +30,10 @@ namespace TextScanner.FileStoringService.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Hash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("StoragePath")
                         .IsRequired()
                         .HasColumnType("text");
