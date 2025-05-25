@@ -5,6 +5,7 @@ using TextScanner.FileAnalysisService.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using ILogger = Serilog.ILogger;
+using System.Text.Json;
 
 namespace TextScanner.FileStoringService.Controllers;
 
@@ -43,20 +44,21 @@ public class FilesController : ControllerBase
         using var reader = new StreamReader(memoryStream);
         var content = await reader.ReadToEndAsync();
 
-        // Basic content validation (e.g., check if it's a text file)
-        if (!IsValidTextContent(content))
+        // Validate content
+        if (!IsValidTextContent(content, out var invalidReason))
         {
-            _logger.Warning("Invalid file content detected");
-            return BadRequest("File contains invalid content.");
+            _logger.Warning($"Invalid file content detected: {invalidReason}");
+            return BadRequest($"File contains invalid content: {invalidReason}");
         }
 
         var fileHash = TextAnalyzer.ComputeHash(content);
         var existingFile = await _context.FileMetadatas
             .FirstOrDefaultAsync(f => f.Hash == fileHash);
+
         if (existingFile != null)
         {
-            _logger.Information($"File already exists with id: {existingFile.Id}");
-            return Ok(new { fileId = existingFile.Id });
+            _logger.Information($"Plagiarism detected: File already exists with id: {existingFile.Id}");
+            return BadRequest($"Plagiarism detected: File already exists with fileId: {existingFile.Id}");
         }
 
         var fileId = Guid.NewGuid().ToString();
@@ -79,6 +81,7 @@ public class FilesController : ControllerBase
         _context.FileMetadatas.Add(fileMetadata);
         await _context.SaveChangesAsync();
 
+        _logger.Information($"File uploaded successfully with id: {fileId}");
         return Ok(new { fileId });
     }
 
@@ -86,8 +89,16 @@ public class FilesController : ControllerBase
     public IActionResult GetAllFiles()
     {
         var files = _context.FileMetadatas
-            .Select(f => new { Id = f.Id, FileName = f.FileName, StoragePath = f.StoragePath })
+            .Select(f => new FileMetadata
+            {
+                Id = f.Id,
+                FileName = f.FileName,
+                StoragePath = f.StoragePath,
+                Hash = f.Hash
+            })
             .ToList();
+
+        _logger.Information($"Returning {files.Count} files: {JsonSerializer.Serialize(files)}");
         return Ok(files);
     }
 
@@ -112,6 +123,27 @@ public class FilesController : ControllerBase
         return File(fileStream, "application/octet-stream", fileMetadata.FileName);
     }
 
+    [HttpGet("content/{id}")]
+    public async Task<IActionResult> GetFileContent(string id)
+    {
+        var fileMetadata = await _context.FileMetadatas.FindAsync(id);
+        if (fileMetadata == null)
+        {
+            _logger.Warning($"File with id {id} not found");
+            return NotFound();
+        }
+
+        var filePath = fileMetadata.StoragePath;
+        if (!System.IO.File.Exists(filePath))
+        {
+            _logger.Error($"File at path {filePath} does not exist");
+            return NotFound();
+        }
+
+        var content = await System.IO.File.ReadAllTextAsync(filePath);
+        return Ok(content);
+    }
+
     [HttpDelete("remove/{id}")]
     public async Task<IActionResult> DeleteFile(string id)
     {
@@ -124,18 +156,38 @@ public class FilesController : ControllerBase
 
         var filePath = fileMetadata.StoragePath;
         if (System.IO.File.Exists(filePath))
+        {
             System.IO.File.Delete(filePath);
+            _logger.Information($"Deleted file from disk: {filePath}");
+        }
 
         _context.FileMetadatas.Remove(fileMetadata);
         await _context.SaveChangesAsync();
 
+        _logger.Information($"Deleted file metadata with id: {id}");
         return NoContent();
     }
 
-    // Simple validation to ensure the file contains text
-    private bool IsValidTextContent(string content)
+    // Validate text content, allowing printable UTF-8 characters
+    private bool IsValidTextContent(string content, out string invalidReason)
     {
-        return !string.IsNullOrEmpty(content) &&
-               content.All(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c) || char.IsPunctuation(c));
+        invalidReason = string.Empty;
+        if (string.IsNullOrEmpty(content))
+        {
+            invalidReason = "Content is empty";
+            return false;
+        }
+
+        // Allow all printable UTF-8 characters
+        foreach (char c in content)
+        {
+            if (char.IsControl(c) && c != '\n' && c != '\r' && c != '\t')
+            {
+                invalidReason = $"Contains invalid control character: {c}";
+                return false;
+            }
+        }
+
+        return true;
     }
 }

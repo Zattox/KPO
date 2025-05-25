@@ -37,7 +37,7 @@ public class AnalysisController : ControllerBase
     private static readonly IAsyncPolicy<HttpResponseMessage> CircuitBreakerPolicy =
         HttpPolicyExtensions
             .HandleTransientHttpError()
-            .CircuitBreakerAsync(2, TimeSpan.FromSeconds(30),
+            .CircuitBreakerAsync(2, TimeSpan.FromSeconds(60),
                 onBreak: (outcome, breakDuration) =>
                 {
                     Log.Error(
@@ -75,19 +75,33 @@ public class AnalysisController : ControllerBase
 
             var analysisResult = AnalyzeFile(memoryStream, fileId);
 
-            var existingHash = await _context.AnalysisResults
-                .Where(a => a.Hash == analysisResult.Hash && a.FileId != fileId)
-                .AnyAsync();
-            analysisResult.IsPlagiarized = existingHash;
+            var existingAnalysis = await _context.AnalysisResults
+                .FirstOrDefaultAsync(a => a.Hash == analysisResult.Hash && a.FileId != fileId);
+            if (existingAnalysis != null)
+            {
+                _logger.Information(
+                    $"Plagiarism detected: Analysis already exists for fileId: {existingAnalysis.FileId}");
+                return BadRequest(
+                    $"Plagiarism detected: File content already exists with fileId: {existingAnalysis.FileId}");
+            }
+
+            var existingResult = await _context.AnalysisResults
+                .FirstOrDefaultAsync(a => a.FileId == fileId);
+            if (existingResult != null)
+            {
+                _logger.Information($"Analysis already exists for fileId: {fileId}");
+                return Ok(existingResult);
+            }
 
             _context.AnalysisResults.Add(analysisResult);
             await _context.SaveChangesAsync();
 
+            _logger.Information($"Analysis completed for fileId: {fileId}");
             return Ok(analysisResult);
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Error analyzing file");
+            _logger.Error(ex, $"Error analyzing file {fileId}");
             return StatusCode(503, "Service temporarily unavailable. Try again later.");
         }
     }
@@ -98,12 +112,10 @@ public class AnalysisController : ControllerBase
         var stats = _context.AnalysisResults
             .Select(s => new
             {
-                Id = s.Id,
                 FileId = s.FileId,
                 ParagraphCount = s.ParagraphCount,
                 WordCount = s.WordCount,
                 CharacterCount = s.CharacterCount,
-                IsPlagiarized = s.IsPlagiarized,
                 Hash = s.Hash
             })
             .ToList();
@@ -118,13 +130,14 @@ public class AnalysisController : ControllerBase
             .FirstOrDefaultAsync(s => s.FileId == fileId);
         if (analysisResult == null)
         {
-            _logger.Warning($"Stats for file {fileId} not found");
-            return NotFound();
+            _logger.Information($"Stats for file {fileId} not found, returning NoContent");
+            return NoContent();
         }
 
         _context.AnalysisResults.Remove(analysisResult);
         await _context.SaveChangesAsync();
 
+        _logger.Information($"Deleted stats for file {fileId}");
         return NoContent();
     }
 
@@ -139,8 +152,7 @@ public class AnalysisController : ControllerBase
             ParagraphCount = TextAnalyzer.CountParagraphs(content),
             WordCount = TextAnalyzer.CountWords(content),
             CharacterCount = TextAnalyzer.CountCharacters(content),
-            Hash = TextAnalyzer.ComputeHash(content),
-            IsPlagiarized = false
+            Hash = TextAnalyzer.ComputeHash(content)
         };
 
         return analysisResult;

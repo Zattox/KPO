@@ -4,7 +4,7 @@ namespace TextScanner.ApiGateway.Models;
 
 public class FileMetadata
 {
-    [JsonPropertyName("id")] public string Id { get; set; }
-    [JsonPropertyName("fileName")] public string FileName { get; set; }
-    [JsonPropertyName("storagePath")] public string StoragePath { get; set; }
+    [JsonPropertyName("id")] public required string Id { get; set; }
+    [JsonPropertyName("fileName")] public required string FileName { get; set; }
+    [JsonPropertyName("storagePath")] public required string StoragePath { get; set; }
 }

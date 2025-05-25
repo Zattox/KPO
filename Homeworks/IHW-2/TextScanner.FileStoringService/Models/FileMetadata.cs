@@ -2,8 +2,8 @@
 
 public class FileMetadata
 {
-    public string Id { get; set; }
-    public string FileName { get; set; }
-    public string StoragePath { get; set; }
-    public string Hash { get; set; }
+    public required string Id { get; set; }
+    public required string FileName { get; set; }
+    public required string StoragePath { get; set; }
+    public string? Hash { get; set; }
 }
