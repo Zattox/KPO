@@ -1,110 +1,121 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
+using TextScanner.ApiGateway.Models;
+using TextScanner.FileAnalysisService.Models;
+using FileMetadata = TextScanner.FileStoringService.Models.FileMetadata;
 
-namespace TextScanner.ApiGateway.Controllers
+namespace TextScanner.ApiGateway.Controllers;
+
+[Route("files")]
+[ApiController]
+public class AnalyzeController : ControllerBase
 {
-    [ApiController]
-    [Route("analyze")]
-    public class AnalyzeController : ControllerBase
+    private readonly IHttpClientFactory _httpClientFactory;
+
+    public AnalyzeController(IHttpClientFactory httpClientFactory)
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly ILogger<AnalyzeController> _logger;
+        _httpClientFactory = httpClientFactory;
+    }
 
-        public AnalyzeController(IHttpClientFactory httpClientFactory, ILogger<AnalyzeController> logger)
+    [HttpPost("upload")]
+    public async Task<IActionResult> AnalyzeFile(IFormFile file)
+    {
+        if (file == null || file.Length == 0)
         {
-            _httpClientFactory = httpClientFactory;
-            _logger = logger;
+            return BadRequest("File is required.");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AnalyzeFile(IFormFile file)
+        var fileStoringClient = _httpClientFactory.CreateClient("FileStoringService");
+        var fileAnalysisClient = _httpClientFactory.CreateClient("FileAnalysisService");
+
+        using var multipartContent = new MultipartFormDataContent();
+        using var fileStream = file.OpenReadStream();
+        using var streamContent = new StreamContent(fileStream);
+        multipartContent.Add(streamContent, "file", file.FileName);
+
+        var response = await fileStoringClient.PostAsync("/store/upload", multipartContent);
+        if (!response.IsSuccessStatusCode)
         {
-            if (file == null || file.Length == 0) return BadRequest("Файл не загружен.");
-
-            var fileStoringClient = _httpClientFactory.CreateClient("FileStoringService");
-            using var content = new MultipartFormDataContent();
-            using var streamContent = new StreamContent(file.OpenReadStream());
-            streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("text/plain");
-            content.Add(streamContent, "file", file.FileName);
-
-            var response = await fileStoringClient.PostAsync("/files", content);
-            if (!response.IsSuccessStatusCode) return StatusCode((int)response.StatusCode);
-
-            var fileIdResponse = await response.Content.ReadAsStringAsync();
-            _logger.LogInformation("Response from FileStoringService: {Response}", fileIdResponse);
-
-            var fileIdJson = JObject.Parse(fileIdResponse);
-            var fileIdToken = fileIdJson["FileId"] ?? fileIdJson["fileId"];
-            if (fileIdToken == null)
-            {
-                _logger.LogError("FileId not found in FileStoringService response: {Response}", fileIdResponse);
-                return BadRequest("FileId не найден в ответе FileStoringService.");
-            }
-            var fileId = fileIdToken.ToString();
-
-            var analysisClient = _httpClientFactory.CreateClient("FileAnalysisService");
-            var analyzeRequest = new { FileId = fileId };
-            var analyzeContent = new StringContent(System.Text.Json.JsonSerializer.Serialize(analyzeRequest), System.Text.Encoding.UTF8, "application/json");
-            var analyzeResponse = await analysisClient.PostAsync("/analyze", analyzeContent);
-            if (!analyzeResponse.IsSuccessStatusCode) return StatusCode((int)analyzeResponse.StatusCode);
-
-            var analysisResult = await analyzeResponse.Content.ReadAsStringAsync();
-            return Content(analysisResult, "application/json");
+            return StatusCode((int)response.StatusCode);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllFilesAndStats()
+        var fileResponse = await response.Content.ReadFromJsonAsync<Dictionary<string, string>>();
+        var fileId = fileResponse?["fileId"];
+        if (string.IsNullOrEmpty(fileId))
         {
-            var fileStoringClient = _httpClientFactory.CreateClient("FileStoringService");
-            var filesResponse = await fileStoringClient.GetAsync("/files");
-            if (!filesResponse.IsSuccessStatusCode) return StatusCode((int)filesResponse.StatusCode);
-            var filesJson = await filesResponse.Content.ReadAsStringAsync();
-            var files = JArray.Parse(filesJson);
-
-            var analysisClient = _httpClientFactory.CreateClient("FileAnalysisService");
-            var statsResponse = await analysisClient.GetAsync("/analyze");
-            if (!statsResponse.IsSuccessStatusCode) return StatusCode((int)statsResponse.StatusCode);
-            var statsJson = await statsResponse.Content.ReadAsStringAsync();
-            var stats = JArray.Parse(statsJson);
-
-            var result = files.Select(file =>
-            {
-                var fileId = file["Id"]?.ToString();
-                var matchingStat = stats.FirstOrDefault(s => s["FileId"]?.ToString() == fileId);
-                return new
-                {
-                    FileId = fileId,
-                    FileName = file["FileName"]?.ToString(),
-                    StoragePath = file["StoragePath"]?.ToString(),
-                    ParagraphCount = matchingStat?["ParagraphCount"]?.ToObject<int>(),
-                    WordCount = matchingStat?["WordCount"]?.ToObject<int>(),
-                    CharacterCount = matchingStat?["CharacterCount"]?.ToObject<int>(),
-                    IsPlagiarized = matchingStat?["IsPlagiarized"]?.ToObject<bool>(),
-                    Hash = matchingStat?["Hash"]?.ToString()
-                };
-            }).ToList();
-
-            return Ok(result);
+            return BadRequest("Failed to retrieve fileId from storage service.");
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFileAndStats(string id)
+        var analysisRequest = new AnalysisRequest { FileId = fileId };
+        var analysisResponse = await fileAnalysisClient.PostAsJsonAsync("/analyze/upload", analysisRequest);
+        if (!analysisResponse.IsSuccessStatusCode)
         {
-            var fileStoringClient = _httpClientFactory.CreateClient("FileStoringService");
-            var fileDeleteResponse = await fileStoringClient.DeleteAsync($"/files/{id}");
-            if (!fileDeleteResponse.IsSuccessStatusCode && fileDeleteResponse.StatusCode != System.Net.HttpStatusCode.NotFound)
-            {
-                return StatusCode((int)fileDeleteResponse.StatusCode);
-            }
-
-            var analysisClient = _httpClientFactory.CreateClient("FileAnalysisService");
-            var statsDeleteResponse = await analysisClient.DeleteAsync($"/analyze/{id}");
-            if (!statsDeleteResponse.IsSuccessStatusCode && statsDeleteResponse.StatusCode != System.Net.HttpStatusCode.NotFound)
-            {
-                return StatusCode((int)statsDeleteResponse.StatusCode);
-            }
-
-            return NoContent();
+            return StatusCode((int)analysisResponse.StatusCode);
         }
+
+        return Ok(await analysisResponse.Content.ReadFromJsonAsync<AnalysisResult>());
+    }
+
+    [HttpGet("list")]
+    public async Task<IActionResult> GetAllFilesAndStats()
+    {
+        var fileStoringClient = _httpClientFactory.CreateClient("FileStoringService");
+        var fileAnalysisClient = _httpClientFactory.CreateClient("FileAnalysisService");
+
+        var filesResponse = await fileStoringClient.GetAsync("/store/list");
+        if (!filesResponse.IsSuccessStatusCode)
+        {
+            return StatusCode((int)filesResponse.StatusCode, "Failed to fetch files from File Storing Service.");
+        }
+
+        var analysisResponse = await fileAnalysisClient.GetAsync("/analyze/list");
+        if (!analysisResponse.IsSuccessStatusCode)
+        {
+            return StatusCode((int)analysisResponse.StatusCode, "Failed to fetch analysis from File Analysis Service.");
+        }
+
+        var files = await filesResponse.Content.ReadFromJsonAsync<List<FileMetadata>>();
+        var stats = await analysisResponse.Content.ReadFromJsonAsync<List<AnalysisStat>>();
+
+        if (files == null || !files.Any())
+        {
+            return Ok(new List<object>());
+        }
+
+        var result = files.Select(f =>
+        {
+            var matchingStat = stats?.FirstOrDefault(s => s.FileId == f.Id);
+            return new
+            {
+                Id = f.Id,
+                FileName = f.FileName,
+                StoragePath = f.StoragePath,
+                ParagraphCount = matchingStat?.ParagraphCount,
+                WordCount = matchingStat?.WordCount,
+                CharacterCount = matchingStat?.CharacterCount,
+                IsPlagiarized = matchingStat?.IsPlagiarized,
+                Hash = matchingStat?.Hash
+            };
+        }).ToList();
+
+        return Ok(result);
+    }
+
+    [HttpDelete("remove/{id}")]
+    public async Task<IActionResult> DeleteFileAndStats(string id)
+    {
+        var fileStoringClient = _httpClientFactory.CreateClient("FileStoringService");
+        var fileAnalysisClient = _httpClientFactory.CreateClient("FileAnalysisService");
+
+        var deleteFileResponse = await fileStoringClient.DeleteAsync($"/store/remove/{id}");
+        var deleteStatsResponse = await fileAnalysisClient.DeleteAsync($"/analyze/remove/{id}");
+
+        if (!deleteFileResponse.IsSuccessStatusCode || !deleteStatsResponse.IsSuccessStatusCode)
+        {
+            return StatusCode((int)(deleteFileResponse.IsSuccessStatusCode
+                ? deleteStatsResponse.StatusCode
+                : deleteFileResponse.StatusCode));
+        }
+
+        return NoContent();
     }
 }
