@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   postgres:
     image: postgres:16
@@ -13,10 +15,10 @@ services:
     networks:
       - textscanner-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 2
 
   filestoring:
     build:
@@ -27,25 +29,19 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=filestoring_db;Username=postgres;Password=daemon2005
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_DATABASE=filestoring_db
-      - DB_USERNAME=postgres
-      - DB_PASSWORD=daemon2005
     depends_on:
-      postgres:
-        condition: service_healthy
+      - postgres
     volumes:
       - ./logs/filestoring:/app/logs
       - ./Files:/app/Files
     networks:
       - textscanner-network
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:5001/health || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+      test: ["CMD-SHELL", "curl -sS --max-time 2 http://localhost:5001/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 2
+      start_period: 5s
 
   fileanalysis:
     build:
@@ -57,26 +53,19 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=fileanalysis_db;Username=postgres;Password=daemon2005
       - SERVICES_FILESTORINGSERVICE=http://filestoring:5001
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_DATABASE=fileanalysis_db
-      - DB_USERNAME=postgres
-      - DB_PASSWORD=daemon2005
     depends_on:
-      postgres:
-        condition: service_healthy
-      filestoring:
-        condition: service_healthy
+      - postgres
+      - filestoring
     volumes:
       - ./logs/fileanalysis:/app/logs
     networks:
       - textscanner-network
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:5002/health || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+      test: ["CMD-SHELL", "curl -sS --max-time 2 http://localhost:5002/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 2
+      start_period: 5s
 
   apigateway:
     build:
@@ -89,10 +78,8 @@ services:
       - SERVICES_FILESTORINGSERVICE=http://filestoring:5001
       - SERVICES_FILEANALYSISSERVICE=http://fileanalysis:5002
     depends_on:
-      filestoring:
-        condition: service_healthy
-      fileanalysis:
-        condition: service_healthy
+      - filestoring
+      - fileanalysis
     volumes:
       - ./logs/apigateway:/app/logs
     networks:
