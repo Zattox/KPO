@@ -31,9 +31,13 @@ namespace TextScanner.FileAnalysisService.Controllers
             {
                 return StatusCode((int)response.StatusCode);
             }
-
+            
             using var fileStream = await response.Content.ReadAsStreamAsync();
-            var analysisResult = AnalyzeFile(fileStream, request.FileId);
+            using var memoryStream = new MemoryStream();
+            await fileStream.CopyToAsync(memoryStream);
+            memoryStream.Position = 0;
+
+            var analysisResult = AnalyzeFile(memoryStream, request.FileId);
 
             _context.AnalysisResults.Add(analysisResult);
             await _context.SaveChangesAsync();
@@ -103,7 +107,7 @@ namespace TextScanner.FileAnalysisService.Controllers
         private int CountParagraphs(Stream stream)
         {
             stream.Position = 0;
-            using var reader = new StreamReader(stream);
+            using var reader = new StreamReader(stream, leaveOpen: true);
             var text = reader.ReadToEnd();
             return text.Split(new[] { "\r\n\r\n", "\n\n" }, StringSplitOptions.RemoveEmptyEntries).Length;
         }
@@ -111,7 +115,7 @@ namespace TextScanner.FileAnalysisService.Controllers
         private int CountWords(Stream stream)
         {
             stream.Position = 0;
-            using var reader = new StreamReader(stream);
+            using var reader = new StreamReader(stream, leaveOpen: true);
             var text = reader.ReadToEnd();
             return text.Split(new[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).Length;
         }
@@ -119,7 +123,7 @@ namespace TextScanner.FileAnalysisService.Controllers
         private int CountCharacters(Stream stream)
         {
             stream.Position = 0;
-            using var reader = new StreamReader(stream);
+            using var reader = new StreamReader(stream, leaveOpen: true);
             return reader.ReadToEnd().Length;
         }
 
