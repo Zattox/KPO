@@ -11,7 +11,7 @@ using TextScanner.FileAnalysisService.Data;
 namespace TextScanner.FileAnalysisService.Migrations
 {
     [DbContext(typeof(AnalysisDbContext))]
-    [Migration("20250525114111_InitialCreate")]
+    [Migration("20250525122843_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

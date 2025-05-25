@@ -11,7 +11,7 @@ using TextScanner.FileStoringService.Data;
 namespace TextScanner.FileStoringService.Migrations
 {
     [DbContext(typeof(FileStorageDbContext))]
-    [Migration("20250525114019_InitialCreate")]
+    [Migration("20250525122829_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
