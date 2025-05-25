@@ -1,135 +1,105 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TextScanner.FileAnalysisService.Data;
 using TextScanner.FileAnalysisService.Models;
+using Microsoft.EntityFrameworkCore;
+using TextScanner.FileAnalysisService.Utilities;
 
-namespace TextScanner.FileAnalysisService.Controllers
+namespace TextScanner.FileAnalysisService.Controllers;
+
+[Route("analyze")]
+[ApiController]
+public class AnalysisController : ControllerBase
 {
-    [ApiController]
-    [Route("analyze")]
-    public class AnalysisController : ControllerBase
+    private readonly AnalysisDbContext _context;
+    private readonly IHttpClientFactory _httpClientFactory;
+
+    public AnalysisController(AnalysisDbContext context, IHttpClientFactory httpClientFactory)
     {
-        private readonly AnalysisDbContext _context;
-        private readonly IHttpClientFactory _httpClientFactory;
+        _context = context;
+        _httpClientFactory = httpClientFactory;
+    }
 
-        public AnalysisController(AnalysisDbContext context, IHttpClientFactory httpClientFactory)
+    [HttpPost("upload")]
+    public async Task<IActionResult> Analyze([FromBody] AnalysisRequest request)
+    {
+        if (request == null || string.IsNullOrEmpty(request.FileId))
         {
-            _context = context;
-            _httpClientFactory = httpClientFactory;
+            return BadRequest("FileId is required.");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Analyze([FromBody] AnalysisRequest request)
+        var fileStoringClient = _httpClientFactory.CreateClient("FileStoringService");
+        var response = await fileStoringClient.GetAsync($"/store/{request.FileId}");
+        if (!response.IsSuccessStatusCode)
         {
-            if (request == null || string.IsNullOrEmpty(request.FileId))
+            return StatusCode((int)response.StatusCode);
+        }
+
+        using var fileStream = await response.Content.ReadAsStreamAsync();
+        using var memoryStream = new MemoryStream();
+        await fileStream.CopyToAsync(memoryStream);
+        memoryStream.Position = 0;
+
+        var analysisResult = AnalyzeFile(memoryStream, request.FileId);
+        
+        var existingHash = await _context.AnalysisResults
+            .Where(a => a.Hash == analysisResult.Hash && a.FileId != request.FileId)
+            .AnyAsync();
+        analysisResult.IsPlagiarized = existingHash;
+
+        _context.AnalysisResults.Add(analysisResult);
+        await _context.SaveChangesAsync();
+
+        return Ok(analysisResult);
+    }
+
+    [HttpGet("list")]
+    public IActionResult GetAllStats()
+    {
+        var stats = _context.AnalysisResults
+            .Select(s => new
             {
-                return BadRequest("FileId is required.");
-            }
+                Id = s.Id,
+                FileId = s.FileId,
+                ParagraphCount = s.ParagraphCount,
+                WordCount = s.WordCount,
+                CharacterCount = s.CharacterCount,
+                IsPlagiarized = s.IsPlagiarized,
+                Hash = s.Hash
+            })
+            .ToList();
 
-            var fileStoringClient = _httpClientFactory.CreateClient("FileStoringService");
-            var response = await fileStoringClient.GetAsync($"/files/{request.FileId}");
-            if (!response.IsSuccessStatusCode)
-            {
-                return StatusCode((int)response.StatusCode);
-            }
-            
-            using var fileStream = await response.Content.ReadAsStreamAsync();
-            using var memoryStream = new MemoryStream();
-            await fileStream.CopyToAsync(memoryStream);
-            memoryStream.Position = 0;
+        return Ok(stats);
+    }
 
-            var analysisResult = AnalyzeFile(memoryStream, request.FileId);
+    [HttpDelete("remove/{fileId}")]
+    public async Task<IActionResult> DeleteStats(string fileId)
+    {
+        var analysisResult = await _context.AnalysisResults
+            .FirstOrDefaultAsync(s => s.FileId == fileId);
+        if (analysisResult == null)
+            return NotFound();
 
-            _context.AnalysisResults.Add(analysisResult);
-            await _context.SaveChangesAsync();
+        _context.AnalysisResults.Remove(analysisResult);
+        await _context.SaveChangesAsync();
 
-            return Ok(analysisResult);
-        }
+        return NoContent();
+    }
 
-        [HttpGet]
-        public IActionResult GetAllStats()
+    private AnalysisResult AnalyzeFile(Stream stream, string fileId)
+    {
+        using var reader = new StreamReader(stream);
+        var content = reader.ReadToEnd();
+
+        var analysisResult = new AnalysisResult
         {
-            var stats = _context.AnalysisResults
-                .Select(s => new
-                {
-                    s.Id,
-                    s.FileId,
-                    s.ParagraphCount,
-                    s.WordCount,
-                    s.CharacterCount,
-                    s.IsPlagiarized,
-                    s.Hash
-                })
-                .ToList();
+            FileId = fileId,
+            ParagraphCount = TextAnalyzer.CountParagraphs(content),
+            WordCount = TextAnalyzer.CountWords(content),
+            CharacterCount = TextAnalyzer.CountCharacters(content),
+            Hash = TextAnalyzer.ComputeHash(content),
+            IsPlagiarized = false
+        };
 
-            return Ok(stats);
-        }
-
-        [HttpDelete("{fileId}")]
-        public async Task<IActionResult> DeleteStats(string fileId)
-        {
-            var stats = _context.AnalysisResults
-                .Where(s => s.FileId == fileId)
-                .ToList();
-
-            if (!stats.Any())
-            {
-                return NotFound();
-            }
-
-            _context.AnalysisResults.RemoveRange(stats);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private AnalysisResult AnalyzeFile(Stream stream, string fileId)
-        {
-            var result = new AnalysisResult
-            {
-                FileId = fileId,
-                ParagraphCount = CountParagraphs(stream),
-                WordCount = CountWords(stream),
-                CharacterCount = CountCharacters(stream),
-                IsPlagiarized = CheckPlagiarism(stream),
-                Hash = ComputeHash(stream)
-            };
-            return result;
-        }
-
-        private string ComputeHash(Stream stream)
-        {
-            using var sha256 = System.Security.Cryptography.SHA256.Create();
-            stream.Position = 0;
-            var hash = sha256.ComputeHash(stream);
-            return Convert.ToBase64String(hash);
-        }
-
-        private int CountParagraphs(Stream stream)
-        {
-            stream.Position = 0;
-            using var reader = new StreamReader(stream, leaveOpen: true);
-            var text = reader.ReadToEnd();
-            return text.Split(new[] { "\r\n\r\n", "\n\n" }, StringSplitOptions.RemoveEmptyEntries).Length;
-        }
-
-        private int CountWords(Stream stream)
-        {
-            stream.Position = 0;
-            using var reader = new StreamReader(stream, leaveOpen: true);
-            var text = reader.ReadToEnd();
-            return text.Split(new[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).Length;
-        }
-
-        private int CountCharacters(Stream stream)
-        {
-            stream.Position = 0;
-            using var reader = new StreamReader(stream, leaveOpen: true);
-            return reader.ReadToEnd().Length;
-        }
-
-        private bool CheckPlagiarism(Stream stream)
-        {
-            return false;
-        }
+        return analysisResult;
     }
 }
