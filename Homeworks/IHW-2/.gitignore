@@ -3,11 +3,15 @@
 TextScanner.ApiGateway/obj/
 TextScanner.ApiGateway/bin/
 TextScanner.ApiGateway/.env
+TextScanner.ApiGateway/logs/
 
 TextScanner.FileAnalysisService/obj/
 TextScanner.FileAnalysisService/bin/
 TextScanner.FileAnalysisService/.env
+TextScanner.FileAnalysisService/logs/
 
 TextScanner.FileStoringService/obj/
 TextScanner.FileStoringService/bin/
 TextScanner.FileStoringService/.env
+TextScanner.FileStoringService/logs/
+TextScanner.FileStoringService/uploads/
