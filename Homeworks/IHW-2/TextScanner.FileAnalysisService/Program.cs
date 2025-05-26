@@ -14,11 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-// Configure connection string
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 if (string.IsNullOrEmpty(connectionString))
 {
-    // Fallback to environment variables if connection string is not in config
     var host = Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost";
     var port = Environment.GetEnvironmentVariable("DB_PORT") ?? "5432";
     var database = Environment.GetEnvironmentVariable("DB_DATABASE") ?? "fileanalysis_db";
@@ -45,7 +43,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1",
         new()
         {
-            Title = "File Analysis Service", Version = "v1", Description = "Сервис для анализа текстовых файлов"
+            Title = "File Analysis Service", Version = "v1", Description = "A service for analyzing text files"
         });
 });
 
@@ -69,18 +67,30 @@ builder.Host.UseSerilog();
 
 var app = builder.Build();
 
-// Ensure database is created
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AnalysisDbContext>();
-    try
+    var maxRetries = 10;
+    var delay = TimeSpan.FromSeconds(5);
+    
+    for (int i = 0; i < maxRetries; i++)
     {
-        context.Database.EnsureCreated();
-        Log.Information("Database ensured created for FileAnalysisService");
-    }
-    catch (Exception ex)
-    {
-        Log.Error(ex, "Error ensuring database creation");
+        try
+        {
+            context.Database.EnsureCreated();
+            Log.Information("Database ensured created for FileStoringService");
+            break;
+        }
+        catch (Exception ex)
+        {
+            Log.Warning(ex, $"Attempt {i + 1} failed to create database. Retrying in {delay.TotalSeconds} seconds...");
+            if (i == maxRetries - 1)
+            {
+                Log.Error(ex, "Failed to create database after {MaxRetries} attempts", maxRetries);
+                throw;
+            }
+            await Task.Delay(delay);
+        }
     }
 }
 

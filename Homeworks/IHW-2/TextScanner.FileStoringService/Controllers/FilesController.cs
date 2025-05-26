@@ -44,7 +44,6 @@ public class FilesController : ControllerBase
         using var reader = new StreamReader(memoryStream);
         var content = await reader.ReadToEndAsync();
 
-        // Validate content
         if (!IsValidTextContent(content, out var invalidReason))
         {
             _logger.Warning($"Invalid file content detected: {invalidReason}");

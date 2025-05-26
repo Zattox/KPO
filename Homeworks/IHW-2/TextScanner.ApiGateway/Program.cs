@@ -22,7 +22,7 @@ builder.Services.AddSwaggerGen(c =>
         {
             Title = "API Gateway",
             Version = "v1",
-            Description = "API Gateway для управления файлами и их анализом"
+            Description = "API Gateway for file management and analysis"
         });
 });
 

@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:16
@@ -15,10 +13,11 @@ services:
     networks:
       - textscanner-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      test: ["CMD-SHELL", "pg_isready -U postgres && pg_isready -U postgres -d filestoring_db && pg_isready -U postgres -d fileanalysis_db"]
       interval: 5s
       timeout: 3s
-      retries: 2
+      retries: 10
+      start_period: 30s
 
   filestoring:
     build:
@@ -29,19 +28,20 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=filestoring_db;Username=postgres;Password=daemon2005
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=filestoring_db
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=daemon2005
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     volumes:
       - ./logs/filestoring:/app/logs
       - ./Files:/app/Files
     networks:
       - textscanner-network
-    healthcheck:
-      test: ["CMD-SHELL", "curl -sS --max-time 2 http://localhost:5001/health || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 2
-      start_period: 5s
+    restart: on-failure
 
   fileanalysis:
     build:
@@ -53,19 +53,21 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=fileanalysis_db;Username=postgres;Password=daemon2005
       - SERVICES_FILESTORINGSERVICE=http://filestoring:5001
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=fileanalysis_db
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=daemon2005
     depends_on:
-      - postgres
-      - filestoring
+      postgres:
+        condition: service_healthy
+      filestoring:
+        condition: service_started
     volumes:
       - ./logs/fileanalysis:/app/logs
     networks:
       - textscanner-network
-    healthcheck:
-      test: ["CMD-SHELL", "curl -sS --max-time 2 http://localhost:5002/health || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 2
-      start_period: 5s
+    restart: on-failure
 
   apigateway:
     build:
@@ -78,12 +80,15 @@ services:
       - SERVICES_FILESTORINGSERVICE=http://filestoring:5001
       - SERVICES_FILEANALYSISSERVICE=http://fileanalysis:5002
     depends_on:
-      - filestoring
-      - fileanalysis
+      filestoring:
+        condition: service_started
+      fileanalysis:
+        condition: service_started
     volumes:
       - ./logs/apigateway:/app/logs
     networks:
       - textscanner-network
+    restart: on-failure
 
 networks:
   textscanner-network:

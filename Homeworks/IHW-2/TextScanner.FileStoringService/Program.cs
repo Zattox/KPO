@@ -57,18 +57,30 @@ builder.Host.UseSerilog();
 
 var app = builder.Build();
 
-// Ensure database is created
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<FileStorageDbContext>();
-    try
+    var maxRetries = 10;
+    var delay = TimeSpan.FromSeconds(5);
+    
+    for (int i = 0; i < maxRetries; i++)
     {
-        context.Database.EnsureCreated();
-        Log.Information("Database ensured created for FileStoringService");
-    }
-    catch (Exception ex)
-    {
-        Log.Error(ex, "Error ensuring database creation");
+        try
+        {
+            context.Database.EnsureCreated();
+            Log.Information("Database ensured created for FileStoringService");
+            break;
+        }
+        catch (Exception ex)
+        {
+            Log.Warning(ex, $"Attempt {i + 1} failed to create database. Retrying in {delay.TotalSeconds} seconds...");
+            if (i == maxRetries - 1)
+            {
+                Log.Error(ex, "Failed to create database after {MaxRetries} attempts", maxRetries);
+                throw;
+            }
+            await Task.Delay(delay);
+        }
     }
 }
 
