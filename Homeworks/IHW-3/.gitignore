@@ -1,0 +1,13 @@
+.idea
+logs
+.env
+
+ApiGateway/obj/
+ApiGateway/bin/
+
+OrdersService/obj/
+OrdersService/bin/
+
+PaymentsService/obj/
+PaymentsService/bin/
+
