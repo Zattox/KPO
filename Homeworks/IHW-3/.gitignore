@@ -1,6 +1,7 @@
 .idea
 logs
 .env
+obj
 
 ApiGateway/obj/
 ApiGateway/bin/
