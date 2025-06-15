@@ -11,7 +11,6 @@ public interface IPaymentService
     Task<decimal?> GetBalanceAsync(string userId);
     Task DepositAsync(string userId, decimal amount);
     Task ProcessOrderPaymentAsync(Guid orderId, string userId, decimal amount);
-    // Добавляем недостающие методы для совместимости
     Task<Account?> GetAccountByUserIdAsync(string userId);
 }
 
@@ -39,7 +38,6 @@ public class PaymentService : IPaymentService
 
         var account = new Account
         {
-            Id = Guid.NewGuid(),
             UserId = userId,
             Balance = initialBalance,
             CreatedAt = DateTime.UtcNow,

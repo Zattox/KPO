@@ -54,23 +54,16 @@ public class PaymentsController : ControllerBase
     }
 
     [HttpGet("get-account")]
-    public async Task<ActionResult<object>> GetAccount([FromHeader(Name = "userId")] string? userId)
+    public async Task<ActionResult<Account>> GetAccount([FromHeader(Name = "userId")] string? userId)
     {
         if (string.IsNullOrEmpty(userId))
             return BadRequest("User ID is required in header");
 
-        try
-        {
-            var balance = await _paymentService.GetBalanceAsync(userId);
-            if (balance == null)
-                return NotFound("Account not found");
+        var account = await _paymentService.GetAccountByUserIdAsync(userId);
+        if (account == null)
+            return NotFound("Account not found");
 
-            return Ok(new { UserId = userId, Balance = balance.Value });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, ex.Message);
-        }
+        return Ok(account);
     }
 
     [HttpGet("{userId}/balance")]

@@ -16,7 +16,7 @@ public class PaymentDbContext : DbContext
     {
         modelBuilder.Entity<Account>(entity =>
         {
-            entity.HasKey(e => e.Id);
+            entity.HasKey(e => e.UserId);
             entity.Property(e => e.UserId).IsRequired().HasMaxLength(50);
             entity.Property(e => e.Balance).HasPrecision(18, 2);
             entity.Property(e => e.CreatedAt).IsRequired();

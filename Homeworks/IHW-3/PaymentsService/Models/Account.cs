@@ -2,10 +2,9 @@
 
 public class Account
 {
-    public Guid Id { get; set; }
-    public string UserId { get; set; } = string.Empty;
+    public string UserId { get; set; } = string.Empty; // Первичный ключ
     public decimal Balance { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
-    public int Version { get; set; } // Для optimistic locking
+    public int Version { get; set; }
 }

@@ -24,19 +24,13 @@ public class OrderService : IOrderService
 
     public async Task<Order> CreateOrderAsync(string userId, decimal amount, string description)
     {
-        if (!Guid.TryParse(userId, out Guid userGuid))
-        {
-            throw new ArgumentException("Invalid user ID format");
-        }
-
         using var transaction = await _context.Database.BeginTransactionAsync();
         try
         {
-            // Создаем заказ
             var order = new Order
             {
                 Id = Guid.NewGuid(),
-                UserId = userGuid,
+                UserId = userId,
                 Amount = amount,
                 Description = description,
                 Status = OrderStatus.NEW,
@@ -81,13 +75,8 @@ public class OrderService : IOrderService
 
     public async Task<List<Order>> GetOrdersByUserIdAsync(string userId)
     {
-        if (!Guid.TryParse(userId, out Guid userGuid))
-        {
-            throw new ArgumentException("Invalid user ID format");
-        }
-
         return await _context.Orders
-            .Where(o => o.UserId == userGuid)
+            .Where(o => o.UserId == userId)
             .OrderByDescending(o => o.CreatedAt)
             .ToListAsync();
     }
