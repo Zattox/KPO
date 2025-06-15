@@ -1,13 +1,11 @@
-﻿using OrdersService.Services;
+﻿namespace OrdersService.Services;
 
-namespace OrdersService.Services;
-
-public class OutboxBackgroundService : BackgroundService
+public class InboxBackgroundService : BackgroundService
 {
     private readonly IServiceProvider _serviceProvider;
-    private readonly ILogger<OutboxBackgroundService> _logger;
+    private readonly ILogger<InboxBackgroundService> _logger;
 
-    public OutboxBackgroundService(IServiceProvider serviceProvider, ILogger<OutboxBackgroundService> logger)
+    public InboxBackgroundService(IServiceProvider serviceProvider, ILogger<InboxBackgroundService> logger)
     {
         _serviceProvider = serviceProvider;
         _logger = logger;
@@ -20,20 +18,20 @@ public class OutboxBackgroundService : BackgroundService
             try
             {
                 using var scope = _serviceProvider.CreateScope();
-                var outboxProcessor = scope.ServiceProvider.GetRequiredService<IOutboxProcessor>();
+                var inboxProcessor = scope.ServiceProvider.GetRequiredService<IInboxProcessor>();
                 
-                var processedCount = await outboxProcessor.ProcessOutboxMessagesAsync(stoppingToken);
+                var processedCount = await inboxProcessor.ProcessInboxMessagesAsync(stoppingToken);
                 
                 if (processedCount > 0)
                 {
-                    _logger.LogInformation("Processed {Count} outbox messages", processedCount);
+                    _logger.LogInformation("Processed {Count} inbox messages", processedCount);
                 }
 
                 await Task.Delay(5000, stoppingToken);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error processing outbox messages");
+                _logger.LogError(ex, "Error processing inbox messages");
                 await Task.Delay(10000, stoppingToken);
             }
         }

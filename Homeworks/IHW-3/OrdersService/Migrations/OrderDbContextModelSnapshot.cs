@@ -22,6 +22,42 @@ namespace OrdersService.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("OrdersService.Data.InboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ErrorMessage")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("OccurredOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("ProcessedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("RetryCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProcessedOn", "OccurredOn");
+
+                    b.HasIndex("Type", "ProcessedOn");
+
+                    b.ToTable("InboxMessages");
+                });
+
             modelBuilder.Entity("OrdersService.Data.OutboxMessage", b =>
                 {
                     b.Property<Guid>("Id")
@@ -46,6 +82,8 @@ namespace OrdersService.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProcessedOn", "OccurredOn");
+
+                    b.HasIndex("Type", "ProcessedOn");
 
                     b.ToTable("OutboxMessages");
                 });
@@ -77,9 +115,14 @@ namespace OrdersService.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Status");
+
+                    b.HasIndex("UserId", "CreatedAt");
 
                     b.ToTable("Orders");
                 });

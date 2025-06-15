@@ -1,4 +1,7 @@
-﻿namespace OrdersService.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
+namespace OrdersService.Models;
 
 public class Order
 {
@@ -11,9 +14,15 @@ public class Order
     public DateTime UpdatedAt { get; set; }
 }
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum OrderStatus
 {
-    NEW,
-    FINISHED,
-    CANCELLED
+    [Display(Name = "NEW")]
+    NEW = 0,
+    
+    [Display(Name = "FINISHED")]
+    FINISHED = 1,
+    
+    [Display(Name = "CANCELLED")]
+    CANCELLED = 2,
 }

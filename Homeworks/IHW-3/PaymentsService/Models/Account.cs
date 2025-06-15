@@ -2,7 +2,7 @@
 
 public class Account
 {
-    public string UserId { get; set; } = string.Empty; // Первичный ключ
+    public string UserId { get; set; } = string.Empty;
     public decimal Balance { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }

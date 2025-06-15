@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using OrdersService.Data;
 using OrdersService.Services;
 using RabbitMQ.Client;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +19,13 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -25,7 +33,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "Orders Service",
         Version = "v1",
-        Description = "API for managing orders"
+        Description = "API for managing orders with status synchronization"
     });
 });
 
@@ -43,7 +51,12 @@ builder.Services.AddSingleton<ConnectionFactory>(sp =>
 });
 
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IInboxProcessor, InboxProcessor>();
 builder.Services.AddScoped<IOutboxProcessor, OutboxProcessor>();
+
+builder.Services.AddHostedService<MessageConsumer>();
+builder.Services.AddHostedService<InboxBackgroundService>();
 builder.Services.AddHostedService<OutboxBackgroundService>();
 
 builder.Services.AddHealthChecks()
@@ -63,6 +76,7 @@ app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Orders Service V1");
+    c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.List);
 });
 
 app.UseRouting();

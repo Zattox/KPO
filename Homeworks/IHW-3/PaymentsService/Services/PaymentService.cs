@@ -17,12 +17,14 @@ public interface IPaymentService
 public class PaymentService : IPaymentService
 {
     private readonly PaymentDbContext _context;
+    private readonly ILogger<PaymentService> _logger;
 
-    public PaymentService(PaymentDbContext context)
+    public PaymentService(PaymentDbContext context, ILogger<PaymentService> logger)
     {
         _context = context;
+        _logger = logger;
     }
-    
+
     public async Task<Account?> GetAccountByUserIdAsync(string userId)
     {
         return await _context.Accounts.FirstOrDefaultAsync(a => a.UserId == userId);
@@ -48,6 +50,7 @@ public class PaymentService : IPaymentService
         _context.Accounts.Add(account);
         await _context.SaveChangesAsync();
 
+        _logger.LogInformation("Account created for user {UserId} with balance {Balance}", userId, initialBalance);
         return account;
     }
 
@@ -85,8 +88,14 @@ public class PaymentService : IPaymentService
             };
 
             _context.PaymentTransactions.Add(paymentTransaction);
+            
+            await CreateBalanceUpdatedEventAsync(userId, amount, account.Balance);
+
             await _context.SaveChangesAsync();
             await transaction.CommitAsync();
+
+            _logger.LogInformation("Deposited {Amount} to user {UserId}, new balance: {Balance}", 
+                amount, userId, account.Balance);
         }
         catch
         {
@@ -100,19 +109,20 @@ public class PaymentService : IPaymentService
         using var transaction = await _context.Database.BeginTransactionAsync();
         try
         {
-            // Проверяем, не обрабатывали ли мы уже этот заказ (идемпотентность)
             var existingTransaction = await _context.PaymentTransactions
                 .FirstOrDefaultAsync(t => t.OrderId == orderId && t.Type == TransactionType.DEBIT);
-            
+
             if (existingTransaction != null)
             {
-                return; // Уже обработан
+                _logger.LogInformation("Order {OrderId} already processed, skipping", orderId);
+                return;
             }
 
             var account = await _context.Accounts.FirstOrDefaultAsync(a => a.UserId == userId);
             if (account == null)
             {
-                await CreatePaymentFailedEventAsync(orderId, userId, "Account not found");
+                _logger.LogWarning("Account not found for user {UserId}, order {OrderId}", userId, orderId);
+                await CreatePaymentResultEventAsync(orderId, userId, amount, false, "Account not found");
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
                 return;
@@ -120,13 +130,14 @@ public class PaymentService : IPaymentService
 
             if (account.Balance < amount)
             {
-                await CreatePaymentFailedEventAsync(orderId, userId, "Insufficient funds");
+                _logger.LogWarning("Insufficient funds for user {UserId}, order {OrderId}. Required: {Amount}, Available: {Balance}", 
+                    userId, orderId, amount, account.Balance);
+                await CreatePaymentResultEventAsync(orderId, userId, amount, false, "Insufficient funds");
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
                 return;
             }
-
-            // Списываем средства
+            
             account.Balance -= amount;
             account.UpdatedAt = DateTime.UtcNow;
             account.Version++;
@@ -143,30 +154,33 @@ public class PaymentService : IPaymentService
             };
 
             _context.PaymentTransactions.Add(paymentTransaction);
-
-            // Создаем событие об успешной оплате
-            await CreatePaymentSuccessEventAsync(orderId, userId, amount);
+            
+            await CreatePaymentResultEventAsync(orderId, userId, amount, true, null);
 
             await _context.SaveChangesAsync();
             await transaction.CommitAsync();
+
+            _logger.LogInformation("Payment processed successfully for order {OrderId}, user {UserId}, amount {Amount}, new balance: {Balance}", 
+                orderId, userId, amount, account.Balance);
         }
         catch (Exception ex)
         {
             await transaction.RollbackAsync();
-            await CreatePaymentFailedEventAsync(orderId, userId, ex.Message);
+            _logger.LogError(ex, "Payment processing failed for order {OrderId}, user {UserId}", orderId, userId);
+            await CreatePaymentResultEventAsync(orderId, userId, amount, false, ex.Message);
             throw;
         }
     }
 
-    private async Task CreatePaymentSuccessEventAsync(Guid orderId, string userId, decimal amount)
+    private async Task CreatePaymentResultEventAsync(Guid orderId, string userId, decimal amount, bool success, string? errorMessage)
     {
         var paymentEvent = new PaymentProcessedEvent
         {
             OrderId = orderId,
             UserId = userId,
             Amount = amount,
-            Success = true,
-            ErrorMessage = null,
+            Success = success,
+            ErrorMessage = errorMessage,
             OccurredOn = DateTime.UtcNow
         };
 
@@ -182,23 +196,21 @@ public class PaymentService : IPaymentService
         await Task.CompletedTask;
     }
 
-    private async Task CreatePaymentFailedEventAsync(Guid orderId, string userId, string errorMessage)
+    private async Task CreateBalanceUpdatedEventAsync(string userId, decimal amount, decimal newBalance)
     {
-        var paymentEvent = new PaymentProcessedEvent
+        var balanceEvent = new BalanceUpdatedEvent
         {
-            OrderId = orderId,
             UserId = userId,
-            Amount = 0,
-            Success = false,
-            ErrorMessage = errorMessage,
+            Amount = amount,
+            NewBalance = newBalance,
             OccurredOn = DateTime.UtcNow
         };
 
         var outboxMessage = new OutboxMessage
         {
             Id = Guid.NewGuid(),
-            Type = nameof(PaymentProcessedEvent),
-            Content = JsonSerializer.Serialize(paymentEvent),
+            Type = nameof(BalanceUpdatedEvent),
+            Content = JsonSerializer.Serialize(balanceEvent),
             OccurredOn = DateTime.UtcNow
         };
 

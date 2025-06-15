@@ -1,4 +1,7 @@
-﻿namespace PaymentsService.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
+namespace PaymentsService.Models;
 
 public class PaymentTransaction
 {
@@ -12,15 +15,22 @@ public class PaymentTransaction
     public string? ErrorMessage { get; set; }
 }
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum TransactionType
 {
+    [Display(Name = "DEBIT")]
     DEBIT,
+    [Display(Name = "CREDIT")]
     CREDIT
 }
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum TransactionStatus
 {
-    PENDING,
-    COMPLETED,
-    FAILED
+    [Display(Name = "NEW")]
+    NEW = 0,
+    [Display(Name = "COMPLETED")]
+    COMPLETED = 1,
+    [Display(Name = "CANCELLED")]
+    CANCELLED = 2,
 }

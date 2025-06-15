@@ -27,7 +27,6 @@ public class OutboxProcessor : IOutboxProcessor
         using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
         try
         {
-            // Получаем необработанные сообщения (Transactional Outbox - часть 2)
             var messages = await _context.OutboxMessages
                 .Where(m => m.ProcessedOn == null)
                 .OrderBy(m => m.OccurredOn)
@@ -39,21 +38,18 @@ public class OutboxProcessor : IOutboxProcessor
 
             using var connection = await _connectionFactory.CreateConnectionAsync(cancellationToken);
             using var channel = await connection.CreateChannelAsync(cancellationToken: cancellationToken);
-
-            // Объявляем exchange если не существует
+            
             await channel.ExchangeDeclareAsync(exchange: "orders", type: ExchangeType.Topic, durable: true, cancellationToken: cancellationToken);
 
             foreach (var message in messages)
             {
-                // Публикуем сообщение в очередь
                 var body = Encoding.UTF8.GetBytes(message.Content);
                 await channel.BasicPublishAsync(
                     exchange: "orders",
                     routingKey: message.Type,
                     body: body,
                     cancellationToken: cancellationToken);
-
-                // Помечаем как обработанное
+                
                 message.ProcessedOn = DateTime.UtcNow;
             }
 

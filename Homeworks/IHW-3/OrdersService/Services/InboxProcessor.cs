@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PaymentsService.Data;
-using PaymentsService.Models;
+using OrdersService.Data;
+using OrdersService.Models;
 using System.Text.Json;
 
-namespace PaymentsService.Services;
+namespace OrdersService.Services;
 
 public interface IInboxProcessor
 {
@@ -12,15 +12,15 @@ public interface IInboxProcessor
 
 public class InboxProcessor : IInboxProcessor
 {
-    private readonly PaymentDbContext _context;
-    private readonly IPaymentService _paymentService;
+    private readonly OrderDbContext _context;
+    private readonly IOrderService _orderService;
     private readonly ILogger<InboxProcessor> _logger;
     private const int BatchSize = 10;
 
-    public InboxProcessor(PaymentDbContext context, IPaymentService paymentService, ILogger<InboxProcessor> logger)
+    public InboxProcessor(OrderDbContext context, IOrderService orderService, ILogger<InboxProcessor> logger)
     {
         _context = context;
-        _paymentService = paymentService;
+        _orderService = orderService;
         _logger = logger;
     }
 
@@ -70,24 +70,37 @@ public class InboxProcessor : IInboxProcessor
     {
         switch (message.Type)
         {
-            case nameof(OrderCreatedEvent):
-                await ProcessOrderCreatedEventAsync(message, cancellationToken);
+            case nameof(PaymentProcessedEvent):
+                await ProcessPaymentResultEventAsync(message, cancellationToken);
+                break;
+            case nameof(BalanceUpdatedEvent):
+                await ProcessBalanceUpdatedEventAsync(message, cancellationToken);
                 break;
             default:
                 throw new NotSupportedException($"Message type {message.Type} is not supported");
         }
     }
 
-    private async Task ProcessOrderCreatedEventAsync(InboxMessage message, CancellationToken cancellationToken)
+    private async Task ProcessPaymentResultEventAsync(InboxMessage message, CancellationToken cancellationToken)
     {
-        var orderEvent = JsonSerializer.Deserialize<OrderCreatedEvent>(message.Content);
-        if (orderEvent != null)
+        var paymentEvent = JsonSerializer.Deserialize<PaymentProcessedEvent>(message.Content);
+        if (paymentEvent != null)
         {
-            await _paymentService.ProcessOrderPaymentAsync(
-                orderEvent.OrderId,
-                orderEvent.UserId,
-                orderEvent.Amount);
+            await _orderService.ProcessPaymentResultAsync(
+                paymentEvent.OrderId,
+                paymentEvent.Success,
+                paymentEvent.ErrorMessage);
 
+            message.ProcessedOn = DateTime.UtcNow;
+        }
+    }
+
+    private async Task ProcessBalanceUpdatedEventAsync(InboxMessage message, CancellationToken cancellationToken)
+    {
+        var balanceEvent = JsonSerializer.Deserialize<BalanceUpdatedEvent>(message.Content);
+        if (balanceEvent != null)
+        {
+            await _orderService.CheckPendingOrdersForUserAsync(balanceEvent.UserId, balanceEvent.NewBalance);
             message.ProcessedOn = DateTime.UtcNow;
         }
     }
