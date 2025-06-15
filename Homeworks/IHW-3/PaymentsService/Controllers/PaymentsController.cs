@@ -16,10 +16,10 @@ public class PaymentsController : ControllerBase
     }
 
     [HttpPost("create-account")]
-    public async Task<ActionResult<Account>> CreateAccount([FromBody] CreateAccountRequest request, [FromHeader] string userId)
+    public async Task<ActionResult<Account>> CreateAccount([FromBody] CreateAccountRequest request, [FromHeader(Name = "userId")] string? userId)
     {
         if (string.IsNullOrEmpty(userId))
-            return BadRequest("User ID is required");
+            return BadRequest("User ID is required in header");
 
         try
         {
@@ -33,14 +33,13 @@ public class PaymentsController : ControllerBase
     }
 
     [HttpPost("add-funds")]
-    public async Task<ActionResult> AddFunds([FromBody] AddFundsRequest request, [FromHeader] string userId)
+    public async Task<IActionResult> AddFunds([FromBody] AddFundsRequest request, [FromHeader(Name = "userId")] string? userId)
     {
         if (string.IsNullOrEmpty(userId))
-            return BadRequest("User ID is required");
+            return BadRequest("User ID is required in header");
 
         try
         {
-            // ИСПРАВЛЕНО: Используем правильный метод DepositAsync
             await _paymentService.DepositAsync(userId, request.Amount);
             return Ok(new { Message = "Funds added successfully" });
         }
@@ -55,19 +54,17 @@ public class PaymentsController : ControllerBase
     }
 
     [HttpGet("get-account")]
-    public async Task<ActionResult<Account>> GetAccount([FromHeader] string userId)
+    public async Task<ActionResult<object>> GetAccount([FromHeader(Name = "userId")] string? userId)
     {
         if (string.IsNullOrEmpty(userId))
-            return BadRequest("User ID is required");
+            return BadRequest("User ID is required in header");
 
         try
         {
-            // ИСПРАВЛЕНО: Создаем метод для получения полной информации об аккаунте
             var balance = await _paymentService.GetBalanceAsync(userId);
             if (balance == null)
                 return NotFound("Account not found");
 
-            // Возвращаем объект с балансом
             return Ok(new { UserId = userId, Balance = balance.Value });
         }
         catch (Exception ex)
@@ -77,7 +74,7 @@ public class PaymentsController : ControllerBase
     }
 
     [HttpGet("{userId}/balance")]
-    public async Task<ActionResult<decimal>> GetBalance(string userId)
+    public async Task<ActionResult<object>> GetBalance(string userId)
     {
         var balance = await _paymentService.GetBalanceAsync(userId);
         if (balance == null)

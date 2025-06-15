@@ -16,10 +16,10 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Order>> CreateOrder([FromBody] CreateOrderRequest request, [FromHeader] string userId)
+    public async Task<ActionResult<Order>> CreateOrder([FromBody] CreateOrderRequest request, [FromHeader(Name = "userId")] string? userId)
     {
         if (string.IsNullOrEmpty(userId))
-            return BadRequest("User ID is required");
+            return BadRequest("User ID is required in header");
 
         try
         {
@@ -33,10 +33,10 @@ public class OrdersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Order>>> GetOrders([FromHeader] string userId)
+    public async Task<ActionResult<IEnumerable<Order>>> GetOrders([FromHeader(Name = "userId")] string? userId)
     {
         if (string.IsNullOrEmpty(userId))
-            return BadRequest("User ID is required");
+            return BadRequest("User ID is required in header");
 
         try
         {
